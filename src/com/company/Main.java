@@ -4,5 +4,6 @@ public class Main {
 
     public static void main(String[] args) {
 	// write your code here
+        /*alle medlemmer -> konkurence/not -> alder -> navn -> tid   */
     }
 }
