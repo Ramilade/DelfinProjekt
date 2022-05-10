@@ -9,6 +9,6 @@ public class Main {
 
     public void ligegyldig (){
         System.out.println("Den her funktion er fuldstændig ligegyldig");
-        System.out.println("What");
+        System.out.println("What?");
     }
 }
