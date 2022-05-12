@@ -1,6 +1,6 @@
-package filhåndtering;
+package data;
 
-import com.company.Member;
+import logic.Member;
 
 import java.io.FileNotFoundException;
 import java.io.PrintStream;

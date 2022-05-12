@@ -1,4 +1,4 @@
-package com.company;
+package logic;
 
 public class Discipline {
   private String name;
@@ -10,4 +10,9 @@ public class Discipline {
     this.record = record;
 
   }
+
+  public Discipline() {
+  }
+
+
 }

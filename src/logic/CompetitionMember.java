@@ -1,4 +1,4 @@
-package com.company;
+package logic;
 
 public class CompetitionMember extends Member{
 

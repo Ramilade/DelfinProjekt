@@ -1,6 +1,6 @@
-package com.company;
+package logic;
 
-import UI.ConsoleUI;
+import ui.ConsoleUI;
 
 import java.util.Scanner;
 

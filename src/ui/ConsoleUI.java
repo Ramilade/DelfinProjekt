@@ -1,6 +1,6 @@
-package UI;
+package ui;
 
-import com.company.Member;
+import logic.Member;
 
 public class ConsoleUI {
 
