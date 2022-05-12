@@ -2,6 +2,7 @@ package data;
 
 import logic.Member;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
 import java.util.ArrayList;
@@ -16,8 +17,9 @@ public class Database {
         out.print(member.getAge());
 
     }
-    public ArrayList<Member> memberList(){
-        Scanner sc = new Scanner("Svømmeclub.csv");
+    public ArrayList<Member> memberList() throws FileNotFoundException {
+        File file = new File("Svømmeclub.csv");
+        Scanner sc = new Scanner(file);
         while (sc.hasNextLine()){
             Scanner find = new Scanner(sc.nextLine());
             find.useDelimiter(";");
@@ -28,7 +30,7 @@ public class Database {
         }
         return memberList();
     }
-    public void displayDatabase(){
+    public void displayDatabase() throws FileNotFoundException {
         System.out.println(memberList());
     }
 }
