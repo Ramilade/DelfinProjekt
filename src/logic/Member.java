@@ -22,12 +22,10 @@ public class Member {
 
         this.firstName = firstName;
         this.lastName = lastName;
-        this.birthday = birthday;
         this.age = age;
         this.address = address;
         this.email = email;
         this.mobile = mobile;
-        this.active = active;
         calculateSub();
         generateID();
     }

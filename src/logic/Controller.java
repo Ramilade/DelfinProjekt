@@ -10,7 +10,7 @@ import java.util.Scanner;
 public class Controller {
     private boolean running;
     private final ConsoleUI UI = new ConsoleUI();
-    private final Database db = new Database();
+    private final Database db = new Database(); // god idé: interface impl så vi kan lave en stub
     private final Scanner sc = new Scanner(System.in);
 
     public Controller() {
@@ -36,10 +36,25 @@ public class Controller {
     }
 
     private void inputAddMember() {
-        ArrayList<String> test = UI.askForMemberInformation();
 
+        ArrayList<String> memberInformation = UI.askForMemberInformation();
+        Member member = null;
+        try {
+            member = new Member(
+                memberInformation.get(0),
+                memberInformation.get(1),
+                Integer.parseInt(memberInformation.get(2)),
+                memberInformation.get(3),
+                memberInformation.get(4),
+                memberInformation.get(5));
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+            // forkert indtastning - formodentlig 'age'
+        } catch (IndexOutOfBoundsException e ) {
+            // blev ikke givet nok information
+            e.printStackTrace();
+        }
 
-        Member member = new Member("duih",235,false);
         try {
             db.createMember(member);
         } catch (FileNotFoundException e) {
