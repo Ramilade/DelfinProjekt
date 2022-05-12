@@ -22,6 +22,7 @@ public class Member {
     this.breastStroke = new Discipline();
     this.butterfly = new Discipline();
     calculateSub();
+    generateID();
   }
 
   public Member(String name, int age) {
@@ -75,7 +76,7 @@ public class Member {
     }
     Random roll = new Random();
     String ID = firstFour+roll.nextInt(1000,9999);
-    System.out.println(ID);
+    userID = ID;
   }
 
   @Override
