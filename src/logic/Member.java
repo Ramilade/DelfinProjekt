@@ -4,83 +4,146 @@ import java.util.Random;
 
 public class Member {
 
-  private String name;
-  private int age;
-  private boolean active;
-  private int subscription;
-  private Discipline crawl;
-  private Discipline backCrawl;
-  private Discipline breastStroke;
-  private Discipline butterfly;
+    private String userID;
+    private String firstName;
+    private String lastName;
+    private String birthday;
+    private int age;
 
-  public Member(String name, int age, boolean active) {
-    this.name = name;
-    this.age = age;
-    this.active = active;
-    this.crawl = new Discipline();
-    this.backCrawl = new Discipline();
-    this.breastStroke = new Discipline();
-    this.butterfly = new Discipline();
-    calculateSub();
-    generateID();
-  }
+    private String address;
+    private String email;
+    private String mobile;
 
-  public Member(String name, int age) {
-    this.name = name;
-    this.age = age;
-  }
 
-  public String getName() {
-    return name;
-  }
+    private boolean active;
+    private double subscription;
 
-  public void setName(String name) {
-    this.name = name;
-  }
+    public Member(String firstName, String lastName, int age, String address, String email, String mobile) {
 
-  public int getAge() {
-    return age;
-  }
-
-  public void setAge(int age) {
-    this.age = age;
-  }
-
-  public boolean isActive() {
-    return active;
-  }
-
-  public void setActive(boolean active) {
-    this.active = active;
-  }
-  private void calculateSub(){
-    double subCost = 500;
-    if(active){
-      subCost = 1000;
-      if (getAge()>17){
-        subCost = 1600;
-      }
-      if (getAge()>60){
-        subCost = subCost*0.75;
-      }
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.birthday = birthday;
+        this.age = age;
+        this.address = address;
+        this.email = email;
+        this.mobile = mobile;
+        this.active = active;
+        calculateSub();
+        generateID();
     }
-  }
+
+    public void setUserID(String userID) {
+        this.userID = userID;
+    }
+
+    public void setSubscription(double subscription) {
+        this.subscription = subscription;
+    }
+
+    public String getUserID() {
+        return userID;
+    }
+
+    public double getSubscription() {
+        return subscription;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(String birthday) {
+        this.birthday = birthday;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
+    }
+
+    public Member(String name, int age, boolean active) {
+        this.age = age;
+        this.active = active;
+    }
+
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+        calculateSub();
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+        calculateSub();
+    }
+
+    public void calculateSub() {
+        double subCost = 500;
+        if (active) {
+            subCost = 1000;
+            if (getAge() > 17) {
+                subCost = 1600;
+            }
+            if (getAge() > 60) {
+                subCost = subCost * 0.75;
+            }
+        }
+        subscription = subCost;
+    }
   public void generateID(){
     String firstFour = "";
-    if (getName().length()>3) {
-      firstFour = getName().substring(0, 4);
-    } else if (getName().length()<3){
-      firstFour = getName().substring(0,2)+"00";
-    } else if (getName().length()<4){
-      firstFour = getName().substring(0,3)+"0";
+    if (getFirstName().length()>3) {
+      firstFour = getFirstName().substring(0, 4);
+    } else if (getFirstName().length()<3){
+      firstFour = getFirstName().substring(0,2)+"00";
+    } else if (getFirstName().length()<4){
+      firstFour = getFirstName().substring(0,3)+"0";
     }
     Random roll = new Random();
     String ID = firstFour+roll.nextInt(1000,9999);
     userID = ID;
-  }
-
-  @Override
-  public String toString() {
-    return getName() + " " + getAge() + "";
   }
 }

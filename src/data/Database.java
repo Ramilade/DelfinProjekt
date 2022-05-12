@@ -12,7 +12,7 @@ import java.util.Scanner;
 public class Database {
     public void createMember(Member member) throws FileNotFoundException {
         PrintStream out = new PrintStream("Svømmeclub.csv");
-        out.print(member.getName());
+        out.print(member.getFirstName());
         out.print(";");
         out.print(member.getAge());
 
@@ -27,7 +27,7 @@ public class Database {
             find.useLocale(Locale.ENGLISH);
             String name = find.next();
             int age = Integer.parseInt(find.next());
-            members.add(new Member(name,age));
+            members.add(new Member(name,age,false));
         }
         return members;
     }

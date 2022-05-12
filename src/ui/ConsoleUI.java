@@ -29,7 +29,7 @@ public class ConsoleUI {
 
         System.out.println("Name of the member");
         listOfMemberInformation.add(sc.nextLine());
-        System.out.println("age of the member");
+        System.out.println("Age of the member");
         listOfMemberInformation.add(sc.nextLine());
 
         return listOfMemberInformation;

@@ -38,14 +38,14 @@ public class Controller {
     private void inputAddMember() {
         ArrayList<String> test = UI.askForMemberInformation();
 
-        Member member = new Member(test.get(0),Integer.parseInt(test.get(1)));
+
+        Member member = new Member("duih",235,false);
         try {
             db.createMember(member);
         } catch (FileNotFoundException e) {
             System.out.println(e.getMessage());
         }
 
-        //System.out.println("TODO");
     }
 
     private void inputShowMember() {

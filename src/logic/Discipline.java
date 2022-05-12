@@ -1,14 +1,17 @@
 package logic;
 
 public class Discipline {
+
+  private DisciplineType type;
   private String name;
   private int distance;
   private double record;
-  public Discipline(String name, int distance, double record){
+
+  public Discipline(DisciplineType type, String name, int distance, double record) {
+    this.type = type;
     this.name = name;
     this.distance = distance;
     this.record = record;
-
   }
 
   public Discipline() {
