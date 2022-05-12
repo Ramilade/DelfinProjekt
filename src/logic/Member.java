@@ -1,5 +1,7 @@
 package logic;
 
+import java.util.Random;
+
 public class Member {
 
   private String name;
@@ -61,6 +63,19 @@ public class Member {
         subCost = subCost*0.75;
       }
     }
+  }
+  public void generateID(){
+    String firstFour = "";
+    if (getName().length()>3) {
+      firstFour = getName().substring(0, 4);
+    } else if (getName().length()<3){
+      firstFour = getName().substring(0,2)+"00";
+    } else if (getName().length()<4){
+      firstFour = getName().substring(0,3)+"0";
+    }
+    Random roll = new Random();
+    String ID = firstFour+roll.nextInt(1000,9999);
+    System.out.println(ID);
   }
 
   @Override
