@@ -19,6 +19,7 @@ public class Member {
     this.backCrawl = new Discipline();
     this.breastStroke = new Discipline();
     this.butterfly = new Discipline();
+    calculateSub();
   }
 
   public Member(String name, int age) {
@@ -49,7 +50,18 @@ public class Member {
   public void setActive(boolean active) {
     this.active = active;
   }
-
+  private void calculateSub(){
+    double subCost = 500;
+    if(active){
+      subCost = 1000;
+      if (getAge()>17){
+        subCost = 1600;
+      }
+      if (getAge()>60){
+        subCost = subCost*0.75;
+      }
+    }
+  }
 
   @Override
   public String toString() {
