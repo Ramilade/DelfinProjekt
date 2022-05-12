@@ -18,17 +18,18 @@ public class Database {
 
     }
     public ArrayList<Member> memberList() throws FileNotFoundException {
+        ArrayList<Member> members = new ArrayList<>();
         File file = new File("Svømmeclub.csv");
         Scanner sc = new Scanner(file);
         while (sc.hasNextLine()){
             Scanner find = new Scanner(sc.nextLine());
             find.useDelimiter(";");
             find.useLocale(Locale.ENGLISH);
-            String name = find.nextLine();
-            int age = find.nextInt();
-            memberList().add(new Member(name,age));
+            String name = find.next();
+            int age = Integer.parseInt(find.next());
+            members.add(new Member(name,age));
         }
-        return memberList();
+        return members;
     }
     public void displayDatabase() throws FileNotFoundException {
         System.out.println(memberList());
