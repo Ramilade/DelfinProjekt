@@ -1,4 +1,6 @@
-package logic;
+package logic.comparators;
+
+import logic.Member;
 
 import java.util.Comparator;
 

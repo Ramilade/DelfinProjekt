@@ -5,6 +5,8 @@ import ui.ConsoleUI;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.Scanner;
 
 public class Controller {
@@ -50,13 +52,13 @@ public class Controller {
 
     private void inputAddMember() {
 
-        ArrayList<String> memberInformation = UI.askForMemberInformation();
+        HashMap<String,String> memberInformation = UI.askForMemberInformation();
         Member member = null;
         try {
             member = new Member(
-                memberInformation.get(0),
-                memberInformation.get(1),
-                Integer.parseInt(memberInformation.get(2)),
+                memberInformation.get("firstname"),
+                memberInformation.get("lastname"),
+                new Date(),
                 memberInformation.get(3),
                 memberInformation.get(4),
                 memberInformation.get(5));
