@@ -64,6 +64,14 @@ public class Controller {
     }
 
     private void inputShowMember() {
+        /*
+        String choice = sc.nextLine();
+        switch (switch){
+            case "1","Sort by name" ->
+            case "2","Sort by date" ->
+            case "3","Sort by ID" ->
+        }
+        */
 
         try {
             for (Member member : db.memberList()) {
