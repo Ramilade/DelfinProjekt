@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Controller {
+    private ArrayList<Member> members = new ArrayList<>();
     private boolean running;
     private final ConsoleUI UI = new ConsoleUI();
     private final Database db = new Database(); // god idé: interface impl så vi kan lave en stub
@@ -18,9 +19,21 @@ public class Controller {
     }
 
     public void run() {
+        try {
+
+            db.memberList(members);
+        } catch (FileNotFoundException e){
+            e.printStackTrace();
+        }
         UI.displayInputOptions();
         while (running) {
             select(sc.nextLine().toLowerCase());
+        }
+        try {
+            db.saveMembers(members);
+
+        } catch (FileNotFoundException e){
+            e.printStackTrace();
         }
     }
 
@@ -54,22 +67,14 @@ public class Controller {
             // blev ikke givet nok information
             e.printStackTrace();
         }
-
-        try {
-            db.createMember(member);
-        } catch (FileNotFoundException e) {
-            System.out.println(e.getMessage());
-        }
+            members.add(member);
+        System.out.println("Input New Command");
 
     }
 
     private void inputShowMember() {
 
-        try {
-            db.displayDatabase();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
+        System.out.println(members);
     }
 
     private void inputCheckRankings() {

@@ -1,5 +1,6 @@
 package data;
 
+import logic.Controller;
 import logic.Member;
 
 import java.io.File;
@@ -10,23 +11,26 @@ import java.util.Locale;
 import java.util.Scanner;
 
 public class Database {
-    public void createMember(Member member) throws FileNotFoundException {
+    public void saveMembers(ArrayList<Member> members) throws FileNotFoundException {
         PrintStream out = new PrintStream("Svømmeclub.csv");
-        out.print(member.getFirstName());
-        out.print(";");
-        out.print(member.getLastName());
-        out.print(";");
-        out.print(member.getAge());
-        out.print(";");
-        out.print(member.getAddress());
-        out.print(";");
-        out.print(member.getEmail());
-        out.print(";");
-        out.print(member.getMobile());
+        for (int i = 0; i < members.size(); i++) {
+            Member member = members.get(i);
+            out.print(member.getFirstName());
+            out.print(";");
+            out.print(member.getLastName());
+            out.print(";");
+            out.print(member.getAge());
+            out.print(";");
+            out.print(member.getAddress());
+            out.print(";");
+            out.print(member.getEmail());
+            out.print(";");
+            out.print(member.getMobile());
+            out.print("\n");
+        }
 
     }
-    public ArrayList<Member> memberList() throws FileNotFoundException {
-        ArrayList<Member> members = new ArrayList<>();
+    public void memberList(ArrayList<Member> members) throws FileNotFoundException {
         File file = new File("Svømmeclub.csv");
         Scanner sc = new Scanner(file);
         while (sc.hasNextLine()){
@@ -41,9 +45,9 @@ public class Database {
             String mobile = find.next();
             members.add(new Member(firstName,lastName,age,address,email,mobile));
         }
-        return members;
+        System.out.println(members);
     }
     public void displayDatabase() throws FileNotFoundException {
-        System.out.println(memberList());
+        System.out.println();
     }
 }
