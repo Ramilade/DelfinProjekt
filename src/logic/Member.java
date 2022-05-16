@@ -131,7 +131,14 @@ public class Member {
         }
         subscription = subCost;
     }
-  public void generateID(){
+
+
+    @Override
+    public String toString() {
+        return "Member: " + firstName + " " + lastName + ", age is " + age + " \n\t contact information: Email - " + email + " | Phonenumber - " + mobile;
+    }
+
+    public void generateID(){
     String firstFour = "";
     if (getFirstName().length()>3) {
       firstFour = getFirstName().substring(0, 4);

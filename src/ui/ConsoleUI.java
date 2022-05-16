@@ -15,8 +15,8 @@ public class ConsoleUI {
         System.out.println("""
             1. add a member
             2. show members
-            3. check the rankings
-            4. check the subscriptions
+            3. (TODO) check the rankings
+            4. (TODO) check the subscriptions
             5. exit
             """);
     }

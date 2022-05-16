@@ -18,8 +18,8 @@ public class Controller {
     }
 
     public void run() {
-        UI.displayInputOptions();
         while (running) {
+            UI.displayInputOptions();
             select(sc.nextLine().toLowerCase());
         }
     }
@@ -49,7 +49,7 @@ public class Controller {
                 memberInformation.get(5));
         } catch (NumberFormatException e) {
             e.printStackTrace();
-            // forkert indtastning - formodentlig 'age'
+            // forkert indtastning - formodentlig ved 'age'
         } catch (IndexOutOfBoundsException e ) {
             // blev ikke givet nok information
             e.printStackTrace();
@@ -66,7 +66,11 @@ public class Controller {
     private void inputShowMember() {
 
         try {
-            db.displayDatabase();
+            for (Member member : db.memberList()) {
+                System.out.println(member);
+            }
+
+           // db.displayDatabase();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
