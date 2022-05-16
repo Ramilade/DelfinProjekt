@@ -14,7 +14,15 @@ public class Database {
         PrintStream out = new PrintStream("Svømmeclub.csv");
         out.print(member.getFirstName());
         out.print(";");
+        out.print(member.getLastName());
+        out.print(";");
         out.print(member.getAge());
+        out.print(";");
+        out.print(member.getAddress());
+        out.print(";");
+        out.print(member.getEmail());
+        out.print(";");
+        out.print(member.getMobile());
 
     }
     public ArrayList<Member> memberList() throws FileNotFoundException {
@@ -25,9 +33,13 @@ public class Database {
             Scanner find = new Scanner(sc.nextLine());
             find.useDelimiter(";");
             find.useLocale(Locale.ENGLISH);
-            String name = find.next();
+            String firstName = find.next();
+            String lastName = find.next();
             int age = Integer.parseInt(find.next());
-            members.add(new Member(name,age,false));
+            String address = find.next();
+            String email = find.next();
+            String mobile = find.next();
+            members.add(new Member(firstName,lastName,age,address,email,mobile));
         }
         return members;
     }
