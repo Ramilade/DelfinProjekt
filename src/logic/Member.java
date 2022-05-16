@@ -1,5 +1,6 @@
 package logic;
 
+import java.util.Date;
 import java.util.Random;
 
 public class Member {
@@ -7,8 +8,9 @@ public class Member {
     private String userID;
     private String firstName;
     private String lastName;
-    private String birthday;
     private int age;
+
+    private Date birthday;
 
     private String address;
     private String email;
@@ -23,6 +25,18 @@ public class Member {
         this.firstName = firstName;
         this.lastName = lastName;
         this.age = age;
+        this.address = address;
+        this.email = email;
+        this.mobile = mobile;
+        calculateSub();
+        generateID();
+    }
+
+    public Member(String firstName, String lastName, Date birthday, String address, String email, String mobile) {
+
+        this.birthday = birthday;
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.address = address;
         this.email = email;
         this.mobile = mobile;
@@ -62,14 +76,6 @@ public class Member {
         this.lastName = lastName;
     }
 
-    public String getBirthday() {
-        return birthday;
-    }
-
-    public void setBirthday(String birthday) {
-        this.birthday = birthday;
-    }
-
     public String getAddress() {
         return address;
     }
@@ -99,6 +105,13 @@ public class Member {
         this.active = active;
     }
 
+    public Date getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
+    }
 
     public int getAge() {
         return age;
@@ -131,7 +144,14 @@ public class Member {
         }
         subscription = subCost;
     }
-  public void generateID(){
+
+
+    @Override
+    public String toString() {
+        return "Member: " + firstName + " " + lastName + ", age is " + age + " \n\t contact information: Email - " + email + " | Phonenumber - " + mobile;
+    }
+
+    public void generateID(){
     String firstFour = "";
     if (getFirstName().length()>3) {
       firstFour = getFirstName().substring(0, 4);
