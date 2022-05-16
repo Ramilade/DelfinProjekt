@@ -27,22 +27,22 @@ public class ConsoleUI {
         Scanner sc = new Scanner(System.in);
         ArrayList<String> listOfMemberInformation = new ArrayList<>();
 
-        System.out.println("Put in 'First name' of the member 1/6");
+        System.out.println("(Step 1/6) \nPut in 'First name' of the member");
         listOfMemberInformation.add(sc.nextLine());
 
-        System.out.println("Put in 'Last name' of the member 2/6");
+        System.out.println("(Step 2/6) \nPut in 'Last name' of the member");
         listOfMemberInformation.add(sc.nextLine());
 
-        System.out.println("Put in 'Age' of the member 3/6");
+        System.out.println("(Step 3/6) \nPut in 'Age' of the member");
         listOfMemberInformation.add(sc.nextLine());
 
-        System.out.println("Put in 'Address' of the member 4/6");
+        System.out.println("(Step 4/6) \nPut in 'Address' of the member");
         listOfMemberInformation.add(sc.nextLine());
 
-        System.out.println("Put in 'Email' of the member 5/6");
+        System.out.println("(Step 5/6) \nPut in 'Email' of the member");
         listOfMemberInformation.add(sc.nextLine());
 
-        System.out.println("Put in 'Phonenumber' of the member 6/6");
+        System.out.println("(Step 6/6) \nPut in 'Phonenumber' of the member");
         listOfMemberInformation.add(sc.nextLine());
 
         return listOfMemberInformation;
