@@ -84,7 +84,7 @@ public class Controller {
         }
         */
             for (Member member : members) {
-                System.out.println(member);
+                System.out.println(member.toString());
             }
 
            // db.displayDatabase();
