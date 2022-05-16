@@ -4,13 +4,11 @@ import data.Database;
 import ui.ConsoleUI;
 
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Scanner;
+import java.text.ParseException;
+import java.util.*;
 
 public class Controller {
-    private ArrayList<Member> members = new ArrayList<>();
+    private ArrayList<Member> members;
     private boolean running;
     private final ConsoleUI UI = new ConsoleUI();
     private final Database db = new Database(); // god idé: interface impl så vi kan lave en stub
@@ -22,19 +20,17 @@ public class Controller {
 
     public void run() {
         try {
-
-            db.memberList(members);
-        } catch (FileNotFoundException e){
+            members = db.loadMemberList();
+        } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        UI.displayInputOptions();
         while (running) {
+            UI.displayInputOptions();
             select(sc.nextLine().toLowerCase());
         }
         try {
             db.saveMembers(members);
-
-        } catch (FileNotFoundException e){
+        } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
     }
@@ -52,26 +48,24 @@ public class Controller {
 
     private void inputAddMember() {
 
-        HashMap<String,String> memberInformation = UI.askForMemberInformation();
+        HashMap<String, String> memberInformation = UI.askForMemberInformation();
         Member member = null;
         try {
             member = new Member(
-                memberInformation.get("firstname"),
-                memberInformation.get("lastname"),
-                new Date(),
-                memberInformation.get(3),
-                memberInformation.get(4),
-                memberInformation.get(5));
+                memberInformation.get("firstName"),
+                memberInformation.get("lastName"),
+                new Date(new java.text.SimpleDateFormat("dd/MM/yyyy").parse(memberInformation.get("birthday")).getTime()),
+                memberInformation.get("address"),
+                memberInformation.get("email"),
+                memberInformation.get("phoneNumber"));
         } catch (NumberFormatException e) {
             e.printStackTrace();
-            // forkert indtastning - formodentlig 'age'
-        } catch (IndexOutOfBoundsException e ) {
-            // blev ikke givet nok information
+        } catch (IndexOutOfBoundsException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
             e.printStackTrace();
         }
-            members.add(member);
-        System.out.println("Input New Command");
-
+        members.add(member);
     }
 
     private void inputShowMember() {
@@ -83,11 +77,11 @@ public class Controller {
             case "3","Sort by ID" ->
         }
         */
-            for (Member member : members) {
-                System.out.println(member.toString());
-            }
+        for (Member member : members) {
+            System.out.println(member.toString());
+        }
 
-           // db.displayDatabase();
+        // db.displayDatabase();
     }
 
     private void inputCheckRankings() {

@@ -148,7 +148,7 @@ public class Member {
 
     @Override
     public String toString() {
-        return "Member: " + firstName + " " + lastName + ", age is " + age + " \n\t contact information: Email - " + email + " | Phonenumber - " + mobile;
+        return "Member: " + firstName + " " + lastName + ", birthday is " + birthday + " \n\t contact information: Email - " + email + " | Phonenumber - " + mobile;
     }
 
     public void generateID(){

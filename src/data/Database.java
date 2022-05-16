@@ -1,12 +1,13 @@
 package data;
 
-import logic.Controller;
 import logic.Member;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Locale;
 import java.util.Scanner;
 
@@ -19,7 +20,7 @@ public class Database {
             out.print(";");
             out.print(member.getLastName());
             out.print(";");
-            out.print(member.getAge());
+            out.print(member.getBirthday().getTime());
             out.print(";");
             out.print(member.getAddress());
             out.print(";");
@@ -30,7 +31,8 @@ public class Database {
         }
 
     }
-    public void memberList(ArrayList<Member> members) throws FileNotFoundException {
+    public ArrayList<Member> loadMemberList() throws FileNotFoundException {
+        ArrayList<Member> members = new ArrayList<>();
         File file = new File("Svømmeclub.csv");
         Scanner sc = new Scanner(file);
         while (sc.hasNextLine()){
@@ -39,15 +41,12 @@ public class Database {
             find.useLocale(Locale.ENGLISH);
             String firstName = find.next();
             String lastName = find.next();
-            int age = Integer.parseInt(find.next());
+            Date date = new Date(Long.parseLong(find.next()));
             String address = find.next();
             String email = find.next();
             String mobile = find.next();
-            members.add(new Member(firstName,lastName,age,address,email,mobile));
+            members.add(new Member(firstName,lastName,date,address,email,mobile));
         }
-        System.out.println(members);
-    }
-    public void displayDatabase() throws FileNotFoundException {
-        System.out.println();
+        return members;
     }
 }
