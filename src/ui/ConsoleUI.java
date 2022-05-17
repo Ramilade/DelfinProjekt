@@ -33,7 +33,7 @@ public class ConsoleUI {
         System.out.println("(Step 2/6) \nPut in 'Last name' of the member");
         listOfMemberInformation2.put("lastName",userInput.nextLine());
 
-        System.out.println("(Step 3/6) \nPut in 'Birthday' of the member");
+        System.out.println("(Step 3/6) \nPut in 'Birthday'(dd/mm/yyyy) of the member");
         listOfMemberInformation2.put("birthday",userInput.nextLine());
 
         System.out.println("(Step 4/6) \nPut in 'Address' of the member");
