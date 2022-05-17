@@ -30,6 +30,21 @@ public class ConsoleUI {
                 3. Sort by ID
                 """);
     }
+    public void displayInputEditMemberChooseMember(){
+        System.out.println("Please choose a member to edit.");
+    }
+
+
+    public void displayInputEditMember(){
+        System.out.println("""
+                1. Change first name
+                2. Change last name
+                3. Change birthday (dd/mm/yyyy) format.
+                4. Change address
+                5. Change email
+                6. Change phonenumber
+                """);
+    }
 
 
 
@@ -67,4 +82,7 @@ public class ConsoleUI {
     }
 
 
+    public void noMembersInList() {
+        System.out.println("No concurrent members in list!");
+    }
 }

@@ -123,20 +123,25 @@ public class Controller {
 
     private void inputShowMember() {
 
-        UI.displayInputSortingMember();
+        if (members.size() > 0) {
 
-        String choice = input.nextLine();
-        Comparator comparator = null;
-        switch (choice){
-            case "1","Sort by name" -> comparator = new NameComparator();
-            case "2","Sort by date" -> comparator = new BirthDayComparator();
-            case "3","Sort by ID" -> comparator = new IDComparator();
-        }
+            UI.displayInputSortingMember();
 
-        Collections.sort(members,comparator);
+            String choice = input.nextLine();
+            Comparator comparator = null;
+            switch (choice) {
+                case "1", "Sort by name" -> comparator = new NameComparator();
+                case "2", "Sort by date" -> comparator = new BirthDayComparator();
+                case "3", "Sort by ID" -> comparator = new IDComparator();
+            }
 
-        for (Member member : members) {
-            UI.printArray(member);
+            Collections.sort(members, comparator);
+
+            for (Member member : members) {
+                UI.printArray(member);
+            }
+        } else {
+            UI.noMembersInList();
         }
 
         // db.displayDatabase();
