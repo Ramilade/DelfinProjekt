@@ -45,6 +45,9 @@ public class ConsoleUI {
                 6. Change phonenumber
                 """);
     }
+    public void nowEditing(String s){
+        System.out.println("now editing" + s );
+    }
 
 
 

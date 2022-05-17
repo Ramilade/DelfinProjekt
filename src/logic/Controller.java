@@ -69,30 +69,27 @@ public class Controller {
         }
 
     }
-/*
     private void inputEditMember() {
-        String requestedID = input.nextLine();
+        int requestedID = input.nextInt();
         for (Member member : members) {
-            if (member.getUserID().equals(requestedID)) {
+            if (member.getUserID()==requestedID) {
                 editMember(member);
             }
         }
 
     }
-* */
 
     private void editMember(Member member) {
-        /*
         String editOption = input.nextLine();
+        UI.nowEditing(editOption);
         switch (editOption) {
-            case "firstname" -> member.setFirstName();
-            case "lastname" -> return;
-            case "birthday" -> return;
-            case "address" -> return;
-            case "email" -> return;
-            case "phonenumber" -> return;
+            case "firstname" -> member.setFirstName(input.nextLine());
+            case "lastname" -> member.setLastName(input.nextLine());
+            //case "birthday" -> member.setBirthday(input.nextLine());
+            case "address" -> member.setAddress(input.nextLine());
+            case "email" -> member.setEmail(input.nextLine());
+            case "phonenumber" -> member.setMobile(input.nextLine());
         }
-        * */
 
 
     }
