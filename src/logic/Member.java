@@ -1,5 +1,8 @@
 package logic;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Random;
 
@@ -11,6 +14,7 @@ public class Member {
     private int age;
 
     private Date birthday;
+    private LocalDate birthday2;
 
     private String address;
     private String email;
@@ -39,6 +43,16 @@ public class Member {
         calculateSub();
     }
 
+    public Member(int userID, String firstName, String lastName, LocalDate birthday, String address, String email, String mobile) {
+        this.userID = userID;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.birthday2 = birthday;
+        this.address = address;
+        this.email = email;
+        this.mobile = mobile;
+        calculateSub();
+    }
     public int getUserID() {
         return userID;
     }
@@ -143,7 +157,8 @@ public class Member {
 
     @Override
     public String toString() {
-        return userID + ": " + firstName + " " + lastName + ", birthday is " + birthday + " \n\t contact information: Email - " + email + " | Phonenumber - " + mobile;
+        return userID + "; " + firstName + " " + lastName + ", birthday is " + birthday + " " +
+            "\n\t contact information: Email - " + email + " | Phonenumber - " + mobile;
     }
 
 

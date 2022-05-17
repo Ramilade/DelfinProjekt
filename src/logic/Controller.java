@@ -2,13 +2,13 @@ package logic;
 
 import data.Database;
 import logic.comparators.BirthDayComparator;
-//import logic.comparators.IDComparator;
 import logic.comparators.IDComparator;
 import logic.comparators.NameComparator;
 import ui.ConsoleUI;
 
 import java.io.FileNotFoundException;
 import java.text.ParseException;
+import java.time.LocalDate;
 import java.util.*;
 
 public class Controller {
@@ -100,10 +100,17 @@ public class Controller {
         Member member = null;
         currentHighestId++;
         try {
+/*
+            String[] birthdayParts = memberInformation.get("birthday").split("/");
+            LocalDate birthday = LocalDate.of(Integer.parseInt(birthdayParts[2]),Integer.parseInt(birthdayParts[1]),Integer.parseInt(birthdayParts[0]));
+* */
+
+
             member = new Member(
                 currentHighestId,
                 memberInformation.get("firstName"),
                 memberInformation.get("lastName"),
+                //birthday,
                 new Date(new java.text.SimpleDateFormat("dd/MM/yyyy").parse(memberInformation.get("birthday")).getTime()),
                 memberInformation.get("address"),
                 memberInformation.get("email"),
