@@ -13,12 +13,22 @@ public class ConsoleUI {
 
     public void displayInputOptions() {
         System.out.println("""
-            1. add a member
-            2. show members
-            3. (TODO) check the rankings
-            4. (TODO) check the subscriptions
-            5. exit
+            1. Add a member
+            2. Show members
+            3. (TODO) View rankings
+            4. (TODO) View subscriptions
+            5. Save & exit
             """);
+    }
+
+    public void displayInputSortingMember(){
+        System.out.println("""
+                Choose sorting method.
+                
+                1. Sort by name
+                2. Sort by date of birth
+                3. Sort by ID
+                """);
     }
 
 

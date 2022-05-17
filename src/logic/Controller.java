@@ -3,6 +3,7 @@ package logic;
 import data.Database;
 import logic.comparators.BirthDayComparator;
 //import logic.comparators.IDComparator;
+import logic.comparators.IDComparator;
 import logic.comparators.NameComparator;
 import ui.ConsoleUI;
 
@@ -121,12 +122,14 @@ public class Controller {
 
     private void inputShowMember() {
 
+        UI.displayInputSortingMember();
+
         String choice = input.nextLine();
         Comparator comparator = null;
         switch (choice){
             case "1","Sort by name" -> comparator = new NameComparator();
             case "2","Sort by date" -> comparator = new BirthDayComparator();
-            //case "3","Sort by ID" -> comparator = new IDComparator();
+            case "3","Sort by ID" -> comparator = new IDComparator();
         }
 
         Collections.sort(members,comparator);
