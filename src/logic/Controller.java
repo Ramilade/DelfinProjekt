@@ -10,26 +10,29 @@ import java.util.*;
 public class Controller {
     private ArrayList<Member> members;
     private boolean running;
-    private final ConsoleUI UI = new ConsoleUI();
-    private final Database db = new Database(); // god idé: interface impl så vi kan lave en stub
-    private final Scanner sc = new Scanner(System.in);
+    private final ConsoleUI UI;
+    private final Database DB;
+    private final Scanner input;
 
     public Controller() {
         this.running = true;
+        this.UI = new ConsoleUI();
+        this.DB = new Database(); // god idé: interface impl så en stub kan bruges
+        this.input = new Scanner(System.in);
     }
 
     public void run() {
         try {
-            members = db.loadMemberList();
+            members = DB.loadMemberList();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
         while (running) {
             UI.displayInputOptions();
-            select(sc.nextLine().toLowerCase());
+            select(input.nextLine().toLowerCase());
         }
         try {
-            db.saveMembers(members);
+            DB.saveMembers(members);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -38,11 +41,39 @@ public class Controller {
     private void select(String input) {
         switch (input) {
             case "1", "add member" -> inputAddMember();
+          //  case "6", "edit member" -> inputEditMember();
             case "2", "show members" -> inputShowMember();
             case "3", "check rankings" -> inputCheckRankings();
             case "4", "check subscriptions" -> inputCheckSubscriptions();
             case "5", "exit" -> running = false;
         }
+
+    }
+/*
+    private void inputEditMember() {
+        String requestedID = input.nextLine();
+        for (Member member : members) {
+            if (member.getUserID().equals(requestedID)) {
+                editMember(member);
+            }
+        }
+
+    }
+* */
+
+    private void editMember(Member member) {
+        /*
+        String editOption = input.nextLine();
+        switch (editOption) {
+            case "firstname" -> member.setFirstName();
+            case "lastname" -> return;
+            case "birthday" -> return;
+            case "address" -> return;
+            case "email" -> return;
+            case "phonenumber" -> return;
+        }
+        * */
+
 
     }
 
