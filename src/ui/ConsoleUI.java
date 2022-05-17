@@ -2,7 +2,6 @@ package ui;
 
 import logic.Member;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -49,6 +48,13 @@ public class ConsoleUI {
         return listOfMemberInformation2;
     }
 
+    public void fileNotFoundErrorMessage(){
+        System.out.println("ERROR: File could not be found! Initializing new save file.");
+    }
+
+    public void printArray(Member member){
+        System.out.println(member);
+    }
 
 
 }
