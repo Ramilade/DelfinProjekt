@@ -49,6 +49,9 @@ public class ConsoleUI {
         return listOfMemberInformation2;
     }
 
+    public void fileNotFoundErrorMessage(){
+        System.out.println("ERROR: File could not be found! Initializing new save file.");
+    }
 
 
 }

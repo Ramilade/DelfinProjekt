@@ -1,6 +1,9 @@
 package logic;
 
 import data.Database;
+import logic.comparators.BirthDayComparator;
+//import logic.comparators.IDComparator;
+import logic.comparators.NameComparator;
 import ui.ConsoleUI;
 
 import java.io.FileNotFoundException;
@@ -25,7 +28,8 @@ public class Controller {
         try {
             members = DB.loadMemberList();
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            members = new ArrayList<Member>();
+            UI.fileNotFoundErrorMessage();
         }
         while (running) {
             UI.displayInputOptions();
@@ -100,14 +104,17 @@ public class Controller {
     }
 
     private void inputShowMember() {
-        /*
-        String choice = sc.nextLine();
-        switch (switch){
-            case "1","Sort by name" ->
-            case "2","Sort by date" ->
-            case "3","Sort by ID" ->
+
+        String choice = input.nextLine();
+        Comparator comparator = null;
+        switch (choice){
+            case "1","Sort by name" -> comparator = new NameComparator();
+            case "2","Sort by date" -> comparator = new BirthDayComparator();
+            //case "3","Sort by ID" -> comparator = new IDComparator();
         }
-        */
+
+        Collections.sort(members,comparator);
+
         for (Member member : members) {
             System.out.println(member.toString());
         }
