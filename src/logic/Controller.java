@@ -13,6 +13,8 @@ public class Controller {
     private final ConsoleUI UI;
     private final Database DB;
     private final Scanner input;
+    private static int currentHighestId;
+    
 
     public Controller() {
         this.running = true;
@@ -27,6 +29,8 @@ public class Controller {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+        
+        determineID();
         while (running) {
             UI.displayInputOptions();
             select(input.nextLine().toLowerCase());
@@ -37,6 +41,16 @@ public class Controller {
             e.printStackTrace();
         }
     }
+
+    private void determineID() {
+        currentHighestId = 1000;
+        for (Member member : members) {
+            if (currentHighestId < member.getUserID()) {
+                currentHighestId = member.getUserID();
+            }
+        }
+    }
+
 
     private void select(String input) {
         switch (input) {
@@ -81,8 +95,10 @@ public class Controller {
 
         HashMap<String, String> memberInformation = UI.askForMemberInformation();
         Member member = null;
+        currentHighestId++;
         try {
             member = new Member(
+                currentHighestId,
                 memberInformation.get("firstName"),
                 memberInformation.get("lastName"),
                 new Date(new java.text.SimpleDateFormat("dd/MM/yyyy").parse(memberInformation.get("birthday")).getTime()),

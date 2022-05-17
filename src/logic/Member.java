@@ -28,9 +28,24 @@ public class Member {
         this.mobile = mobile;
         calculateSub();
     }
+    public Member(int userID, String firstName, String lastName, Date birthday, String address, String email, String mobile) {
+        this.userID = userID;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.birthday = birthday;
+        this.address = address;
+        this.email = email;
+        this.mobile = mobile;
+        calculateSub();
+    }
 
+    public int getUserID() {
+        return userID;
+    }
 
-
+    public void setUserID(int userID) {
+        this.userID = userID;
+    }
 
     public void setSubscription(double subscription) {
         this.subscription = subscription;
@@ -128,7 +143,7 @@ public class Member {
 
     @Override
     public String toString() {
-        return "Member: " + firstName + " " + lastName + ", birthday is " + birthday + " \n\t contact information: Email - " + email + " | Phonenumber - " + mobile;
+        return userID + ": " + firstName + " " + lastName + ", birthday is " + birthday + " \n\t contact information: Email - " + email + " | Phonenumber - " + mobile;
     }
 
 
