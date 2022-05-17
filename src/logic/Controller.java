@@ -7,8 +7,6 @@ import logic.comparators.NameComparator;
 import ui.ConsoleUI;
 
 import java.io.FileNotFoundException;
-import java.text.ParseException;
-import java.time.LocalDate;
 import java.util.*;
 
 public class Controller {
@@ -88,7 +86,7 @@ public class Controller {
             //case "birthday" -> member.setBirthday(input.nextLine());
             case "address" -> member.setAddress(input.nextLine());
             case "email" -> member.setEmail(input.nextLine());
-            case "phonenumber" -> member.setMobile(input.nextLine());
+            case "phonenumber" -> member.setPhoneNumber(input.nextLine());
         }
 
 
@@ -100,26 +98,17 @@ public class Controller {
         Member member = null;
         currentHighestId++;
         try {
-/*
-            String[] birthdayParts = memberInformation.get("birthday").split("/");
-            LocalDate birthday = LocalDate.of(Integer.parseInt(birthdayParts[2]),Integer.parseInt(birthdayParts[1]),Integer.parseInt(birthdayParts[0]));
-* */
-
-
             member = new Member(
                 currentHighestId,
                 memberInformation.get("firstName"),
                 memberInformation.get("lastName"),
-                //birthday,
-                new Date(new java.text.SimpleDateFormat("dd/MM/yyyy").parse(memberInformation.get("birthday")).getTime()),
+                memberInformation.get("birthday"),
                 memberInformation.get("address"),
                 memberInformation.get("email"),
                 memberInformation.get("phoneNumber"));
         } catch (NumberFormatException e) {
             e.printStackTrace();
         } catch (IndexOutOfBoundsException e) {
-            e.printStackTrace();
-        } catch (ParseException e) {
             e.printStackTrace();
         }
         members.add(member);

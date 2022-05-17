@@ -5,9 +5,7 @@ import logic.Member;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Locale;
 import java.util.Scanner;
 
@@ -22,13 +20,13 @@ public class Database {
             out.print(";");
             out.print(member.getLastName());
             out.print(";");
-            out.print(member.getBirthday().getTime());
+            out.print(member.getBirthday());
             out.print(";");
             out.print(member.getAddress());
             out.print(";");
             out.print(member.getEmail());
             out.print(";");
-            out.print(member.getMobile());
+            out.print(member.getPhoneNumber());
             out.print("\n");
         }
 
@@ -44,11 +42,11 @@ public class Database {
             int userID = find.nextInt();
             String firstName = find.next();
             String lastName = find.next();
-            Date date = new Date(Long.parseLong(find.next()));
+            String birthday = find.next();
             String address = find.next();
             String email = find.next();
             String mobile = find.next();
-            members.add(new Member(userID,firstName,lastName,date,address,email,mobile));
+            members.add(new Member(userID,firstName,lastName,birthday,address,email,mobile));
         }
         return members;
     }

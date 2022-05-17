@@ -1,57 +1,44 @@
 package logic;
 
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Random;
+import java.time.Period;
+import java.time.format.DateTimeFormatter;
 
 public class Member {
 
+    private DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     private int userID;
     private String firstName;
     private String lastName;
-    private int age;
-
-    private Date birthday;
-    private LocalDate birthday2;
+    private LocalDate birthday;
 
     private String address;
     private String email;
-    private String mobile;
+    private String phoneNumber;
 
     private boolean active;
     private double subscription;
 
-    public Member(String firstName, String lastName, Date birthday, String address, String email, String mobile) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.birthday = birthday;
-        this.address = address;
-        this.email = email;
-        this.mobile = mobile;
-        calculateSub();
-    }
-    public Member(int userID, String firstName, String lastName, Date birthday, String address, String email, String mobile) {
+    public Member(int userID, String firstName, String lastName,
+                  String birthday, String address, String email,
+                  String phoneNumber) {
         this.userID = userID;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.birthday = birthday;
+        setBirthday(birthday);
         this.address = address;
         this.email = email;
-        this.mobile = mobile;
+        this.phoneNumber = phoneNumber;
         calculateSub();
     }
 
-    public Member(int userID, String firstName, String lastName, LocalDate birthday, String address, String email, String mobile) {
-        this.userID = userID;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.birthday2 = birthday;
-        this.address = address;
-        this.email = email;
-        this.mobile = mobile;
-        calculateSub();
+
+    public String getAgeGroup() {
+        if (getAge() < 18) {
+            return "Junior";
+        } else {
+            return "Senior";
+        }
     }
     public int getUserID() {
         return userID;
@@ -101,34 +88,25 @@ public class Member {
         this.email = email;
     }
 
-    public String getMobile() {
-        return mobile;
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
-    public void setMobile(String mobile) {
-        this.mobile = mobile;
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
-    public Member(String name, int age, boolean active) {
-        this.age = age;
-        this.active = active;
+
+    public String getBirthday() {
+        return birthday.format(dtf);
     }
 
-    public Date getBirthday() {
-        return birthday;
-    }
-
-    public void setBirthday(Date birthday) {
-        this.birthday = birthday;
+    public void setBirthday(String birthday) {
+        this.birthday = LocalDate.parse(birthday,dtf);
     }
 
     public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-        calculateSub();
+        return Period.between(birthday,LocalDate.now()).getYears();
     }
 
     public boolean isActive() {
@@ -157,8 +135,13 @@ public class Member {
 
     @Override
     public String toString() {
-        return userID + "; " + firstName + " " + lastName + ", birthday is " + birthday + " " +
-            "\n\t contact information: Email - " + email + " | Phonenumber - " + mobile;
+        return userID + ";"
+            + firstName + ";"
+            + lastName + ";"
+            + getBirthday() + ";"
+            + email + ";"
+            + address + ";"
+            + phoneNumber;
     }
 
 
