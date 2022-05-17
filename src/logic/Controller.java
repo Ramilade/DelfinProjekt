@@ -116,7 +116,7 @@ public class Controller {
         Collections.sort(members,comparator);
 
         for (Member member : members) {
-            System.out.println(member.toString());
+            UI.printArray(member);
         }
 
         // db.displayDatabase();
