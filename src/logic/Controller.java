@@ -64,6 +64,7 @@ public class Controller {
             case "3", "check rankings" -> inputCheckRankings();
             case "4", "check subscriptions" -> inputCheckSubscriptions();
             case "5", "exit" -> running = false;
+            case "7", "delete member" -> deleteMember();
         }
 
     }
@@ -136,6 +137,14 @@ public class Controller {
         }
 
         // db.displayDatabase();
+    }
+    public void deleteMember(){
+        int data = input.nextInt();
+        for (Member member : members ) {
+            if (data == member.getUserID()){
+                members.remove(member);
+            }
+        }
     }
 
     private void inputCheckRankings() {
