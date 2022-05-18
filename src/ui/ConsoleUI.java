@@ -89,4 +89,9 @@ public class ConsoleUI {
     public void noMembersInList() {
         System.out.println("No concurrent members in list!");
     }
+
+    public void printUserHasBeenCreated(){
+        System.out.println("User has been created!");
+    }
+
 }

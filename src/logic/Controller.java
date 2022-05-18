@@ -111,6 +111,7 @@ public class Controller {
         } catch (IndexOutOfBoundsException e) {
             e.printStackTrace();
         }
+        UI.printUserHasBeenCreated();
         members.add(member);
     }
 
