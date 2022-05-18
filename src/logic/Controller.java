@@ -27,7 +27,7 @@ public class Controller {
 
     public void run() {
         try {
-            members = DB.loadMemberList();
+            members = DB.loadMembers();
         } catch (FileNotFoundException e) {
             members = new ArrayList<Member>();
             UI.fileNotFoundErrorMessage();

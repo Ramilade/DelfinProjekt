@@ -31,7 +31,7 @@ public class Database {
         }
 
     }
-    public ArrayList<Member> loadMemberList() throws FileNotFoundException {
+    public ArrayList<Member> loadMembers() throws FileNotFoundException {
         ArrayList<Member> members = new ArrayList<>();
         File file = new File("Svømmeclub.csv");
         Scanner sc = new Scanner(file);

@@ -81,6 +81,7 @@ public class ConsoleUI {
     }
 
     public void printArray(Member member){
+
         System.out.println(member);
     }
 

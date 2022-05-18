@@ -29,7 +29,7 @@ public class Member {
         this.address = address;
         this.email = email;
         this.phoneNumber = phoneNumber;
-        calculateSub();
+        this.subscription = calculateSub();
     }
 
 
@@ -118,7 +118,7 @@ public class Member {
         calculateSub();
     }
 
-    public void calculateSub() {
+    public double calculateSub() {
         double subCost = 500;
         if (active) {
             subCost = 1000;
@@ -129,7 +129,7 @@ public class Member {
                 subCost = subCost * 0.75;
             }
         }
-        subscription = subCost;
+        return subCost;
     }
 
 
