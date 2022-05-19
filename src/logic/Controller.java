@@ -166,13 +166,10 @@ public class Controller {
     private void inputCheckSubscriptions() {
         //Members skal have data for indmeldingsdato. Plus 1 år til hvert betaling.
         //Members skal også have passive
-        //Skal bruge data fra Member (Senior el. Junior, Aktive el passive.) Løst, har calculateSub();
 
         String presentDate = LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 
         for (Member member : members) {
-
-            //Member subscription tidspunkt til betaling skal minuses med nutiden, så differencen kan beregnes.
 
             UI.printSubscriptionDuePayment(member);
 
@@ -201,22 +198,16 @@ public class Controller {
                 member.setHasPaid(false);
             } else if (monthPresent > monthPayTime){
                 member.setHasPaid(false);
-            } else if (dayPresent < dayPayTime){
+            } else if (dayPresent > dayPayTime){
                 member.setHasPaid(false);
             }
 
             if (member.hasPaid()){
-                System.out.print(memberPaymentTime);
-                System.out.print(" User has paid in time.");
-                System.out.println();
+                UI.userPaidInTime(true);
             } else {
-                System.out.print(memberPaymentTime);
-                System.out.print(" User has not paid in time.");
-                System.out.println();
+                UI.userPaidInTime(false);
             }
-
         }
     }
-
 
 }

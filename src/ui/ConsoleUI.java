@@ -104,4 +104,12 @@ public class ConsoleUI {
     public void printSubscriptionDuePayment(Member member) {
         System.out.print("The payment for " + member.getFirstName() + ", ID: " + member.getUserID() + " of: " + member.getSubscription() + "kr.- is due: ");
     }
+
+    public void userPaidInTime(boolean paid) {
+        if (paid){
+            System.out.println("User has paid in time");
+        } else {
+            System.out.println("User has yet to pay in time!");
+        }
+    }
 }
