@@ -127,6 +127,7 @@ public class Controller {
                 case "1", "Sort by name" -> comparator = new NameComparator();
                 case "2", "Sort by date" -> comparator = new BirthDayComparator();
                 case "3", "Sort by ID" -> comparator = new IDComparator();
+                default -> comparator = new IDComparator();
             }
 
             Collections.sort(members, comparator);
@@ -134,6 +135,7 @@ public class Controller {
             for (Member member : members) {
                 UI.printArray(member);
             }
+
         } else {
             UI.noMembersInList();
         }
@@ -154,7 +156,26 @@ public class Controller {
     }
 
     private void inputCheckSubscriptions() {
-        System.out.println("TODO");
+        //Members skal have data for indmeldingsdato. Plus 1 år til hvert betaling.
+        //Members skal også have passive
+        //Skal bruge data fra Member (Senior el. Junior, Aktive el passive.) Løst, har calculateSub();
+
+        for (Member member : members) {
+
+            UI.printSubscriptionDuePayment(member);
+
+            String memberRest = member.getBirthday().substring(0,6); //Erstat getBirthDay med getCreationDate
+            String memberYear = member.getBirthday().substring(6,10);//Erstat getBirthDay med getCreationDate
+
+            int memberYearCal = Integer.parseInt(memberYear);
+            memberYearCal++;
+            memberYear = Integer.toString(memberYearCal);
+
+
+
+            System.out.print(memberRest + memberYear);
+            System.out.println();
+        }
     }
 
 

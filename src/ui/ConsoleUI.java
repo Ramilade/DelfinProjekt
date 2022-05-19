@@ -94,4 +94,7 @@ public class ConsoleUI {
         System.out.println("User has been created!");
     }
 
+    public void printSubscriptionDuePayment(Member member) {
+        System.out.print("The payment for " + member.getFirstName() + ", ID: " + member.getUserID() + " of: " + member.getSubscription() + " is due: ");
+    }
 }
