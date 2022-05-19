@@ -14,10 +14,12 @@ public class ConsoleUI {
     public void displayInputOptions() {
         System.out.println("""
             1. Add a member
-            2. Show members
-            3. (TODO) View rankings
-            4. (TODO) View subscriptions
-            5. Save & exit
+            2. Edit a member
+            3. Show members
+            4. (TODO) View rankings
+            5. (TODO) View subscriptions
+            6. Delete a member
+            7. Save & exit
             """);
     }
 
@@ -83,7 +85,7 @@ public class ConsoleUI {
     public void printArray(Member member){
         String[] memberInformation = member.toString().split(";");
         for (String info : memberInformation) {
-            System.out.printf(" %s %s %s , birthday : %s \n\t ");
+            //System.out.printf(" %s %s %s , birthday : %s \n\t ");
             System.out.println(info);
         }
 
@@ -100,6 +102,6 @@ public class ConsoleUI {
     }
 
     public void printSubscriptionDuePayment(Member member) {
-        System.out.print("The payment for " + member.getFirstName() + ", ID: " + member.getUserID() + " of: " + member.getSubscription() + " is due: ");
+        System.out.print("The payment for " + member.getFirstName() + ", ID: " + member.getUserID() + " of: " + member.getSubscription() + "kr.- is due: ");
     }
 }

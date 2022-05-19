@@ -7,6 +7,9 @@ import logic.comparators.NameComparator;
 import ui.ConsoleUI;
 
 import java.io.FileNotFoundException;
+import java.lang.reflect.Array;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 public class Controller {
@@ -60,12 +63,12 @@ public class Controller {
     private void select(String input) {
         switch (input) {
             case "1", "add member" -> inputAddMember();
-          //  case "6", "edit member" -> inputEditMember();
-            case "2", "show members" -> inputShowMember();
-            case "3", "check rankings" -> inputCheckRankings();
-            case "4", "check subscriptions" -> inputCheckSubscriptions();
-            case "5", "exit" -> running = false;
-            case "7", "delete member" -> deleteMember();
+            case "2", "edit member" -> inputEditMember();
+            case "3", "show members" -> inputShowMember();
+            case "4", "check rankings" -> inputCheckRankings();
+            case "5", "check subscriptions" -> inputCheckSubscriptions();
+            case "6", "delete member" -> deleteMember();
+            case "7", "exit" -> running = false;
         }
 
     }
@@ -161,21 +164,53 @@ public class Controller {
         //Members skal også have passive
         //Skal bruge data fra Member (Senior el. Junior, Aktive el passive.) Løst, har calculateSub();
 
+        String presentDate = LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+
         for (Member member : members) {
+
+            //Member subscription tidspunkt til betaling skal minuses med nutiden, så differencen kan beregnes.
 
             UI.printSubscriptionDuePayment(member);
 
-            String memberRest = member.getBirthday().substring(0,6); //Erstat getBirthDay med getCreationDate
-            String memberYear = member.getBirthday().substring(6,10);//Erstat getBirthDay med getCreationDate
+            String memberRest = member.getCreationDate().substring(0,6); //Erstat getBirthDay med getCreationDate
+            String memberYear = member.getCreationDate().substring(6,10);//Erstat getBirthDay med getCreationDate
 
             int memberYearCal = Integer.parseInt(memberYear);
             memberYearCal++;
             memberYear = Integer.toString(memberYearCal);
 
+            String[] presentTimeSplit = presentDate.split("/");
 
+            String memberPaymentTime = memberRest + memberYear;
 
-            System.out.print(memberRest + memberYear);
-            System.out.println();
+            String[] memberPaymentTimeArray = memberPaymentTime.split("/");
+
+            int dayPresent = Integer.parseInt(presentTimeSplit[0]);
+            int monthPresent = Integer.parseInt(presentTimeSplit[1]);
+            int yearPresent = Integer.parseInt(presentTimeSplit[2]);
+
+            int dayPayTime = Integer.parseInt(memberPaymentTimeArray[0]);
+            int monthPayTime = Integer.parseInt(memberPaymentTimeArray[1]);
+            int yearPayTime = Integer.parseInt(memberPaymentTimeArray[2]);
+
+            if (yearPresent > yearPayTime){
+                member.setHasPaid(false);
+            } else if (monthPresent > monthPayTime){
+                member.setHasPaid(false);
+            } else if (dayPresent < dayPayTime){
+                member.setHasPaid(false);
+            }
+
+            if (member.hasPaid()){
+                System.out.print(memberPaymentTime);
+                System.out.print(" User has paid in time.");
+                System.out.println();
+            } else {
+                System.out.print(memberPaymentTime);
+                System.out.print(" User has not paid in time.");
+                System.out.println();
+            }
+
         }
     }
 
