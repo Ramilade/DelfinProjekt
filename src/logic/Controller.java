@@ -4,6 +4,8 @@ import data.Database;
 import logic.comparators.BirthDayComparator;
 import logic.comparators.IDComparator;
 import logic.comparators.NameComparator;
+import logic.competitor.CompetitionMember;
+import logic.competitor.Discipline;
 import ui.ConsoleUI;
 
 import java.io.FileNotFoundException;
@@ -14,6 +16,8 @@ import java.util.*;
 
 public class Controller {
     private ArrayList<Member> members;
+    private ArrayList<CompetitionMember> Competition;
+    private ArrayList<Discipline> disciplines;
     private boolean running;
     private final ConsoleUI UI;
     private final Database DB;
