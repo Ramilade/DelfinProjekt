@@ -11,6 +11,8 @@ public class Member {
     private String firstName;
     private String lastName;
     private LocalDate birthday;
+    private LocalDate creationDate;
+    private boolean paid;
 
     private String address;
     private String email;
@@ -22,6 +24,7 @@ public class Member {
     public Member(int userID, String firstName, String lastName,
                   String birthday, String address, String email,
                   String phoneNumber) {
+        this.creationDate = LocalDate.now();
         this.userID = userID;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -30,8 +33,24 @@ public class Member {
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.subscription = calculateSub();
+        this.paid = true;
     }
 
+    public Member(int userID, String firstName, String lastName,
+                  String birthday, String address, String email,
+                  String phoneNumber, String creationDate) {
+        new Member(userID,firstName,lastName,birthday,address,email,phoneNumber);
+        setCreationDate(creationDate);
+    }
+
+
+    public String getCreationDate() {
+        return creationDate.format(dtf);
+    }
+
+    public void setCreationDate(String creationDate) {
+        this.creationDate = LocalDate.parse(creationDate, dtf);
+    }
 
     public String getAgeGroup() {
         if (getAge() < 18) {
@@ -132,6 +151,13 @@ public class Member {
         return subCost;
     }
 
+    public boolean hasPaid() {
+        return paid;
+    }
+
+    public void setHasPaid(boolean hasPaid) {
+        this.paid = hasPaid;
+    }
 
     @Override
     public String toString() {

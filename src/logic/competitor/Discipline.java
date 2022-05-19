@@ -1,36 +1,33 @@
 package logic.competitor;
 
+import java.time.LocalDate;
+
 public class Discipline {
 
   private DisciplineType type;
-  private String name;
-  private int distance;
+  private LocalDate date;
   private double record;
 
-  public Discipline(DisciplineType type, String name, int distance, double record) {
+  public Discipline(DisciplineType type, double record, LocalDate date) {
     this.type = type;
-    this.name = name;
-    this.distance = distance;
     this.record = record;
+    this.date = date;
   }
 
-  public Discipline() {
+  public DisciplineType getType() {
+    return type;
   }
 
-  public String getName() {
-    return name;
+  public void setType(DisciplineType type) {
+    this.type = type;
   }
 
-  public void setName(String name) {
-    this.name = name;
+  public LocalDate getDate() {
+    return date;
   }
 
-  public int getDistance() {
-    return distance;
-  }
-
-  public void setDistance(int distance) {
-    this.distance = distance;
+  public void setDate(LocalDate date) {
+    this.date = date;
   }
 
   public double getRecord() {

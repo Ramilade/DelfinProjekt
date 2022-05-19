@@ -81,8 +81,13 @@ public class ConsoleUI {
     }
 
     public void printArray(Member member){
+        String[] memberInformation = member.toString().split(";");
+        for (String info : memberInformation) {
+            System.out.printf(" %s %s %s , birthday : %s \n\t ");
+            System.out.println(info);
+        }
 
-        System.out.println(member);
+
     }
 
 

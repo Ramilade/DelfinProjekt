@@ -1,4 +1,4 @@
-package logic;
+import logic.Controller;
 
 public class Main {
 

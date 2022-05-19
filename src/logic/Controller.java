@@ -15,7 +15,7 @@ public class Controller {
     private final ConsoleUI UI;
     private final Database DB;
     private final Scanner input;
-    private static int currentHighestId;
+    private int currentHighestId;
     
 
     public Controller() {
@@ -31,12 +31,14 @@ public class Controller {
         } catch (FileNotFoundException e) {
             members = new ArrayList<Member>();
             UI.fileNotFoundErrorMessage();
+
         }
         
         determineID();
         while (running) {
             UI.displayInputOptions();
             select(input.nextLine().toLowerCase());
+
         }
         try {
             DB.saveMembers(members);
@@ -83,7 +85,7 @@ public class Controller {
         switch (editOption) {
             case "firstname" -> member.setFirstName(input.nextLine());
             case "lastname" -> member.setLastName(input.nextLine());
-            //case "birthday" -> member.setBirthday(input.nextLine());
+            case "birthday" -> member.setBirthday(input.nextLine());
             case "address" -> member.setAddress(input.nextLine());
             case "email" -> member.setEmail(input.nextLine());
             case "phonenumber" -> member.setPhoneNumber(input.nextLine());
@@ -140,7 +142,6 @@ public class Controller {
             UI.noMembersInList();
         }
 
-        // db.displayDatabase();
     }
     public void deleteMember(){
         int data = input.nextInt();
