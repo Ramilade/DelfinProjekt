@@ -33,7 +33,7 @@ public class ConsoleUI {
                 """);
     }
     public void displayInputEditMemberChooseMember(){
-        System.out.println("Please choose input member ID to edit.");
+        System.out.println("Please input member ID to edit.");
     }
 
 
@@ -44,11 +44,23 @@ public class ConsoleUI {
                 3. Change birthday (dd/mm/yyyy) format.
                 4. Change address
                 5. Change email
-                6. Change phonenumber
+                6. Change phone number
                 """);
     }
-    public void nowEditing(String s){
-        System.out.println("now editing " + s );
+    public void nowEditing(Member member){
+        System.out.println("Now editing: " + member.getUserID());
+    }
+
+    public void displayNowEditingChoiceDisplay(int option){
+        switch (option) {
+            case 1 -> System.out.println("Now editing First Name");
+            case 2 -> System.out.println("Now editing Last Name");
+            case 3 -> System.out.println("Now editing Birthday");
+            case 4 -> System.out.println("Now editing Address");
+            case 5 -> System.out.println("Now editing Email");
+            case 6 -> System.out.println("Now editing Phone number");
+
+        }
     }
 
 
@@ -72,7 +84,7 @@ public class ConsoleUI {
         System.out.println("(Step 5/6) \nPut in 'Email' of the member");
         listOfMemberInformation2.put("email",userInput.nextLine());
 
-        System.out.println("(Step 6/6) \nPut in 'Phonenumber' of the member");
+        System.out.println("(Step 6/6) \nPut in 'Phone number' of the member");
         listOfMemberInformation2.put("phoneNumber",userInput.nextLine());
 
         return listOfMemberInformation2;

@@ -85,6 +85,8 @@ public class Controller {
         int requestedID = Integer.parseInt(input.nextLine());
         for (Member member : members) {
             if (member.getUserID()==requestedID) {
+                UI.nowEditing(member);
+                System.out.println();
                 editMember(member);
             }
         }
@@ -94,15 +96,31 @@ public class Controller {
     private void editMember(Member member) {
         UI.displayInputEditMember();
         String editOption = input.nextLine();
-        UI.nowEditing(editOption);
-        String edit = input.nextLine();
         switch (editOption) {
-            case "1", "firstname" -> member.setFirstName(edit);
-            case "2", "lastname" -> member.setLastName(edit);
-            case "3", "birthday" -> member.setBirthday(edit);
-            case "4", "address" -> member.setAddress(edit);
-            case "5", "email" -> member.setEmail(edit);
-            case "6", "phonenumber" -> member.setPhoneNumber(edit);
+            case "1", "firstname" ->{
+                UI.displayNowEditingChoiceDisplay(1);
+                member.setFirstName(input.nextLine());
+            }
+            case "2", "lastname" -> {
+                UI.displayNowEditingChoiceDisplay(2);
+                member.setLastName(input.nextLine());
+            }
+            case "3", "birthday" -> {
+                UI.displayNowEditingChoiceDisplay(3);
+                member.setBirthday(input.nextLine());
+            }
+            case "4", "address" -> {
+                UI.displayNowEditingChoiceDisplay(4);
+                member.setAddress(input.nextLine());
+            }
+            case "5", "email" -> {
+                UI.displayNowEditingChoiceDisplay(5);
+                member.setEmail(input.nextLine());
+            }
+            case "6", "phone number" -> {
+                UI.displayNowEditingChoiceDisplay(6);
+                member.setPhoneNumber(input.nextLine());
+            }
         }
 
 
