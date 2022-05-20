@@ -7,16 +7,16 @@ import logic.comparators.NameComparator;
 import logic.competitor.CompetitionMember;
 import logic.competitor.Discipline;
 import ui.ConsoleUI;
+import ui.MemberInformation;
 
 import java.io.FileNotFoundException;
-import java.lang.reflect.Array;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 public class Controller {
     private ArrayList<Member> members;
-    private ArrayList<CompetitionMember> Competition;
+    private ArrayList<CompetitionMember> competitionMembers;
     private ArrayList<Discipline> disciplines;
     private boolean running;
     private final ConsoleUI UI;
@@ -27,6 +27,7 @@ public class Controller {
 
     public Controller() {
         this.running = true;
+        this.competitionMembers = new ArrayList<>();
         this.UI = new ConsoleUI();
         this.DB = new Database(); // god idé: interface impl så en stub kan bruges
         this.input = new Scanner(System.in);
@@ -35,6 +36,7 @@ public class Controller {
     public void run() {
         try {
             members = DB.loadMembers();
+            //competitionMembers = DB.loadCompetitionMembers(); < skal laves *ser på Bjørn*
         } catch (FileNotFoundException e) {
             members = new ArrayList<Member>();
             UI.fileNotFoundErrorMessage();
@@ -63,7 +65,7 @@ public class Controller {
         }
     }
 
-    public void viewSubscription(){
+    public void viewSubscription() {
         System.out.println("");
     }
 
@@ -98,7 +100,7 @@ public class Controller {
         UI.displayInputEditMember();
         String editOption = input.nextLine();
         switch (editOption) {
-            case "1", "firstname" ->{
+            case "1", "firstname" -> {
                 UI.displayNowEditingChoiceDisplay(1);
                 member.setFirstName(input.nextLine());
             }
@@ -128,36 +130,53 @@ public class Controller {
     }
 
     private void inputAddMember() {
-
-        HashMap<String, String> memberInformation = UI.askForMemberInformation();
-        Member member = null;
-        currentHighestId++;
-        try {
-            member = new Member(
-                    currentHighestId,
-                    memberInformation.get("firstName"),
-                    memberInformation.get("lastName"),
-                    memberInformation.get("birthday"),
-                    memberInformation.get("address"),
-                    memberInformation.get("email"),
-                    memberInformation.get("phoneNumber"));
-        } catch (NumberFormatException e) {
-            e.printStackTrace();
-        } catch (IndexOutOfBoundsException e) {
-            e.printStackTrace();
+        HashMap<MemberInformation, String> memberInformationMap = UI.askForMemberInformation();
+        if (memberInformationMap.containsValue("konkurrent")) {
+            addCompetitionMember(memberInformationMap);
+        } else {
+            addMember(memberInformationMap);
         }
+        currentHighestId++;
         UI.printUserHasBeenCreated();
-        members.add(member);
     }
 
+
+
+    public void addMember(HashMap<MemberInformation,String> information) {
+        Member member = new Member(
+            currentHighestId,
+            information.get(MemberInformation.FIRST_NAME),
+            information.get(MemberInformation.LAST_NAME),
+            information.get(MemberInformation.BIRTHDAY),
+            information.get(MemberInformation.ADDRESS),
+            information.get(MemberInformation.EMAIL),
+            information.get(MemberInformation.PHONE_NUMBER),
+            information.get(MemberInformation.STATUS));
+        members.add(member);
+    }
+    public void addCompetitionMember(HashMap<MemberInformation,String> information) {
+        CompetitionMember member = new CompetitionMember(
+            currentHighestId,
+            information.get(MemberInformation.FIRST_NAME),
+            information.get(MemberInformation.LAST_NAME),
+            information.get(MemberInformation.BIRTHDAY),
+            information.get(MemberInformation.ADDRESS),
+            information.get(MemberInformation.EMAIL),
+            information.get(MemberInformation.PHONE_NUMBER),
+            information.get(MemberInformation.STATUS));
+        competitionMembers.add(member);
+    }
     private void inputShowMember() {
+        ArrayList<Member> members = new ArrayList<>();
+        members.addAll(this.members);
+        members.addAll(competitionMembers);
 
         if (members.size() > 0) {
 
             UI.displayInputSortingMember();
 
             String choice = input.nextLine();
-            Comparator comparator = null;
+            Comparator comparator;
             switch (choice) {
                 case "1", "Sort by name" -> comparator = new NameComparator();
                 case "2", "Sort by date" -> comparator = new BirthDayComparator();
@@ -212,7 +231,6 @@ public class Controller {
             String[] presentDateArray = presentDate.split("/");
 
             String[] memberCreationDateArray = memberCreationDate.split("/");
-
 
 
             int dayCreation = Integer.parseInt(memberCreationDateArray[0]);

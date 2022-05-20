@@ -10,12 +10,19 @@ public class CompetitionMember extends Member {
     private String team;
     private final ArrayList<Competition> competitions;
 
-    public CompetitionMember(int userID, String firstName, String lastName, String birthday, String address, String email, String phoneNumber) {
-        super(userID, firstName, lastName, birthday, address, email, phoneNumber);
+    public CompetitionMember(int userID, String firstName, String lastName,
+                             String birthday, String address, String email,
+                             String phoneNumber, String status) {
+        super(userID, firstName, lastName, birthday, address, email, phoneNumber, status);
         disciplines = new ArrayList<>();
         competitions = new ArrayList<>();
     }
 
+    public CompetitionMember(int userID, String firstName, String lastName, String birthday, String address, String email, String phoneNumber, String status, String creationDate) {
+        super(userID, firstName, lastName, birthday, address, email, phoneNumber, status, creationDate);
+        disciplines = new ArrayList<>();
+        competitions = new ArrayList<>();
+    }
 
     public ArrayList<Competition> getCompetitions() {
         return competitions;

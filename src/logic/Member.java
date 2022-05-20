@@ -12,6 +12,7 @@ public class Member {
     private String lastName;
     private LocalDate birthday;
     private LocalDate creationDate;
+    private LocalDate datePaid;
     private boolean paid;
 
     private String address;
@@ -21,11 +22,20 @@ public class Member {
     private boolean active;
     private double subscription;
 
+
     public Member(int userID, String firstName, String lastName,
                   String birthday, String address, String email,
-                  String phoneNumber) {
-        this.creationDate = LocalDate.now();
+                  String phoneNumber,String status, String creationDate) {
+        new Member(userID,firstName,lastName,birthday,address,email,phoneNumber,status);
+        setCreationDate(creationDate);
+    }
+
+    public Member(int userID, String firstName, String lastName,
+                  String birthday, String address, String email,
+                  String phoneNumber, String status) {
+
         this.userID = userID;
+        this.creationDate = LocalDate.now();
         this.firstName = firstName;
         this.lastName = lastName;
         setBirthday(birthday);
@@ -34,15 +44,22 @@ public class Member {
         this.phoneNumber = phoneNumber;
         this.subscription = calculateSub();
         this.paid = true;
+
+
     }
 
-    public Member(int userID, String firstName, String lastName,
-                  String birthday, String address, String email,
-                  String phoneNumber, String creationDate) {
-        new Member(userID,firstName,lastName,birthday,address,email,phoneNumber);
-        setCreationDate(creationDate);
+    public void setStatus(String status) {
+        active = status.equals("aktiv");
     }
 
+
+    public String getDatePaid() {
+        return datePaid.format(dtf);
+    }
+
+    public void setDatePaid(String datePaid) {
+        this.datePaid = LocalDate.parse(datePaid,dtf);
+    }
 
     public String getCreationDate() {
         return creationDate.format(dtf);

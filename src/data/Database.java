@@ -91,7 +91,8 @@ public class Database {
             String address = find.next();
             String email = find.next();
             String mobile = find.next();
-            members.add(new Member(userID,firstName,lastName,birthday,address,email,mobile));
+            String status = find.next();
+            members.add(new Member(userID,firstName,lastName,birthday,address,email,mobile,status));
         }
         return members;
     }
@@ -110,9 +111,10 @@ public class Database {
             String address = find.next();
             String email = find.next();
             String mobile = find.next();
+            String status = find.next();
             loadDisciplines(userID);
             CompetitionMember member  = new CompetitionMember(userID,firstName,lastName,
-                birthday,address,email,mobile);
+                birthday,address,email,mobile,status);
             members.add(member);
 
         }

@@ -65,29 +65,25 @@ public class ConsoleUI {
 
 
 
-    public HashMap<String,String> askForMemberInformation() {
+    public HashMap<MemberInformation,String> askForMemberInformation() {
         Scanner userInput = new Scanner(System.in);
-        HashMap<String,String> listOfMemberInformation2 = new HashMap<>();
+        HashMap<MemberInformation,String> listOfMemberInformation = new HashMap<>();
 
-        System.out.println("(Step 1/6) \nPut in 'First name' of the member");
-        listOfMemberInformation2.put("firstName",userInput.nextLine());
+        MemberInformation[] memberInformation = MemberInformation.values();
 
-        System.out.println("(Step 2/6) \nPut in 'Last name' of the member");
-        listOfMemberInformation2.put("lastName",userInput.nextLine());
+        for (int i = 0; i < memberInformation.length; i++) {
+            String name;
+            if (memberInformation[i].name().toLowerCase().contains("_")) {
+                String[] split = memberInformation[i].name().toLowerCase().split("_");
+                name = split[0] + " " + split[1];
+            } else {
+                name = memberInformation[i].name().toLowerCase();
+            }
+            System.out.printf("(Step %s/%s) Put in '%s'%s : ",i+1,memberInformation.length, name, memberInformation[i].getSpecificInformation());
+            listOfMemberInformation.put(memberInformation[i],userInput.nextLine());
+        }
 
-        System.out.println("(Step 3/6) \nPut in 'Birthday'(dd/mm/yyyy) of the member");
-        listOfMemberInformation2.put("birthday",userInput.nextLine());
-
-        System.out.println("(Step 4/6) \nPut in 'Address' of the member");
-        listOfMemberInformation2.put("address",userInput.nextLine());
-
-        System.out.println("(Step 5/6) \nPut in 'Email' of the member");
-        listOfMemberInformation2.put("email",userInput.nextLine());
-
-        System.out.println("(Step 6/6) \nPut in 'Phone number' of the member");
-        listOfMemberInformation2.put("phoneNumber",userInput.nextLine());
-
-        return listOfMemberInformation2;
+        return listOfMemberInformation;
     }
 
     public void fileNotFoundErrorMessage(){
