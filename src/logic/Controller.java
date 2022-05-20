@@ -63,6 +63,10 @@ public class Controller {
         }
     }
 
+    public void viewSubscription(){
+        System.out.println("");
+    }
+
 
     private void select(String input) {
         switch (input) {
@@ -77,7 +81,8 @@ public class Controller {
 
     }
     private void inputEditMember() {
-        int requestedID = input.nextInt();
+        UI.displayInputEditMemberChooseMember();
+        int requestedID = Integer.parseInt(input.nextLine());
         for (Member member : members) {
             if (member.getUserID()==requestedID) {
                 editMember(member);
@@ -87,15 +92,17 @@ public class Controller {
     }
 
     private void editMember(Member member) {
+        UI.displayInputEditMember();
         String editOption = input.nextLine();
         UI.nowEditing(editOption);
+        String edit = input.nextLine();
         switch (editOption) {
-            case "firstname" -> member.setFirstName(input.nextLine());
-            case "lastname" -> member.setLastName(input.nextLine());
-            case "birthday" -> member.setBirthday(input.nextLine());
-            case "address" -> member.setAddress(input.nextLine());
-            case "email" -> member.setEmail(input.nextLine());
-            case "phonenumber" -> member.setPhoneNumber(input.nextLine());
+            case "1", "firstname" -> member.setFirstName(edit);
+            case "2", "lastname" -> member.setLastName(edit);
+            case "3", "birthday" -> member.setBirthday(edit);
+            case "4", "address" -> member.setAddress(edit);
+            case "5", "email" -> member.setEmail(edit);
+            case "6", "phonenumber" -> member.setPhoneNumber(edit);
         }
 
 

@@ -161,13 +161,13 @@ public class Member {
 
     @Override
     public String toString() {
-        return userID + ";"
-            + firstName + ";"
-            + lastName + ";"
-            + getBirthday() + ";"
-            + email + ";"
-            + address + ";"
-            + phoneNumber;
+        return "MemberID: " + userID + ";"
+            + "First Name: " + firstName + ";"
+            + "Last Name: " + lastName + ";"
+            + "Birthday: " + getBirthday() + ";"
+            + "E-mail: " + email + ";"
+            + "Address: " + address + ";"
+            + "Phone: " + phoneNumber;
     }
 
 

@@ -33,7 +33,7 @@ public class ConsoleUI {
                 """);
     }
     public void displayInputEditMemberChooseMember(){
-        System.out.println("Please choose a member to edit.");
+        System.out.println("Please choose input member ID to edit.");
     }
 
 
@@ -48,7 +48,7 @@ public class ConsoleUI {
                 """);
     }
     public void nowEditing(String s){
-        System.out.println("now editing" + s );
+        System.out.println("now editing " + s );
     }
 
 
@@ -85,9 +85,9 @@ public class ConsoleUI {
     public void printArray(Member member){
         String[] memberInformation = member.toString().split(";");
         for (String info : memberInformation) {
-            //System.out.printf(" %s %s %s , birthday : %s \n\t ");
             System.out.println(info);
         }
+        System.out.println("---------------------");
 
 
     }
