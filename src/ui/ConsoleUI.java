@@ -114,7 +114,7 @@ public class ConsoleUI {
     }
 
     public void printSubscriptionDuePayment(Member member) {
-        System.out.print("The payment for " + member.getFirstName() + ", ID: " + member.getUserID() + " of: " + member.getSubscription() + "kr.- is due: ");
+        System.out.print("Member first name: " + member.getFirstName() + ", ID: " + member.getUserID() + " Created: " + member.getCreationDate() + " Subscription amount: " + member.getSubscription() + "kr.- is due: ");
     }
 
     public void userPaidInTime(boolean paid) {
@@ -123,5 +123,9 @@ public class ConsoleUI {
         } else {
             System.out.println("User has yet to pay in time!");
         }
+    }
+
+    public void totalSubscriptionNumber(int subscriptions) {
+        System.out.println("Total amount of payment expected: " + subscriptions);
     }
 }

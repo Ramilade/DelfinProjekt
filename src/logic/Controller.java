@@ -23,7 +23,7 @@ public class Controller {
     private final Database DB;
     private final Scanner input;
     private int currentHighestId;
-    
+
 
     public Controller() {
         this.running = true;
@@ -40,7 +40,7 @@ public class Controller {
             UI.fileNotFoundErrorMessage();
 
         }
-        
+
         determineID();
         while (running) {
             UI.displayInputOptions();
@@ -80,11 +80,12 @@ public class Controller {
         }
 
     }
+
     private void inputEditMember() {
         UI.displayInputEditMemberChooseMember();
         int requestedID = Integer.parseInt(input.nextLine());
         for (Member member : members) {
-            if (member.getUserID()==requestedID) {
+            if (member.getUserID() == requestedID) {
                 UI.nowEditing(member);
                 System.out.println();
                 editMember(member);
@@ -133,13 +134,13 @@ public class Controller {
         currentHighestId++;
         try {
             member = new Member(
-                currentHighestId,
-                memberInformation.get("firstName"),
-                memberInformation.get("lastName"),
-                memberInformation.get("birthday"),
-                memberInformation.get("address"),
-                memberInformation.get("email"),
-                memberInformation.get("phoneNumber"));
+                    currentHighestId,
+                    memberInformation.get("firstName"),
+                    memberInformation.get("lastName"),
+                    memberInformation.get("birthday"),
+                    memberInformation.get("address"),
+                    memberInformation.get("email"),
+                    memberInformation.get("phoneNumber"));
         } catch (NumberFormatException e) {
             e.printStackTrace();
         } catch (IndexOutOfBoundsException e) {
@@ -175,10 +176,11 @@ public class Controller {
         }
 
     }
-    public void deleteMember(){
+
+    public void deleteMember() {
         int data = input.nextInt();
-        for (Member member : members ) {
-            if (data == member.getUserID()){
+        for (Member member : members) {
+            if (data == member.getUserID()) {
                 members.remove(member);
             }
         }
@@ -193,31 +195,55 @@ public class Controller {
         //Members skal også have passive
 
         String presentDate = LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        int subscriptions = 0;
 
         for (Member member : members) {
 
+            //Skal bruge paidInTime true/false til at bestemme om at member har betalt gennem alle årene.
+            //En For loop skal tjekke om at creationDate og currentDate har overskrævet hinanden, hvis ***nok ikke rigtig***
+            //currentDate overskriver creationDate, og at paidInTime er True, skal næste paymentTime være ét år over currentDate sat sammen med CreationDate.
+
+            subscriptions += member.getSubscription();
+
+            String memberCreationDate = member.getCreationDate();
+
             UI.printSubscriptionDuePayment(member);
 
-            String memberRest = member.getCreationDate().substring(0,6); //Erstat getBirthDay med getCreationDate
-            String memberYear = member.getCreationDate().substring(6,10);//Erstat getBirthDay med getCreationDate
+            String[] presentDateArray = presentDate.split("/");
 
-            int memberYearCal = Integer.parseInt(memberYear);
-            memberYearCal++;
-            memberYear = Integer.toString(memberYearCal);
+            String[] memberCreationDateArray = memberCreationDate.split("/");
 
-            String[] presentTimeSplit = presentDate.split("/");
 
-            String memberPaymentTime = memberRest + memberYear;
 
-            String[] memberPaymentTimeArray = memberPaymentTime.split("/");
+            int dayCreation = Integer.parseInt(memberCreationDateArray[0]);
+            int monthCreation = Integer.parseInt(memberCreationDateArray[1]);
+            int yearCreation = Integer.parseInt(memberCreationDateArray[2]);
 
-            int dayPresent = Integer.parseInt(presentTimeSplit[0]);
-            int monthPresent = Integer.parseInt(presentTimeSplit[1]);
-            int yearPresent = Integer.parseInt(presentTimeSplit[2]);
+            int dayPresent = Integer.parseInt(presentDateArray[0]);
+            int monthPresent = Integer.parseInt(presentDateArray[1]);
+            int yearPresent = Integer.parseInt(presentDateArray[2]);
 
-            int dayPayTime = Integer.parseInt(memberPaymentTimeArray[0]);
-            int monthPayTime = Integer.parseInt(memberPaymentTimeArray[1]);
-            int yearPayTime = Integer.parseInt(memberPaymentTimeArray[2]);
+            if (yearCreation < yearPresent) {
+
+            } else if (monthCreation < monthPresent) {
+
+            } else if (dayCreation < dayPresent) {
+
+            } else {
+
+            }
+/*
+            int presentYear = Integer.parseInt(presentDateArray[2]); //Plus 1 siden den springer et år over.
+            int paymentYear = presentYear++;
+
+
+
+            String paymentDate = paymentDateArray[0] + "-" + paymentDateArray[1] + "-" + paymentDateArray[2];
+
+
+            int dayPayTime = Integer.parseInt(paymentDateArray[0]);
+            int monthPayTime = Integer.parseInt(paymentDateArray[1]);
+            int yearPayTime = Integer.parseInt(paymentDateArray[2]);
 
             if (yearPresent > yearPayTime){
                 member.setHasPaid(false);
@@ -227,12 +253,17 @@ public class Controller {
                 member.setHasPaid(false);
             }
 
+
             if (member.hasPaid()){
                 UI.userPaidInTime(true);
             } else {
                 UI.userPaidInTime(false);
             }
         }
-    }
+        */
 
+            UI.totalSubscriptionNumber(subscriptions);
+        }
+
+    }
 }
