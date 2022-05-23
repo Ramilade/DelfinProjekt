@@ -35,8 +35,8 @@ public class Competition {
         this.ranking = ranking;
     }
 
-    public LocalDate getDate() {
-        return date;
+    public String getDate() {
+        return date.format(dtf);
     }
 
     public void setDate(LocalDate date) {
