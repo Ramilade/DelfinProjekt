@@ -2,7 +2,9 @@ package logic.competitor;
 
 import logic.Member;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class CompetitionMember extends Member {
 
@@ -30,6 +32,16 @@ public class CompetitionMember extends Member {
 
     public void addCompetitions(ArrayList<Competition> competition) {
         this.disciplines.addAll(disciplines);
+    }
+    public void addNewComp(){
+        Scanner comp = new Scanner(System.in);
+        System.out.println("place");
+        String place = comp.next();
+        System.out.println("rank");
+        int rank = comp.nextInt();
+        System.out.println("time");
+        double time = comp.nextDouble();
+        competitions.add(new Competition(place,rank, LocalDate.now(),time));
     }
 
     public ArrayList<Discipline> getDisciplines() {
