@@ -44,6 +44,7 @@ public class Member {
         this.phoneNumber = phoneNumber;
         this.subscription = calculateSub();
         this.paid = true;
+        this.datePaid = LocalDate.now();
         setStatus(status);
 
     }
