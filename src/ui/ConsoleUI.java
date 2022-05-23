@@ -124,22 +124,23 @@ public class ConsoleUI {
     }
 
     public void printSubscriptionDuePayment(Member member) {
-        System.out.print("Member first name: " + member.getFirstName() + ", ID: " + member.getUserID() + " Created: " + member.getCreationDate() + " Subscription amount: " + member.getSubscription() + "kr.- is due: " + member.getDatePaid() + " ");
+        System.out.print("Member first name: " + member.getFirstName() + ", ID: " + member.getUserID() + " Created: " + member.getCreationDate() + " Subscription amount: " + member.getSubscription() + "kr.- is due: ");
     }
 
     public void userPaidInTime(boolean paid) {
         if (paid){
-            System.out.print("User has paid in time");
+            System.out.print(" User has paid in time");
         } else {
-            System.out.print("User has yet to pay in time!");
+            System.out.print(" User has yet to pay in time!");
         }
     }
 
     public void totalSubscriptionNumber(int subscriptions) {
-        System.out.println("Total amount of payment expected: " + subscriptions);
+        System.out.println();
+        System.out.println(" Total amount of payment expected: " + subscriptions + "kr.-");
     }
 
-    public void printDateOfPay(int day, int month, int year) {
+    public void printDateOfPay(int year, String month, String day) {
         System.out.print(day + "/" + month + "/" + year);
     }
 

@@ -324,21 +324,22 @@ public class Controller {
                     String newDatePaid = dayCreation + "/" + monthCreation + "/" + yearPay;
                     member.setDatePaid(newDatePaid);
                 }
-                UI.printDateOfPay(yearPay, monthCreation, dayCreation);
+                UI.printDateOfPay(yearPay, memberCreationDateArray[1], memberCreationDateArray[0]);
                 UI.userPaidInTime(true);
             } else {
-                UI.printDateOfPay(yearPay, monthPay, dayPay);
+                UI.printDateOfPay(yearPay, memberPayDateArray[1], memberPayDateArray[0]);
                 if (yearPay < yearPresent) {
                     UI.userPaidInTime(false);
                 } else if (yearPay == yearPresent && monthPay < monthPresent) {
                     UI.userPaidInTime(false);
-                } else if (yearPay == yearPresent && monthPay == monthPresent && dayPay < dayPresent) {
+                } else if (yearPay == yearPresent && monthPay == monthPresent && dayPay < dayPresent) { //Genbruge denne igen?
                     UI.userPaidInTime(false);
                 } else if (yearPay == yearPresent && monthPay == monthPresent && dayPay == dayPresent) {
                     UI.userPaidInTime(false);
                 } else {
                     UI.userPaidInTime(true);
                 }
+            }
 
                 /*
 
@@ -389,4 +390,3 @@ public class Controller {
         }
 
     }
-}
