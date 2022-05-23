@@ -58,6 +58,10 @@ public class ConsoleUI {
                 5. Change email
                 6. Change phone number
                 7. Change member status
+                8. add competition
+                9. edit competition
+                10. add discipline
+                11. edit discipline
                 """);
     }
     public void nowEditing(Member member){
@@ -73,6 +77,10 @@ public class ConsoleUI {
             case 5 -> System.out.println("Now editing Email");
             case 6 -> System.out.println("Now editing Phone number");
             case 7 -> System.out.println("Now editing Member status(aktiv/passiv)");
+            case 8 -> System.out.println("Now adding competition");
+            case 9 -> System.out.println("Now editing competitions");
+            case 10 -> System.out.println("Now adding discipline");
+            case 11 -> System.out.println("Now editing disciplines");
 
         }
     }

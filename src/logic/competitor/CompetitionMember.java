@@ -2,8 +2,10 @@ package logic.competitor;
 
 import logic.Member;
 
+import java.net.Proxy;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Scanner;
 
 public class CompetitionMember extends Member {
@@ -51,5 +53,15 @@ public class CompetitionMember extends Member {
 
     public void addDisciplines(ArrayList<Discipline> disciplines) {
         this.disciplines.addAll(disciplines);
+    }
+    public void addNewDisci(){
+        Scanner disci = new Scanner(System.in);
+        System.out.println("type");
+        DisciplineType type = DisciplineType.valueOf(disci.next().toUpperCase());
+        System.out.println("record");
+        double record = disci.nextDouble();
+        //System.out.println("time");
+        //double time = disci.nextDouble();
+        disciplines.add(new Discipline(type,record,LocalDate.now()));
     }
 }

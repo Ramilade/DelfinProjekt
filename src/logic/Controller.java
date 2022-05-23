@@ -148,7 +148,17 @@ public class Controller {
                 UI.displayNowEditingChoiceDisplay(7);
                 member.setStatus(input.nextLine());
             }
-            case "8", "competitions" -> {
+            case "8", "add competition" -> {
+                UI.displayNowEditingChoiceDisplay(8);
+                competitionMember.addNewComp();
+            }case "9", "edit competitions" -> {
+                UI.displayNowEditingChoiceDisplay(9);
+                competitionMember.addNewComp();
+            }case "10", "add discipline" -> {
+                UI.displayNowEditingChoiceDisplay(10);
+                competitionMember.addNewDisci();
+            }case "11", "edit discipline" -> {
+                UI.displayNowEditingChoiceDisplay(11);
                 competitionMember.addNewComp();
             }
         }

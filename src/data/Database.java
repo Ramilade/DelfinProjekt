@@ -91,22 +91,6 @@ public class Database {
         }
 
     }
-    public void saveDiciplines(ArrayList<Discipline> disciplines, ArrayList<Member> members) throws FileNotFoundException {
-        PrintStream out = new PrintStream("Disciplines.csv");
-        for (int i = 0; i < disciplines.size(); i++) {
-            Member member = members.get(i);
-            Discipline discipline = disciplines.get(i);
-            out.print(member.getUserID());
-            out.print(";");
-            out.print(discipline.getType());
-            out.print(";");
-            out.print(discipline.getRecord());
-            out.print(";");
-            out.print(discipline.getDate());
-            out.print("\n");
-        }
-
-    }
     public ArrayList<Member> loadMembers() throws FileNotFoundException {
         ArrayList<Member> members = new ArrayList<>();
         File file = new File("Svømmeclub.csv");
