@@ -194,6 +194,7 @@ public class Controller {
 
     }
     public void deleteMember(){
+        UI.displayDeleteMember();
         int data = input.nextInt();
         for (Member member : members) {
             if (data == member.getUserID()) {

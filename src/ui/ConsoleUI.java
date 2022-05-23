@@ -36,6 +36,10 @@ public class ConsoleUI {
         System.out.println("Please input member ID to edit.");
     }
 
+    public void displayDeleteMember(){
+        System.out.println("Enter memberID you wish to delete");
+    }
+
 
     public void displayInputEditMember(){
         System.out.println("""
