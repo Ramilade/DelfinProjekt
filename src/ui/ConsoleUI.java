@@ -41,11 +41,11 @@ public class ConsoleUI {
     }
 
     public void displayMemberDeleted(){
-        System.out.println("MemberID has been deleted");
+        System.out.println("MemberID has been deleted\n-----------");
     }
 
     public void displayInvalidMemberID(){
-        System.out.println("You have entered an invalid memberID");
+        System.out.println("You have entered an invalid memberID\n------------");
     }
 
 
