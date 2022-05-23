@@ -33,11 +33,11 @@ public class ConsoleUI {
                 """);
     }
     public void displayInputEditMemberChooseMember(){
-        System.out.println("Please input member ID to edit.");
+        System.out.println("Please input member ID to edit: ");
     }
 
     public void displayDeleteMember(){
-        System.out.println("Enter memberID you wish to delete");
+        System.out.println("Enter memberID you wish to delete: ");
     }
 
     public void displayMemberDeleted(){
