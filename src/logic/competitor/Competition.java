@@ -1,9 +1,11 @@
 package logic.competitor;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class Competition {
 
+    private DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     private String place;
     private int ranking;
     private LocalDate date;

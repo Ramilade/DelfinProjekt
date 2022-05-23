@@ -4,6 +4,7 @@ import data.Database;
 import logic.comparators.BirthDayComparator;
 import logic.comparators.IDComparator;
 import logic.comparators.NameComparator;
+import logic.competitor.Competition;
 import logic.competitor.CompetitionMember;
 import logic.competitor.Discipline;
 import ui.ConsoleUI;
@@ -18,12 +19,13 @@ public class Controller {
     private ArrayList<Member> members;
     private ArrayList<CompetitionMember> competitionMembers;
     private ArrayList<Discipline> disciplines;
+    private ArrayList<Competition> competitions;
     private boolean running;
     private final ConsoleUI UI;
     private final Database DB;
     private final Scanner input;
     private int currentHighestId;
-    
+
 
     public Controller() {
         this.running = true;
@@ -36,13 +38,13 @@ public class Controller {
     public void run() {
         try {
             members = DB.loadMembers();
-            //competitionMembers = DB.loadCompetitionMembers(); < skal laves *ser på Bjørn*
+            competitionMembers = DB.loadCompetetiveMembers();
         } catch (FileNotFoundException e) {
             members = new ArrayList<Member>();
             UI.fileNotFoundErrorMessage();
 
         }
-        
+
         determineID();
         while (running) {
             UI.displayInputOptions();
@@ -51,6 +53,11 @@ public class Controller {
         }
         try {
             DB.saveMembers(members);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        try {
+            DB.saveCompetetiveMembers(competitionMembers);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -78,19 +85,38 @@ public class Controller {
 
     }
     private void inputEditMember() {
-        UI.displayInputEditMemberChooseMember();
-        int requestedID = Integer.parseInt(input.nextLine());
-        for (Member member : members) {
-            if (member.getUserID() == requestedID) {
-                UI.nowEditing(member);
-                System.out.println();
-                editMember(member);
+        System.out.println("enter competitive/member");
+        String option = input.nextLine();
+        switch (option){
+            case "1","competitive" -> {
+                UI.displayInputEditMemberChooseMember();
+                int requestedID = Integer.parseInt(input.nextLine());
+                for (CompetitionMember competitionMember : competitionMembers) {
+                    if (competitionMember.getUserID() == requestedID) {
+                        UI.nowEditing(competitionMember);
+                        System.out.println();
+                        editMember(competitionMember,competitionMember);
+                    }
+                }
+
             }
-        }
+            case "2","member" -> {
+                UI.displayInputEditMemberChooseMember();
+                int requestedID = Integer.parseInt(input.nextLine());
+                for (Member member : members) {
+                    if (member.getUserID() == requestedID) {
+                        UI.nowEditing(member);
+                        System.out.println();
+                        editMember(member, null);
+                    }
+                }
+            }
 
     }
 
-    private void editMember(Member member) {
+    }
+
+    private void editMember(Member member, CompetitionMember competitionMember) {
         UI.displayInputEditMember();
         String editOption = input.nextLine();
         switch (editOption) {
@@ -122,10 +148,13 @@ public class Controller {
                 UI.displayNowEditingChoiceDisplay(7);
                 member.setStatus(input.nextLine());
             }
+            case "8", "competitions" -> {
+                competitionMember.addNewComp();
+            }
         }
 
 
-    }
+            }
 
     private void inputAddMember() {
         HashMap<MemberInformation, String> memberInformationMap = UI.askForMemberInformation();

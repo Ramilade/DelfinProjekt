@@ -26,12 +26,13 @@ public class CompetitionMember extends Member {
         competitions = new ArrayList<>();
     }
 
+
     public ArrayList<Competition> getCompetitions() {
         return competitions;
     }
 
     public void addCompetitions(ArrayList<Competition> competition) {
-        this.disciplines.addAll(disciplines);
+        this.competitions.addAll(competition);
     }
     public void addNewComp(){
         Scanner comp = new Scanner(System.in);

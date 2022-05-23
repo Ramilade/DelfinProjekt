@@ -40,7 +40,9 @@ public class Database {
 
     }
     public void saveCompetetiveMembers(ArrayList<CompetitionMember> competitionMembers) throws FileNotFoundException {
-        PrintStream out = new PrintStream("Competetiv.csv");
+        PrintStream out = new PrintStream("CompetetionMembers.csv");
+        PrintStream out2 = new PrintStream("Disciplines.csv");
+        PrintStream out3 = new PrintStream("Competitions.csv");
         for (int i = 0; i < competitionMembers.size(); i++) {
             CompetitionMember competitionMember = competitionMembers.get(i);
             out.print(competitionMember.getUserID());
@@ -56,12 +58,13 @@ public class Database {
             out.print(competitionMember.getEmail());
             out.print(";");
             out.print(competitionMember.getPhoneNumber());
+            out.print(";");
+            out.print(competitionMember.getActive());
             out.print("\n");
            ArrayList<Discipline> disciplines = competitionMember.getDisciplines();
            ArrayList<Competition> competitions = competitionMember.getCompetitions();
 
             for (Discipline discipline : disciplines) {
-                PrintStream out2 = new PrintStream("Discipline.csv");
                 out2.print(competitionMember.getUserID());
                 out2.print(";");
                 out2.print(discipline.getType());
@@ -73,7 +76,6 @@ public class Database {
 
             }
             for (Competition competition : competitions) {
-                PrintStream out3 = new PrintStream("Competitions.csv");
                 out3.print(competitionMember.getUserID());
                 out3.print(";");
                 out3.print(competition.getPlace());
@@ -125,9 +127,9 @@ public class Database {
         }
         return members;
     }
-    public ArrayList<Member> loadCompetetiveMembers() throws FileNotFoundException {
-        ArrayList<Member> members = new ArrayList<>();
-        File file = new File("Competetive.csv");
+    public ArrayList<CompetitionMember> loadCompetetiveMembers() throws FileNotFoundException {
+        ArrayList<CompetitionMember> competitionMembers = new ArrayList<>();
+        File file = new File("CompetetionMembers.csv");
         Scanner sc = new Scanner(file);
         while (sc.hasNextLine()){
             Scanner find = new Scanner(sc.nextLine());
@@ -141,13 +143,14 @@ public class Database {
             String email = find.next();
             String mobile = find.next();
             String status = find.next();
-            loadDisciplines(userID);
             CompetitionMember member  = new CompetitionMember(userID,firstName,lastName,
                 birthday,address,email,mobile,status);
-            members.add(member);
+            competitionMembers.add(member);
+            member.addDisciplines(loadDisciplines(userID));
+            member.addCompetitions(loadCompetitions(userID));
 
         }
-        return members;
+        return competitionMembers;
     }
     public ArrayList<Discipline> loadDisciplines(int userID) throws FileNotFoundException {
         ArrayList<Discipline> disciplines = new ArrayList<>();
