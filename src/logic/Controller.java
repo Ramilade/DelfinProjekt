@@ -118,6 +118,10 @@ public class Controller {
                 UI.displayNowEditingChoiceDisplay(6);
                 member.setPhoneNumber(input.nextLine());
             }
+            case "7", "member status" -> {
+                UI.displayNowEditingChoiceDisplay(7);
+                member.setStatus(input.nextLine());
+            }
         }
 
 

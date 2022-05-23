@@ -45,6 +45,7 @@ public class ConsoleUI {
                 4. Change address
                 5. Change email
                 6. Change phone number
+                7. Change member status
                 """);
     }
     public void nowEditing(Member member){
@@ -59,6 +60,7 @@ public class ConsoleUI {
             case 4 -> System.out.println("Now editing Address");
             case 5 -> System.out.println("Now editing Email");
             case 6 -> System.out.println("Now editing Phone number");
+            case 7 -> System.out.println("Now editing Member status(aktiv/passiv)");
 
         }
     }
