@@ -298,10 +298,6 @@ public class Controller {
 
         for (Member member : members) {
 
-            //Skal bruge paidInTime true/false til at bestemme om at member har betalt gennem alle årene.
-            //En For loop skal tjekke om at creationDate og currentDate har overskrævet hinanden, hvis ***nok ikke rigtig***
-            //currentDate overskriver creationDate, og at paidInTime er True, skal næste paymentTime være ét år over currentDate sat sammen med CreationDate.
-
             subscriptions += member.getSubscription();
 
             String memberPayDate = member.getDatePaid();
@@ -315,10 +311,6 @@ public class Controller {
 
             String[] memberCreationDateArray = memberCreation.split("/");
 
-            int dayCreation = Integer.parseInt(memberCreationDateArray[0]);
-            int monthCreation = Integer.parseInt(memberCreationDateArray[1]);
-
-
             int dayPay = Integer.parseInt(memberPayDateArray[0]);
             int monthPay = Integer.parseInt(memberPayDateArray[1]);
             int yearPay = Integer.parseInt(memberPayDateArray[2]);
@@ -329,74 +321,22 @@ public class Controller {
 
 
             if (member.hasPaid()) {
-                if (yearPay < yearPresent) {
+                if (yearPay < yearPresent || (yearPay == yearPresent && monthPay < monthPresent) || (yearPay == yearPresent && monthPay == monthPresent && dayPay < dayPresent) || (yearPay == yearPresent && monthPay == monthPresent && dayPay == dayPresent)) {
                     yearPay++;
-                    String newDatePaid = dayCreation + "/" + monthCreation + "/" + yearPay;
+                    String newDatePaid = memberCreationDateArray[0] + "/" + memberCreationDateArray[1] + "/" + yearPay;
                     member.setDatePaid(newDatePaid);
                 }
                 UI.printDateOfPay(yearPay, memberCreationDateArray[1], memberCreationDateArray[0]);
                 UI.userPaidInTime(true);
             } else {
                 UI.printDateOfPay(yearPay, memberPayDateArray[1], memberPayDateArray[0]);
-                if (yearPay < yearPresent) {
-                    UI.userPaidInTime(false);
-                } else if (yearPay == yearPresent && monthPay < monthPresent) {
-                    UI.userPaidInTime(false);
-                } else if (yearPay == yearPresent && monthPay == monthPresent && dayPay < dayPresent) { //Genbruge denne igen?
-                    UI.userPaidInTime(false);
-                } else if (yearPay == yearPresent && monthPay == monthPresent && dayPay == dayPresent) {
+                if (yearPay < yearPresent || (yearPay == yearPresent && monthPay < monthPresent) || (yearPay == yearPresent && monthPay == monthPresent && dayPay < dayPresent) || (yearPay == yearPresent && monthPay == monthPresent && dayPay == dayPresent)){
                     UI.userPaidInTime(false);
                 } else {
                     UI.userPaidInTime(true);
                 }
             }
-
-                /*
-
-                if (yearPay < yearPresent) {
-                    member.setHasPaid(false);
-                } else if (yearPay == yearPresent && monthPay < monthPresent) {
-                    member.setHasPaid(false);
-                } else if (yearPay == yearPresent && monthPay == monthPresent && dayPay < dayPresent) {
-                    member.setHasPaid(false);
-                } else if (yearPay == yearPresent && monthPay == monthPresent && dayPay == dayPresent) {
-                    member.setHasPaid(false);
-                } else {
-                    member.setHasPaid(true);
-                }
-
-            int presentYear = Integer.parseInt(presentDateArray[2]); //Plus 1 siden den springer et år over.
-            int paymentYear = presentYear++;
-
-
-
-            String paymentDate = paymentDateArray[0] + "-" + paymentDateArray[1] + "-" + paymentDateArray[2];
-
-
-            int dayPayTime = Integer.parseInt(paymentDateArray[0]);
-            int monthPayTime = Integer.parseInt(paymentDateArray[1]);
-            int yearPayTime = Integer.parseInt(paymentDateArray[2]);
-
-            if (yearPresent > yearPayTime){
-                member.setHasPaid(false);
-            } else if (monthPresent > monthPayTime){
-                member.setHasPaid(false);
-            } else if (dayPresent > dayPayTime){
-                member.setHasPaid(false);
-            }
-
-
-            if (member.hasPaid()){
-                UI.userPaidInTime(true);
-            } else {
-                UI.userPaidInTime(false);
-            }
         }
-        */
-
-            }
-            UI.totalSubscriptionNumber(subscriptions);
-
-        }
-
+        UI.totalSubscriptionNumber(subscriptions);
     }
+}

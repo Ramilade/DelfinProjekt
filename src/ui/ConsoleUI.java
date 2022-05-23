@@ -137,9 +137,9 @@ public class ConsoleUI {
 
     public void userPaidInTime(boolean paid) {
         if (paid){
-            System.out.print(" User has paid in time");
+            System.out.println(" User has paid in time");
         } else {
-            System.out.print(" User has yet to pay in time!");
+            System.out.println(" User has yet to pay in time!");
         }
     }
 
