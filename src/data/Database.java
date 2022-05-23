@@ -6,7 +6,6 @@ import logic.competitor.CompetitionMember;
 import logic.competitor.Discipline;
 import logic.competitor.DisciplineType;
 
-import javax.swing.text.DateFormatter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
@@ -14,7 +13,6 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Locale;
-import java.util.Objects;
 import java.util.Scanner;
 
 public class Database {
@@ -35,6 +33,8 @@ public class Database {
             out.print(member.getEmail());
             out.print(";");
             out.print(member.getPhoneNumber());
+            out.print(";");
+            out.print(member.getActive());
             out.print("\n");
         }
 

@@ -53,6 +53,8 @@ public class Member {
     }
 
 
+
+
     public String getDatePaid() {
         return datePaid.format(dtf);
     }
@@ -143,6 +145,10 @@ public class Member {
 
     public int getAge() {
         return Period.between(birthday,LocalDate.now()).getYears();
+    }
+
+    public String getActive () {
+        return String.valueOf(isActive());
     }
 
     public boolean isActive() {
