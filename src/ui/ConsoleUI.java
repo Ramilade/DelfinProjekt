@@ -79,7 +79,7 @@ public class ConsoleUI {
             } else {
                 name = memberInformation[i].name().toLowerCase();
             }
-            System.out.printf("(Step %s/%s) Put in '%s'%s : ",i+1,memberInformation.length, name, memberInformation[i].getSpecificInformation());
+            System.out.printf("(Step %s/%s) Enter '%s'%s : ",i+1,memberInformation.length, name, memberInformation[i].getSpecificInformation());
             listOfMemberInformation.put(memberInformation[i],userInput.nextLine());
         }
 
