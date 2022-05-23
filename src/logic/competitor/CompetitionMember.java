@@ -42,9 +42,11 @@ public class CompetitionMember extends Member {
         String place = comp.next();
         System.out.println("rank");
         int rank = comp.nextInt();
+        System.out.println("date");
+        String date = comp.next();
         System.out.println("time");
         double time = comp.nextDouble();
-        competitions.add(new Competition(place,rank, LocalDate.now(),time));
+        competitions.add(new Competition(place,rank, date,time));
     }
 
     public ArrayList<Discipline> getDisciplines() {
@@ -60,8 +62,8 @@ public class CompetitionMember extends Member {
         DisciplineType type = DisciplineType.valueOf(disci.next().toUpperCase());
         System.out.println("record");
         double record = disci.nextDouble();
-        //System.out.println("time");
-        //double time = disci.nextDouble();
-        disciplines.add(new Discipline(type,record,LocalDate.now()));
+        System.out.println("date");
+        String date = disci.next();
+        disciplines.add(new Discipline(type,record,date));
     }
 }

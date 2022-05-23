@@ -12,10 +12,10 @@ public class Competition {
     private double time;
 
 
-    public Competition(String place, int ranking, LocalDate date, double time) {
+    public Competition(String place, int ranking, String date, double time) {
         this.place = place;
         this.ranking = ranking;
-        this.date = date;
+        setDate(date);
         this.time = time;
     }
 
@@ -39,8 +39,8 @@ public class Competition {
         return date.format(dtf);
     }
 
-    public void setDate(LocalDate date) {
-        this.date = date;
+    public void setDate(String date) {
+        this.date = LocalDate.parse(date,dtf);
     }
 
     public double getTime() {

@@ -148,7 +148,7 @@ public class Database {
             if (id == userID){
             DisciplineType type = DisciplineType.valueOf(find.next());
             double record = find.nextDouble();
-            LocalDate date = LocalDate.parse(find.next(),DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+            String date = find.next();
             disciplines.add(new Discipline(type,record,date));
             }
 
@@ -167,7 +167,7 @@ public class Database {
             if (id == userID){
             String place = find.next();
             int ranking = find.nextInt();
-            LocalDate date = LocalDate.parse(find.next(),DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+            String date = find.next();
             double time = find.nextDouble();
             competitions.add(new Competition(place,ranking,date,time));
             }
