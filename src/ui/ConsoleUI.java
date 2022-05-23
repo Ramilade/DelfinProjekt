@@ -40,6 +40,14 @@ public class ConsoleUI {
         System.out.println("Enter memberID you wish to delete");
     }
 
+    public void displayMemberDeleted(){
+        System.out.println("MemberID has been deleted");
+    }
+
+    public void displayInvalidMemberID(){
+        System.out.println("You have entered an invalid memberID");
+    }
+
 
     public void displayInputEditMember(){
         System.out.println("""

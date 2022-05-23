@@ -194,13 +194,23 @@ public class Controller {
 
     }
     public void deleteMember(){
+        Member found = null;
         UI.displayDeleteMember();
         int data = input.nextInt();
         for (Member member : members) {
             if (data == member.getUserID()) {
-                members.remove(member);
+                found = member;
+                UI.displayMemberDeleted();
             }
         }
+
+        if (found == null){
+            UI.displayInvalidMemberID();
+        } else {
+            members.remove(found);
+        }
+
+
     }
 
     private void inputCheckRankings() {
