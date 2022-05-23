@@ -33,7 +33,19 @@ public class ConsoleUI {
                 """);
     }
     public void displayInputEditMemberChooseMember(){
-        System.out.println("Please input member ID to edit.");
+        System.out.println("Please input member ID to edit: ");
+    }
+
+    public void displayDeleteMember(){
+        System.out.println("Enter memberID you wish to delete: ");
+    }
+
+    public void displayMemberDeleted(){
+        System.out.println("MemberID has been deleted\n-----------");
+    }
+
+    public void displayInvalidMemberID(){
+        System.out.println("You have entered an invalid memberID\n------------");
     }
 
 
@@ -45,6 +57,7 @@ public class ConsoleUI {
                 4. Change address
                 5. Change email
                 6. Change phone number
+                7. Change member status
                 """);
     }
     public void nowEditing(Member member){
@@ -59,6 +72,7 @@ public class ConsoleUI {
             case 4 -> System.out.println("Now editing Address");
             case 5 -> System.out.println("Now editing Email");
             case 6 -> System.out.println("Now editing Phone number");
+            case 7 -> System.out.println("Now editing Member status(aktiv/passiv)");
 
         }
     }
@@ -110,18 +124,47 @@ public class ConsoleUI {
     }
 
     public void printSubscriptionDuePayment(Member member) {
-        System.out.print("Member first name: " + member.getFirstName() + ", ID: " + member.getUserID() + " Created: " + member.getCreationDate() + " Subscription amount: " + member.getSubscription() + "kr.- is due: ");
+        System.out.print("Member first name: " + member.getFirstName() + ", ID: " + member.getUserID() + " Created: " + member.getCreationDate() + " Subscription amount: " + member.getSubscription() + "kr.- is due: " + member.getDatePaid() + " ");
     }
 
     public void userPaidInTime(boolean paid) {
         if (paid){
-            System.out.println("User has paid in time");
+            System.out.print("User has paid in time");
         } else {
-            System.out.println("User has yet to pay in time!");
+            System.out.print("User has yet to pay in time!");
         }
     }
 
     public void totalSubscriptionNumber(int subscriptions) {
         System.out.println("Total amount of payment expected: " + subscriptions);
+    }
+
+    public void printDateOfPay(int day, int month, int year) {
+        System.out.print(day + "/" + month + "/" + year);
+    }
+
+    public void printInputCaseCheckSubscription(){
+        System.out.println("""
+                1. View subscriptions
+                2. Change a member's subscription status
+                """);
+    }
+
+    public void printSubscriptionCaseChangeSub(){
+        System.out.println("""
+                Input the member's ID you want to change. (NOTE: Have they paid their subscription within this year?)
+                """);
+    }
+
+    public void printSubscriptionCaseChosenID(Member member){
+        System.out.println("Changing user: " + member.getFirstName() + " with ID: " + member.getUserID() + " with subscription date: " + member.getDatePaid() + "to ? (inactive or active)");
+    }
+
+    public void printCantFindMember() {
+        System.out.println("Cannot find member with requested ID!");
+    }
+
+    public void notValidChoice() {
+        System.out.println("Not a valid choice!");
     }
 }

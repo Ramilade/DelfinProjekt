@@ -118,6 +118,10 @@ public class Controller {
                 UI.displayNowEditingChoiceDisplay(6);
                 member.setPhoneNumber(input.nextLine());
             }
+            case "7", "member status" -> {
+                UI.displayNowEditingChoiceDisplay(7);
+                member.setStatus(input.nextLine());
+            }
         }
 
 
@@ -135,31 +139,32 @@ public class Controller {
     }
 
 
-
-    public void addMember(HashMap<MemberInformation,String> information) {
+    public void addMember(HashMap<MemberInformation, String> information) {
         Member member = new Member(
-            currentHighestId,
-            information.get(MemberInformation.FIRST_NAME),
-            information.get(MemberInformation.LAST_NAME),
-            information.get(MemberInformation.BIRTHDAY),
-            information.get(MemberInformation.ADDRESS),
-            information.get(MemberInformation.EMAIL),
-            information.get(MemberInformation.PHONE_NUMBER),
-            information.get(MemberInformation.STATUS));
+                currentHighestId,
+                information.get(MemberInformation.FIRST_NAME),
+                information.get(MemberInformation.LAST_NAME),
+                information.get(MemberInformation.BIRTHDAY),
+                information.get(MemberInformation.ADDRESS),
+                information.get(MemberInformation.EMAIL),
+                information.get(MemberInformation.PHONE_NUMBER),
+                information.get(MemberInformation.STATUS));
         members.add(member);
     }
-    public void addCompetitionMember(HashMap<MemberInformation,String> information) {
+
+    public void addCompetitionMember(HashMap<MemberInformation, String> information) {
         CompetitionMember member = new CompetitionMember(
-            currentHighestId,
-            information.get(MemberInformation.FIRST_NAME),
-            information.get(MemberInformation.LAST_NAME),
-            information.get(MemberInformation.BIRTHDAY),
-            information.get(MemberInformation.ADDRESS),
-            information.get(MemberInformation.EMAIL),
-            information.get(MemberInformation.PHONE_NUMBER),
-            information.get(MemberInformation.STATUS));
+                currentHighestId,
+                information.get(MemberInformation.FIRST_NAME),
+                information.get(MemberInformation.LAST_NAME),
+                information.get(MemberInformation.BIRTHDAY),
+                information.get(MemberInformation.ADDRESS),
+                information.get(MemberInformation.EMAIL),
+                information.get(MemberInformation.PHONE_NUMBER),
+                information.get(MemberInformation.STATUS));
         competitionMembers.add(member);
     }
+
     private void inputShowMember() {
         ArrayList<Member> members = new ArrayList<>();
         members.addAll(this.members);
@@ -190,12 +195,22 @@ public class Controller {
 
     }
     public void deleteMember(){
-        int data = input.nextInt();
+        Member found = null;
+        UI.displayDeleteMember();
+        int data = Integer.parseInt(input.nextLine());
         for (Member member : members) {
             if (data == member.getUserID()) {
-                members.remove(member);
+                found = member;
+                UI.displayMemberDeleted();
             }
         }
+        if (found == null){
+            UI.displayInvalidMemberID();
+        } else {
+            members.remove(found);
+        }
+
+
     }
 
     private void inputCheckRankings() {
@@ -206,7 +221,36 @@ public class Controller {
 
     }
 
-    private void inputCheckSubscriptions() {
+    public void inputCheckSubscriptions() {
+        UI.printInputCaseCheckSubscription();
+        String editOption = input.nextLine();
+        switch (editOption) {
+            case "1" -> inputCheckSubscriptionsView();
+            case "2" -> inputCheckSubscriptionsChangeMember();
+        }
+    }
+
+    public void inputCheckSubscriptionsChangeMember() {
+        UI.printSubscriptionCaseChangeSub();
+        int requestedID = Integer.parseInt(input.nextLine());
+        for (Member member : members) {
+            if (member.getUserID() == requestedID) {
+                UI.printSubscriptionCaseChosenID(member);
+
+                String newStatus = input.next();
+                switch (newStatus) {
+                    case "inactive" -> member.setHasPaid(false);
+                    case "active" -> member.setHasPaid(true);
+                    default -> UI.notValidChoice();
+                }
+            } else {
+                UI.printCantFindMember();
+            }
+        }
+    }
+
+    public void inputCheckSubscriptionsView() {
+
         //Members skal have data for indmeldingsdato. Plus 1 år til hvert betaling.
         //Members skal også have passive
 
@@ -221,33 +265,66 @@ public class Controller {
 
             subscriptions += member.getSubscription();
 
-            String memberCreationDate = member.getCreationDate();
+            String memberPayDate = member.getDatePaid();
+            String memberCreation = member.getCreationDate();
 
             UI.printSubscriptionDuePayment(member);
 
             String[] presentDateArray = presentDate.split("/");
 
-            String[] memberCreationDateArray = memberCreationDate.split("/");
+            String[] memberPayDateArray = memberPayDate.split("/");
 
+            String[] memberCreationDateArray = memberCreation.split("/");
 
             int dayCreation = Integer.parseInt(memberCreationDateArray[0]);
             int monthCreation = Integer.parseInt(memberCreationDateArray[1]);
-            int yearCreation = Integer.parseInt(memberCreationDateArray[2]);
+
+
+            int dayPay = Integer.parseInt(memberPayDateArray[0]);
+            int monthPay = Integer.parseInt(memberPayDateArray[1]);
+            int yearPay = Integer.parseInt(memberPayDateArray[2]);
 
             int dayPresent = Integer.parseInt(presentDateArray[0]);
             int monthPresent = Integer.parseInt(presentDateArray[1]);
             int yearPresent = Integer.parseInt(presentDateArray[2]);
 
-            if (yearCreation < yearPresent) {
 
-            } else if (monthCreation < monthPresent) {
-
-            } else if (dayCreation < dayPresent) {
-
+            if (member.hasPaid()) {
+                if (yearPay < yearPresent) {
+                    yearPay++;
+                    String newDatePaid = dayCreation + "/" + monthCreation + "/" + yearPay;
+                    member.setDatePaid(newDatePaid);
+                }
+                UI.printDateOfPay(yearPay, monthCreation, dayCreation);
+                UI.userPaidInTime(true);
             } else {
+                UI.printDateOfPay(yearPay, monthPay, dayPay);
+                if (yearPay < yearPresent) {
+                    UI.userPaidInTime(false);
+                } else if (yearPay == yearPresent && monthPay < monthPresent) {
+                    UI.userPaidInTime(false);
+                } else if (yearPay == yearPresent && monthPay == monthPresent && dayPay < dayPresent) {
+                    UI.userPaidInTime(false);
+                } else if (yearPay == yearPresent && monthPay == monthPresent && dayPay == dayPresent) {
+                    UI.userPaidInTime(false);
+                } else {
+                    UI.userPaidInTime(true);
+                }
 
-            }
-/*
+                /*
+
+                if (yearPay < yearPresent) {
+                    member.setHasPaid(false);
+                } else if (yearPay == yearPresent && monthPay < monthPresent) {
+                    member.setHasPaid(false);
+                } else if (yearPay == yearPresent && monthPay == monthPresent && dayPay < dayPresent) {
+                    member.setHasPaid(false);
+                } else if (yearPay == yearPresent && monthPay == monthPresent && dayPay == dayPresent) {
+                    member.setHasPaid(false);
+                } else {
+                    member.setHasPaid(true);
+                }
+
             int presentYear = Integer.parseInt(presentDateArray[2]); //Plus 1 siden den springer et år over.
             int paymentYear = presentYear++;
 
@@ -277,7 +354,9 @@ public class Controller {
         }
         */
 
+            }
             UI.totalSubscriptionNumber(subscriptions);
+
         }
 
     }
