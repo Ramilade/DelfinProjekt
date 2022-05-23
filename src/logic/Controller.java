@@ -65,11 +65,6 @@ public class Controller {
         }
     }
 
-    public void viewSubscription() {
-        System.out.println("");
-    }
-
-
     private void select(String input) {
         switch (input) {
             case "1", "add member" -> inputAddMember();
@@ -131,12 +126,12 @@ public class Controller {
 
     private void inputAddMember() {
         HashMap<MemberInformation, String> memberInformationMap = UI.askForMemberInformation();
+        currentHighestId++;
         if (memberInformationMap.containsValue("konkurrent")) {
             addCompetitionMember(memberInformationMap);
         } else {
             addMember(memberInformationMap);
         }
-        currentHighestId++;
         UI.printUserHasBeenCreated();
     }
 
@@ -206,7 +201,11 @@ public class Controller {
     }
 
     private void inputCheckRankings() {
-        System.out.println("TODO");
+        for (CompetitionMember competitionMember : competitionMembers) {
+
+        }
+
+
     }
 
     private void inputCheckSubscriptions() {

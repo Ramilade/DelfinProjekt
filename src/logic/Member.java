@@ -44,12 +44,13 @@ public class Member {
         this.phoneNumber = phoneNumber;
         this.subscription = calculateSub();
         this.paid = true;
-
+        setStatus(status);
 
     }
 
     public void setStatus(String status) {
-        active = status.equals("aktiv");
+
+        active = status.equals("true") || status.equals("aktiv");
     }
 
 
