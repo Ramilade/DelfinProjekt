@@ -23,7 +23,7 @@ public class Controller {
     private final Database DB;
     private final Scanner input;
     private int currentHighestId;
-
+    
 
     public Controller() {
         this.running = true;
@@ -42,7 +42,7 @@ public class Controller {
             UI.fileNotFoundErrorMessage();
 
         }
-
+        
         determineID();
         while (running) {
             UI.displayInputOptions();
@@ -82,7 +82,6 @@ public class Controller {
         }
 
     }
-
     private void inputEditMember() {
         UI.displayInputEditMemberChooseMember();
         int requestedID = Integer.parseInt(input.nextLine());
@@ -195,8 +194,7 @@ public class Controller {
         }
 
     }
-
-    public void deleteMember() {
+    public void deleteMember(){
         int data = input.nextInt();
         for (Member member : members) {
             if (data == member.getUserID()) {
