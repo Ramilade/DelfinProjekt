@@ -97,7 +97,7 @@ public class Controller {
                         System.out.println();
                         editMember(competitionMember,competitionMember);
                     }
-                }
+                } UI.displayIncorrectMemberType();
 
             }
             case "2","member" -> {

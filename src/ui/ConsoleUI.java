@@ -73,6 +73,9 @@ public class ConsoleUI {
                             2. Non-competitive member
                             """);
     }
+    public void displayIncorrectMemberType(){
+        System.out.println("Invalid member type - go back and pick another/opposite member type!\n");
+    }
     public void nowEditing(Member member){
         System.out.println("Now editing: " + member.getUserID());
     }
