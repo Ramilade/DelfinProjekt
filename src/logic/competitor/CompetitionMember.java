@@ -66,4 +66,14 @@ public class CompetitionMember extends Member {
         String date = disci.next();
         disciplines.add(new Discipline(type,record,date));
     }
+
+    public Discipline findDiscipline(DisciplineType type) {
+        Discipline discipline = null;
+        for (Discipline disc :disciplines) {
+            if (disc.getType() == type) {
+                discipline = disc;
+            }
+        }
+        return discipline;
+    }
 }

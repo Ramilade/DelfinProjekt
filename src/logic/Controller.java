@@ -4,15 +4,18 @@ import data.Database;
 import logic.comparators.BirthDayComparator;
 import logic.comparators.IDComparator;
 import logic.comparators.NameComparator;
+import logic.comparators.ResultComparator;
 import logic.competitor.Competition;
 import logic.competitor.CompetitionMember;
 import logic.competitor.Discipline;
+import logic.competitor.RankingGroup;
 import ui.ConsoleUI;
 import ui.MemberInformation;
 
 import java.io.FileNotFoundException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.*;
 
 public class Controller {
@@ -74,7 +77,15 @@ public class Controller {
 
     private void select(String input) {
         switch (input) {
-            case "1", "add member" -> inputAddMember();
+            case "1", "add member" -> {
+                try {
+                    inputAddMember();
+
+                } catch (DateTimeParseException e) {
+                    UI.displayWrongDateFormat(e.getParsedString());
+                }
+
+            }
             case "2", "edit member" -> inputEditMember();
             case "3", "show members" -> inputShowMember();
             case "4", "show competitions" -> inputShowCompetitions();
@@ -99,7 +110,7 @@ public class Controller {
                         System.out.println();
                         editMember(competitionMember,competitionMember);
                     }
-                }
+                } //UI.displayIncorrectMemberType();
 
             }
             case "2","member" -> {
@@ -292,11 +303,48 @@ public class Controller {
 
     }
 
+    private HashMap<RankingGroup,ArrayList<CompetitionMember>> initializeRanking() {
+        HashMap<RankingGroup,ArrayList<CompetitionMember>> rankings = new HashMap<>();
+        for (RankingGroup rankingGroup : RankingGroup.values()) {
+            rankings.put(rankingGroup,new ArrayList<>());
+
+        }
+        return rankings;
+
+    }
     private void inputCheckRankings() {
+
+        HashMap<RankingGroup,ArrayList<CompetitionMember>> rankings = initializeRanking();
+
         for (CompetitionMember competitionMember : competitionMembers) {
+            if(competitionMember.getAge() < 18) {
+                for (Discipline discipline : competitionMember.getDisciplines()) {
+                    switch (discipline.getType()) {
+                        case CRAWL -> rankings.get(RankingGroup.JUNIOR_CRAWL).add(competitionMember);
+                        case BRYSTSWØMNING -> rankings.get(RankingGroup.JUNIOR_BRYSTSVØMNING).add(competitionMember);
+                        case RYGCRAWL -> rankings.get(RankingGroup.JUNIOR_RYGCRAWL).add(competitionMember);
+                        case BUTTERFLY -> rankings.get(RankingGroup.JUNIOR_BUTTERFLY).add(competitionMember);
+                    }
+                }
+
+            } else {
+                for (Discipline discipline : competitionMember.getDisciplines()) {
+                    switch (discipline.getType()) {
+                        case CRAWL -> rankings.get(RankingGroup.SENIOR_CRAWL).add(competitionMember);
+                        case BRYSTSWØMNING -> rankings.get(RankingGroup.SENIOR_BRYSTSVØMNING).add(competitionMember);
+                        case RYGCRAWL -> rankings.get(RankingGroup.SENIOR_RYGCRAWL).add(competitionMember);
+                        case BUTTERFLY -> rankings.get(RankingGroup.SENIOR_BUTTERFLY).add(competitionMember);
+                    }
+                }
+            }
+        }
+
+        for (Map.Entry<RankingGroup,ArrayList<CompetitionMember>> set : rankings.entrySet()) {
+            Collections.sort(set.getValue(),new ResultComparator(set.getKey()));
 
         }
 
+        UI.displayRankings(rankings);
 
     }
 
@@ -332,21 +380,17 @@ public class Controller {
 }
 
 
-    public void inputCheckSubscriptionsView() {
+    public void inputCheckSubscriptionsView(){
 
         ArrayList<Member> membersSubscription = new ArrayList<>();
         membersSubscription.addAll(this.members);
         membersSubscription.addAll(competitionMembers);
 
-        //Members skal have data for indmeldingsdato. Plus 1 år til hvert betaling.
-        //Members skal også have passive
-
         String presentDate = LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
         int subscriptions = 0;
 
-        for (Member member : membersSubscription) {
 
-            System.out.println(member.getSubscription());
+        for (Member member : membersSubscription) {
 
             subscriptions += member.getSubscription();
 
@@ -368,7 +412,7 @@ public class Controller {
 
 
             if (member.hasPaid()) {
-                if (yearPay < yearPresent || (yearPay == yearPresent && monthPay < monthPresent) || (yearPay == yearPresent && monthPay == monthPresent && dayPay < dayPresent) || (yearPay == yearPresent && monthPay == monthPresent && dayPay == dayPresent)) {
+                if (yearPay < yearPresent || (yearPay == yearPresent && monthPay < monthPresent) || (yearPay == yearPresent && monthPay == monthPresent && dayPay < dayPresent) || (yearPay == yearPresent && monthPay == monthPresent && dayPay == dayPresent)){
                     yearPay++;
                     String newDatePaid = memberPayDateArray[0] + "/" + memberPayDateArray[1] + "/" + yearPay;
                     member.setDatePaid(newDatePaid);

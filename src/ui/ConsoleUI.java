@@ -1,11 +1,13 @@
 package ui;
 
 import logic.Member;
+import logic.competitor.CompetitionMember;
+import logic.competitor.Discipline;
+import logic.competitor.RankingGroup;
 import logic.competitor.Competition;
 import logic.competitor.Discipline;
 
-import java.util.HashMap;
-import java.util.Scanner;
+import java.util.*;
 
 public class ConsoleUI {
 
@@ -76,6 +78,9 @@ public class ConsoleUI {
                             1. Competitive member
                             2. Non-competitive member
                             """);
+    }
+    public void displayIncorrectMemberType(){
+        System.out.println("Invalid member type - go back and pick another/opposite member type!\n");
     }
     public void nowEditing(Member member){
         System.out.println("Now editing: " + member.getUserID());
@@ -209,5 +214,28 @@ public class ConsoleUI {
     }
     public void enterID(){
         System.out.println("enter ID");
+    }
+
+    public void displayRankings(HashMap<RankingGroup, ArrayList<CompetitionMember>> rankings) {
+        RankingGroup[] groups = RankingGroup.values();
+        for (RankingGroup group : groups) {
+            System.out.println("----" + group.name() + "----");
+            int rankingLength = Math.min(rankings.get(group).size(), 5);
+            for (int i = 0; i < rankingLength; i++) {
+                CompetitionMember member = rankings.get(group).get(i);
+                Discipline discipline = member.findDiscipline(group.translateToDisciplineType());
+                String[] split = discipline.toString().split(" ");
+                String[] splitTime = split[0].split("\\.");
+                if (splitTime[0].equals("0")) {
+                    System.out.printf("%s | Time: %sS | Date %s\n",member.getFullName(), splitTime[1],split[1]);
+                } else {
+                    System.out.printf("%s | Time: %sM %sS | Date %s\n",member.getFullName(),splitTime[0],splitTime[1],split[1]);
+                }
+            }
+        }
+    }
+
+    public void displayWrongDateFormat(String parsedString) {
+        System.err.println("You cannot write " + parsedString + ". Please follow the format provided when creating a member");
     }
 }
