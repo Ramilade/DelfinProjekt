@@ -185,9 +185,14 @@ public class Member {
         this.paid = hasPaid;
     }
 
+    public String getFullName() {
+        return firstName + " " + lastName;
+    }
+
     @Override
     public String toString() {
         return "MemberID: " + userID + ";"
+            + this.getClass().getSimpleName() + ";"
             + "First Name: " + firstName + ";"
             + "Last Name: " + lastName + ";"
             + "Birthday: " + getBirthday() + ";"
