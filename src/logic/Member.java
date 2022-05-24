@@ -42,16 +42,17 @@ public class Member {
         this.address = address;
         this.email = email;
         this.phoneNumber = phoneNumber;
+        setStatus(status);
         this.subscription = calculateSub();
         this.paid = true;
         this.datePaid = LocalDate.now();
-        setStatus(status);
 
     }
 
     public void setStatus(String status) {
-
-        active = status.equals("true") || status.equals("aktiv");
+        if (status.equals("true") || status.equals("aktiv")){
+            active = true;
+        }
     }
 
 

@@ -292,7 +292,7 @@ public class Controller {
 }
 
 
-    public void inputCheckSubscriptionsView() {
+    public void inputCheckSubscriptionsView(){
 
         ArrayList<Member> membersSubscription = new ArrayList<>();
         membersSubscription.addAll(this.members);
@@ -305,8 +305,6 @@ public class Controller {
         int subscriptions = 0;
 
         for (Member member : membersSubscription) {
-
-            System.out.println(member.getSubscription());
 
             subscriptions += member.getSubscription();
 
@@ -328,7 +326,7 @@ public class Controller {
 
 
             if (member.hasPaid()) {
-                if (yearPay < yearPresent || (yearPay == yearPresent && monthPay < monthPresent) || (yearPay == yearPresent && monthPay == monthPresent && dayPay < dayPresent) || (yearPay == yearPresent && monthPay == monthPresent && dayPay == dayPresent)) {
+                if (yearPay < yearPresent || (yearPay == yearPresent && monthPay < monthPresent) || (yearPay == yearPresent && monthPay == monthPresent && dayPay < dayPresent) || (yearPay == yearPresent && monthPay == monthPresent && dayPay == dayPresent)){
                     yearPay++;
                     String newDatePaid = memberPayDateArray[0] + "/" + memberPayDateArray[1] + "/" + yearPay;
                     member.setDatePaid(newDatePaid);
