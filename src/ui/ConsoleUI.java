@@ -41,7 +41,7 @@ public class ConsoleUI {
                 """);
     }
     public void displayInputEditMemberChooseMember(){
-        System.out.println("Please input member ID to edit: ");
+        System.out.println("Please enter member ID to edit: ");
     }
 
     public void displayDeleteMember(){
@@ -74,13 +74,13 @@ public class ConsoleUI {
     }
     public void displayInputEditMember2(){
         System.out.print("""
-                            Choose member type you wish to edit:
+                            Choose the type of member you wish to edit:
                             1. Competitive member
                             2. Non-competitive member
                             """);
     }
     public void displayIncorrectMemberType(){
-        System.out.println("Invalid member type - go back and pick another/opposite member type!\n");
+        System.out.println("Invalid type of member - go back and pick another/opposite member type!\n");
     }
     public void nowEditing(Member member){
         System.out.println("Now editing: " + member.getUserID());
@@ -127,7 +127,7 @@ public class ConsoleUI {
     }
 
     public void fileNotFoundErrorMessage(){
-        System.out.println("ERROR: File could not be found! Initializing new save file.");
+        System.err.println("ERROR: File could not be found! Initializing new save file.");
     }
 
     public void printArray(Member member){
@@ -163,8 +163,9 @@ public class ConsoleUI {
         System.out.println("There are no members listed at this moment!");
     }
 
-    public void printUserHasBeenCreated(){
+    public void printUserHasBeenCreated(Member member){
         System.out.println("User has been created!");
+        System.out.println(member);
     }
 
     public void printSubscriptionDuePayment(Member member) {
@@ -197,7 +198,7 @@ public class ConsoleUI {
 
     public void printSubscriptionCaseChangeSub(){
         System.out.println("""
-                Input the member's ID you want to change. (NOTE: Have they paid their subscription within this year?)
+                Enter the member's ID you want to change. (NOTE: Have they paid their subscription within this year?)
                 """);
     }
 

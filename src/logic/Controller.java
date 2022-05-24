@@ -187,7 +187,6 @@ public class Controller {
         } else {
             addMember(memberInformationMap);
         }
-        UI.printUserHasBeenCreated();
     }
 
 
@@ -202,6 +201,7 @@ public class Controller {
                 information.get(MemberInformation.PHONE_NUMBER),
                 information.get(MemberInformation.STATUS));
         members.add(member);
+        UI.printUserHasBeenCreated(member);
     }
 
     public void addCompetitionMember(HashMap<MemberInformation, String> information) {
@@ -215,6 +215,7 @@ public class Controller {
                 information.get(MemberInformation.PHONE_NUMBER),
                 information.get(MemberInformation.STATUS));
         competitionMembers.add(member);
+        UI.printUserHasBeenCreated(member);
     }
 
     private void inputShowMember() {
