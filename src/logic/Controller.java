@@ -242,9 +242,10 @@ public class Controller {
             ArrayList<Competition> comp = new ArrayList<>();
             for (CompetitionMember competitionMember :competitionMembers ) {
                 comp.addAll(competitionMember.getCompetitions());
-            }
-            for (Competition competition :competitions ) {
-                UI.competitionsPrintArray(competition);
+                if(target == competitionMember.getUserID())
+                for (Competition competition : competitions) {
+                    UI.competitionsPrintArray(competition);
+                }
             }
         } else {
             UI.printCantFindMember();
