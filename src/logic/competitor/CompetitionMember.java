@@ -58,11 +58,11 @@ public class CompetitionMember extends Member {
     }
     public void addNewDisci(){
         Scanner disci = new Scanner(System.in);
-        System.out.println("type");
+        System.out.println("Disciplin type(Fly/Ryg/Bryst/Crawl)");
         DisciplineType type = DisciplineType.valueOf(disci.next().toUpperCase());
-        System.out.println("record");
+        System.out.println("Record time (format: mm,ss)");
         double record = disci.nextDouble();
-        System.out.println("date");
+        System.out.println("Date record was achieved(format: dd/mm/yyyy) ");
         String date = disci.next();
         disciplines.add(new Discipline(type,record,date));
     }
