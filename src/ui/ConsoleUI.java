@@ -4,6 +4,8 @@ import logic.Member;
 import logic.competitor.CompetitionMember;
 import logic.competitor.Discipline;
 import logic.competitor.RankingGroup;
+import logic.competitor.Competition;
+import logic.competitor.Discipline;
 
 import java.util.*;
 
@@ -20,10 +22,12 @@ public class ConsoleUI {
             1. Add a member
             2. Edit a member
             3. Show members
-            4. (TODO) View rankings
-            5. View subscriptions
-            6. Delete a member
-            7. Save & exit
+            4. Show competitions
+            5. Show disciplines
+            6. (TODO) View rankings
+            7. View subscriptions
+            8. Delete a member
+            9. Save & exit
             """);
     }
 
@@ -135,6 +139,24 @@ public class ConsoleUI {
 
 
     }
+    public void competitionsPrintArray(Competition competition){
+        String[] competitionInformation = competition.toString().split(";");
+        for (String info : competitionInformation) {
+            System.out.println(info);
+        }
+        System.out.println("---------------------");
+
+
+    }
+    public void disciplinePrintArray(Discipline discipline){
+        String[] disciplineInformation = discipline.toString().split(";");
+        for (String info : disciplineInformation) {
+            System.out.println(info);
+        }
+        System.out.println("---------------------");
+
+
+    }
 
 
     public void noMembersInList() {
@@ -189,6 +211,9 @@ public class ConsoleUI {
 
     public void notValidChoice() {
         System.out.println("Not a valid choice!");
+    }
+    public void enterID(){
+        System.out.println("enter ID");
     }
 
     public void displayRankings(HashMap<RankingGroup, ArrayList<CompetitionMember>> rankings) {

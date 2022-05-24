@@ -88,10 +88,12 @@ public class Controller {
             }
             case "2", "edit member" -> inputEditMember();
             case "3", "show members" -> inputShowMember();
-            case "4", "check rankings" -> inputCheckRankings();
-            case "5", "check subscriptions" -> inputCheckSubscriptions();
-            case "6", "delete member" -> deleteMember();
-            case "7", "exit" -> running = false;
+            case "4", "show competitions" -> inputShowCompetitions();
+            case "5", "show disciplines" -> inputShowDisciplines();
+            case "6", "check rankings" -> inputCheckRankings();
+            case "7", "check subscriptions" -> inputCheckSubscriptions();
+            case "8", "delete member" -> deleteMember();
+            case "9", "exit" -> running = false;
         }
 
     }
@@ -243,6 +245,44 @@ public class Controller {
             UI.noMembersInList();
         }
 
+    }
+    private void inputShowCompetitions() {
+        if (competitionMembers.size() > 0){
+            UI.enterID();
+            int target = input.nextInt();
+            String fix = input.nextLine();
+            ArrayList<Competition> comp = new ArrayList<>();
+            for (CompetitionMember competitionMember :competitionMembers ) {
+                if(target == competitionMember.getUserID()) {
+                        comp.addAll(competitionMember.getCompetitions());
+                    for (Competition competition :comp ) {
+                        UI.competitionsPrintArray(competition);
+
+                    }
+                }
+            }
+        } else {
+            UI.printCantFindMember();
+        }
+    }
+    private void inputShowDisciplines() {
+        if (competitionMembers.size() > 0){
+            UI.enterID();
+            int target = input.nextInt();
+            String fix = input.nextLine();
+            ArrayList<Discipline> disci = new ArrayList<>();
+            for (CompetitionMember competitionMember :competitionMembers ) {
+                if(target == competitionMember.getUserID()) {
+                    disci.addAll(competitionMember.getDisciplines());
+                    for (Discipline discipline :disci ) {
+                        UI.disciplinePrintArray(discipline);
+
+                    }
+                }
+            }
+        } else {
+            UI.printCantFindMember();
+        }
     }
     public void deleteMember(){
         Member found = null;

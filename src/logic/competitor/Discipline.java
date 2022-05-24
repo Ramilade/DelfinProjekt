@@ -42,6 +42,8 @@ public class Discipline {
 
   @Override
   public String toString() {
-    return record + " " + date.toString();
+    return "Type: " + type + ";"
+        + "Date: " + date + ";"
+        + "Record: " + record;
   }
 }
