@@ -7,6 +7,8 @@ import java.util.Scanner;
 
 public class ConsoleUI {
 
+
+    //skal denne bruges?
     public void displayMember(Member member) {
         System.out.println(member);
     }
@@ -58,11 +60,21 @@ public class ConsoleUI {
                 5. Change email
                 6. Change phone number
                 7. Change member status
-                8. add competition
-                9. edit competition
-                10. add discipline
-                11. edit discipline
+                8. Add competition
+                9. Edit competition
+                10. Add discipline
+                11. Edit discipline
                 """);
+    }
+    public void displayInputEditMember2(){
+        System.out.print("""
+                            Choose member type you wish to edit:
+                            1. Competitive member
+                            2. Non-competitive member
+                            """);
+    }
+    public void displayIncorrectMemberType(){
+        System.out.println("Invalid member type - go back and pick another/opposite member type!\n");
     }
     public void nowEditing(Member member){
         System.out.println("Now editing: " + member.getUserID());
@@ -124,7 +136,7 @@ public class ConsoleUI {
 
 
     public void noMembersInList() {
-        System.out.println("No concurrent members in list!");
+        System.out.println("There are no members listed at this moment!");
     }
 
     public void printUserHasBeenCreated(){
