@@ -236,12 +236,18 @@ public class Controller {
 
     }
     private void inputShowCompetitions() {
-        ArrayList<Member> members = new ArrayList<>();
-        members.addAll(this.members);
-        members.addAll(competitionMembers);
-
-        if (members.size() > 0){
-
+        if (competitionMembers.size() > 0){
+            int target = input.nextInt();
+            String fix = input.nextLine();
+            ArrayList<Competition> comp = new ArrayList<>();
+            for (CompetitionMember competitionMember :competitionMembers ) {
+                comp.addAll(competitionMember.getCompetitions());
+            }
+            for (Competition competition :competitions ) {
+                UI.competitionsPrintArray(competition);
+            }
+        } else {
+            UI.printCantFindMember();
         }
     }
     private void inputShowDisciplines() {
