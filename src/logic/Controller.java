@@ -77,10 +77,12 @@ public class Controller {
             case "1", "add member" -> inputAddMember();
             case "2", "edit member" -> inputEditMember();
             case "3", "show members" -> inputShowMember();
-            case "4", "check rankings" -> inputCheckRankings();
-            case "5", "check subscriptions" -> inputCheckSubscriptions();
-            case "6", "delete member" -> deleteMember();
-            case "7", "exit" -> running = false;
+            case "4", "show competitions" -> inputShowCompetitions();
+            case "5", "show disciplines" -> inputShowDisciplines();
+            case "6", "check rankings" -> inputCheckRankings();
+            case "7", "check subscriptions" -> inputCheckSubscriptions();
+            case "8", "delete member" -> deleteMember();
+            case "9", "exit" -> running = false;
         }
 
     }
@@ -232,6 +234,24 @@ public class Controller {
             UI.noMembersInList();
         }
 
+    }
+    private void inputShowCompetitions() {
+        ArrayList<Member> members = new ArrayList<>();
+        members.addAll(this.members);
+        members.addAll(competitionMembers);
+
+        if (members.size() > 0){
+
+        }
+    }
+    private void inputShowDisciplines() {
+        ArrayList<Member> members = new ArrayList<>();
+        members.addAll(this.members);
+        members.addAll(competitionMembers);
+
+        if (members.size() > 0){
+
+        }
     }
     public void deleteMember(){
         Member found = null;
