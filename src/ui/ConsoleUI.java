@@ -166,7 +166,7 @@ public class ConsoleUI {
     }
 
     public void printSubscriptionCaseChosenID(Member member){
-        System.out.println("Changing user: " + member.getFirstName() + " with ID: " + member.getUserID() + " with subscription date: " + member.getDatePaid() + "to ? (inactive or active)");
+        System.out.println("Changing user: " + member.getFirstName() + " with ID: " + member.getUserID() + " with subscription date: " + member.getDatePaid() + " with status: (Has paid in time) " + member.hasPaid() + " to ? (1. for inactive or 2. for active)");
     }
 
     public void printCantFindMember() {

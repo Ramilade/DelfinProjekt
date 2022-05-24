@@ -262,31 +262,35 @@ public class Controller {
 
     public void inputCheckSubscriptions() {
         UI.printInputCaseCheckSubscription();
-        String editOption = input.nextLine();
+        int editOption = input.nextInt();
         switch (editOption) {
-            case "1" -> inputCheckSubscriptionsView();
-            case "2" -> inputCheckSubscriptionsChangeMember();
+            case 1 -> inputCheckSubscriptionsView();
+            case 2 -> inputCheckSubscriptionsChangeMember();
         }
     }
 
     public void inputCheckSubscriptionsChangeMember() {
         UI.printSubscriptionCaseChangeSub();
-        int requestedID = Integer.parseInt(input.nextLine());
+        int requestedID = input.nextInt();
+        boolean memberFound = false;
         for (Member member : members) {
             if (member.getUserID() == requestedID) {
+                memberFound = true;
                 UI.printSubscriptionCaseChosenID(member);
-
-                String newStatus = input.next();
+                int newStatus = input.nextInt();
                 switch (newStatus) {
-                    case "inactive" -> member.setHasPaid(false);
-                    case "active" -> member.setHasPaid(true);
+                    case 1 -> member.setHasPaid(false);
+                    case 2 -> member.setHasPaid(true);
                     default -> UI.notValidChoice();
                 }
-            } else {
-                UI.printCantFindMember();
             }
         }
+        if (!memberFound) {
+            UI.printCantFindMember();
     }
+        input.nextLine(); //Fixes scannerBug
+}
+
 
     public void inputCheckSubscriptionsView() {
 
@@ -301,15 +305,12 @@ public class Controller {
             subscriptions += member.getSubscription();
 
             String memberPayDate = member.getDatePaid();
-            String memberCreation = member.getCreationDate();
 
             UI.printSubscriptionDuePayment(member);
 
             String[] presentDateArray = presentDate.split("/");
 
             String[] memberPayDateArray = memberPayDate.split("/");
-
-            String[] memberCreationDateArray = memberCreation.split("/");
 
             int dayPay = Integer.parseInt(memberPayDateArray[0]);
             int monthPay = Integer.parseInt(memberPayDateArray[1]);
@@ -323,10 +324,10 @@ public class Controller {
             if (member.hasPaid()) {
                 if (yearPay < yearPresent || (yearPay == yearPresent && monthPay < monthPresent) || (yearPay == yearPresent && monthPay == monthPresent && dayPay < dayPresent) || (yearPay == yearPresent && monthPay == monthPresent && dayPay == dayPresent)) {
                     yearPay++;
-                    String newDatePaid = memberCreationDateArray[0] + "/" + memberCreationDateArray[1] + "/" + yearPay;
+                    String newDatePaid = memberPayDateArray[0] + "/" + memberPayDateArray[1] + "/" + yearPay;
                     member.setDatePaid(newDatePaid);
                 }
-                UI.printDateOfPay(yearPay, memberCreationDateArray[1], memberCreationDateArray[0]);
+                UI.printDateOfPay(yearPay, memberPayDateArray[1], memberPayDateArray[0]);
                 UI.userPaidInTime(true);
             } else {
                 UI.printDateOfPay(yearPay, memberPayDateArray[1], memberPayDateArray[0]);
@@ -338,5 +339,6 @@ public class Controller {
             }
         }
         UI.totalSubscriptionNumber(subscriptions);
+        input.nextLine(); //Fixes scannerBug
     }
 }
