@@ -1,9 +1,11 @@
 package ui;
 
 import logic.Member;
+import logic.competitor.CompetitionMember;
+import logic.competitor.Discipline;
+import logic.competitor.RankingGroup;
 
-import java.util.HashMap;
-import java.util.Scanner;
+import java.util.*;
 
 public class ConsoleUI {
 
@@ -187,5 +189,28 @@ public class ConsoleUI {
 
     public void notValidChoice() {
         System.out.println("Not a valid choice!");
+    }
+
+    public void displayRankings(HashMap<RankingGroup, ArrayList<CompetitionMember>> rankings) {
+        RankingGroup[] groups = RankingGroup.values();
+        for (RankingGroup group : groups) {
+            System.out.println("----" + group.name() + "----");
+            int rankingLength = Math.min(rankings.get(group).size(), 5);
+            for (int i = 0; i < rankingLength; i++) {
+                CompetitionMember member = rankings.get(group).get(i);
+                Discipline discipline = member.findDiscipline(group.translateToDisciplineType());
+                String[] split = discipline.toString().split(" ");
+                String[] splitTime = split[0].split("\\.");
+                if (splitTime[0].equals("0")) {
+                    System.out.printf("%s | Time: %sS | Date %s\n",member.getFullName(), splitTime[1],split[1]);
+                } else {
+                    System.out.printf("%s | Time: %sM %sS | Date %s\n",member.getFullName(),splitTime[0],splitTime[1],split[1]);
+                }
+            }
+        }
+    }
+
+    public void displayWrongDateFormat(String parsedString) {
+        System.err.println("You cannot write " + parsedString + ". Please follow the format provided when creating a member");
     }
 }
