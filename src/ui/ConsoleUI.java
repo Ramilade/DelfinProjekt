@@ -24,7 +24,7 @@ public class ConsoleUI {
             3. Show members
             4. Show competitions
             5. Show disciplines
-            6. (TODO) View rankings
+            6. View rankings
             7. View subscriptions
             8. Delete a member
             9. Save & exit
@@ -224,8 +224,8 @@ public class ConsoleUI {
             for (int i = 0; i < rankingLength; i++) {
                 CompetitionMember member = rankings.get(group).get(i);
                 Discipline discipline = member.findDiscipline(group.translateToDisciplineType());
-                String[] split = discipline.toString().split(" ");
-                String[] splitTime = split[0].split("\\.");
+                String[] split = discipline.toString().split(";");
+                String[] splitTime = split[2].split("\\.");
                 if (splitTime[0].equals("0")) {
                     System.out.printf("%s | Time: %sS | Date %s\n",member.getFullName(), splitTime[1],split[1]);
                 } else {
