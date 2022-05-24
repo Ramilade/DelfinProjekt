@@ -39,4 +39,9 @@ public class Discipline {
   public void setRecord(double record) {
     this.record = record;
   }
+
+  @Override
+  public String toString() {
+    return record + " " + date.toString();
+  }
 }
