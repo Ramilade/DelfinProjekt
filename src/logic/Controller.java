@@ -301,6 +301,7 @@ public class Controller {
         String presentDate = LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
         int subscriptions = 0;
 
+
         for (Member member : membersSubscription) {
 
             subscriptions += member.getSubscription();
