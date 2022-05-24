@@ -24,8 +24,8 @@ public class Discipline {
     this.type = type;
   }
 
-  public LocalDate getDate() {
-    return date;
+  public String getDate() {
+    return date.format(dtf);
   }
 
   public void setDate(String date) {

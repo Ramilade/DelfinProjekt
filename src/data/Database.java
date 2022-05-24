@@ -12,6 +12,7 @@ import java.io.PrintStream;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Locale;
 import java.util.Scanner;
 
@@ -39,6 +40,7 @@ public class Database {
         }
 
     }
+
     public void saveCompetetiveMembers(ArrayList<CompetitionMember> competitionMembers) throws FileNotFoundException {
         PrintStream out = new PrintStream("CompetetionMembers.csv");
         PrintStream out2 = new PrintStream("Disciplines.csv");
@@ -61,8 +63,8 @@ public class Database {
             out.print(";");
             out.print(competitionMember.getActive());
             out.print("\n");
-           ArrayList<Discipline> disciplines = competitionMember.getDisciplines();
-           ArrayList<Competition> competitions = competitionMember.getCompetitions();
+            ArrayList<Discipline> disciplines = competitionMember.getDisciplines();
+            ArrayList<Competition> competitions = competitionMember.getCompetitions();
 
             for (Discipline discipline : disciplines) {
                 out2.print(competitionMember.getUserID());
@@ -91,11 +93,12 @@ public class Database {
         }
 
     }
+
     public ArrayList<Member> loadMembers() throws FileNotFoundException {
         ArrayList<Member> members = new ArrayList<>();
         File file = new File("Svømmeclub.csv");
         Scanner sc = new Scanner(file);
-        while (sc.hasNextLine()){
+        while (sc.hasNextLine()) {
             Scanner find = new Scanner(sc.nextLine());
             find.useDelimiter(";");
             find.useLocale(Locale.ENGLISH);
@@ -107,15 +110,16 @@ public class Database {
             String email = find.next();
             String mobile = find.next();
             String status = find.next();
-            members.add(new Member(userID,firstName,lastName,birthday,address,email,mobile,status));
+            members.add(new Member(userID, firstName, lastName, birthday, address, email, mobile, status));
         }
         return members;
     }
+
     public ArrayList<CompetitionMember> loadCompetetiveMembers() throws FileNotFoundException {
         ArrayList<CompetitionMember> competitionMembers = new ArrayList<>();
         File file = new File("CompetetionMembers.csv");
         Scanner sc = new Scanner(file);
-        while (sc.hasNextLine()){
+        while (sc.hasNextLine()) {
             Scanner find = new Scanner(sc.nextLine());
             find.useDelimiter(";");
             find.useLocale(Locale.ENGLISH);
@@ -127,8 +131,8 @@ public class Database {
             String email = find.next();
             String mobile = find.next();
             String status = find.next();
-            CompetitionMember member  = new CompetitionMember(userID,firstName,lastName,
-                birthday,address,email,mobile,status);
+            CompetitionMember member = new CompetitionMember(userID, firstName, lastName,
+                birthday, address, email, mobile, status);
             competitionMembers.add(member);
             member.addDisciplines(loadDisciplines(userID));
             member.addCompetitions(loadCompetitions(userID));
@@ -136,40 +140,42 @@ public class Database {
         }
         return competitionMembers;
     }
+
     public ArrayList<Discipline> loadDisciplines(int userID) throws FileNotFoundException {
         ArrayList<Discipline> disciplines = new ArrayList<>();
         File file = new File("Disciplines.csv");
         Scanner sc = new Scanner(file);
-        while (sc.hasNextLine()){
+        while (sc.hasNextLine()) {
             Scanner find = new Scanner(sc.nextLine());
             find.useDelimiter(";");
             find.useLocale(Locale.ENGLISH);
             int id = find.nextInt();
-            if (id == userID){
-            DisciplineType type = DisciplineType.valueOf(find.next());
-            double record = find.nextDouble();
-            String date = find.next();
-            disciplines.add(new Discipline(type,record,date));
+            if (id == userID) {
+                DisciplineType type = DisciplineType.valueOf(find.next());
+                String date = find.next();
+                double record = find.nextDouble();
+                disciplines.add(new Discipline(type, record, date));
             }
 
         }
         return disciplines;
     }
+
     public ArrayList<Competition> loadCompetitions(int userID) throws FileNotFoundException {
         ArrayList<Competition> competitions = new ArrayList<>();
         File file = new File("Competitions.csv");
         Scanner sc = new Scanner(file);
-        while (sc.hasNextLine()){
+        while (sc.hasNextLine()) {
             Scanner find = new Scanner(sc.nextLine());
             find.useDelimiter(";");
             find.useLocale(Locale.ENGLISH);
             int id = find.nextInt();
-            if (id == userID){
-            String place = find.next();
-            int ranking = find.nextInt();
-            String date = find.next();
-            double time = find.nextDouble();
-            competitions.add(new Competition(place,ranking,date,time));
+            if (id == userID) {
+                String place = find.next();
+                int ranking = find.nextInt();
+                String date = find.next();
+                double time = find.nextDouble();
+                competitions.add(new Competition(place, ranking, date, time));
             }
 
         }
