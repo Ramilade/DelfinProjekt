@@ -7,6 +7,8 @@ import java.util.Scanner;
 
 public class ConsoleUI {
 
+
+    //skal denne bruges?
     public void displayMember(Member member) {
         System.out.println(member);
     }
