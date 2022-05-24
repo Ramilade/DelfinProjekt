@@ -237,14 +237,17 @@ public class Controller {
     }
     private void inputShowCompetitions() {
         if (competitionMembers.size() > 0){
+            UI.enterID();
             int target = input.nextInt();
             String fix = input.nextLine();
             ArrayList<Competition> comp = new ArrayList<>();
             for (CompetitionMember competitionMember :competitionMembers ) {
-                comp.addAll(competitionMember.getCompetitions());
-                if(target == competitionMember.getUserID())
-                for (Competition competition : competitions) {
-                    UI.competitionsPrintArray(competition);
+                if(target == competitionMember.getUserID()) {
+                        comp.addAll(competitionMember.getCompetitions());
+                    for (Competition competition :comp ) {
+                        UI.competitionsPrintArray(competition);
+
+                    }
                 }
             }
         } else {
