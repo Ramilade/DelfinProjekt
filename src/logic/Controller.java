@@ -85,7 +85,7 @@ public class Controller {
 
     }
     private void inputEditMember() {
-        System.out.println("enter competitive/member");
+        UI.displayInputEditMember2();
         String option = input.nextLine();
         switch (option){
             case "1","competitive" -> {

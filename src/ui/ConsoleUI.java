@@ -66,6 +66,13 @@ public class ConsoleUI {
                 11. Edit discipline
                 """);
     }
+    public void displayInputEditMember2(){
+        System.out.print("""
+                            Choose:
+                            1. Competitive member
+                            2. Non-competitive member
+                            """);
+    }
     public void nowEditing(Member member){
         System.out.println("Now editing: " + member.getUserID());
     }
