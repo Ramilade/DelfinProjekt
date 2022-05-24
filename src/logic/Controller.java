@@ -120,44 +120,44 @@ public class Controller {
         UI.displayInputEditMember();
         String editOption = input.nextLine();
         switch (editOption) {
-            case "1", "firstname" -> {
+            case "1", "Firstname" -> {
                 UI.displayNowEditingChoiceDisplay(1);
                 member.setFirstName(input.nextLine());
             }
-            case "2", "lastname" -> {
+            case "2", "Lastname" -> {
                 UI.displayNowEditingChoiceDisplay(2);
                 member.setLastName(input.nextLine());
             }
-            case "3", "birthday" -> {
+            case "3", "Birthday" -> {
                 UI.displayNowEditingChoiceDisplay(3);
                 member.setBirthday(input.nextLine());
             }
-            case "4", "address" -> {
+            case "4", "Address" -> {
                 UI.displayNowEditingChoiceDisplay(4);
                 member.setAddress(input.nextLine());
             }
-            case "5", "email" -> {
+            case "5", "Email" -> {
                 UI.displayNowEditingChoiceDisplay(5);
                 member.setEmail(input.nextLine());
             }
-            case "6", "phone number" -> {
+            case "6", "Phone number" -> {
                 UI.displayNowEditingChoiceDisplay(6);
                 member.setPhoneNumber(input.nextLine());
             }
-            case "7", "member status" -> {
+            case "7", "Member status" -> {
                 UI.displayNowEditingChoiceDisplay(7);
                 member.setStatus(input.nextLine());
             }
-            case "8", "add competition" -> {
+            case "8", "Add competition result" -> {
                 UI.displayNowEditingChoiceDisplay(8);
                 competitionMember.addNewComp();
-            }case "9", "edit competitions" -> {
+            }case "9", "Edit competitions" -> {
                 UI.displayNowEditingChoiceDisplay(9);
                 competitionMember.addNewComp();
-            }case "10", "add discipline" -> {
+            }case "10", "Add discipline" -> {
                 UI.displayNowEditingChoiceDisplay(10);
                 competitionMember.addNewDisci();
-            }case "11", "edit discipline" -> {
+            }case "11", "Edit discipline" -> {
                 UI.displayNowEditingChoiceDisplay(11);
                 competitionMember.addNewComp();
             }
