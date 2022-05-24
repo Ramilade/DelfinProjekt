@@ -1,6 +1,8 @@
 package ui;
 
 import logic.Member;
+import logic.competitor.Competition;
+import logic.competitor.Discipline;
 
 import java.util.HashMap;
 import java.util.Scanner;
@@ -124,6 +126,24 @@ public class ConsoleUI {
     public void printArray(Member member){
         String[] memberInformation = member.toString().split(";");
         for (String info : memberInformation) {
+            System.out.println(info);
+        }
+        System.out.println("---------------------");
+
+
+    }
+    public void competitionsPrintArray(Competition competition){
+        String[] competitionInformation = competition.toString().split(";");
+        for (String info : competitionInformation) {
+            System.out.println(info);
+        }
+        System.out.println("---------------------");
+
+
+    }
+    public void disciplinePrintArray(Discipline discipline){
+        String[] disciplineInformation = discipline.toString().split(";");
+        for (String info : disciplineInformation) {
             System.out.println(info);
         }
         System.out.println("---------------------");
