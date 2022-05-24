@@ -60,10 +60,10 @@ public class ConsoleUI {
                 5. Change email
                 6. Change phone number
                 7. Change member status
-                8. add competition
-                9. edit competition
-                10. add discipline
-                11. edit discipline
+                8. Add competition
+                9. Edit competition
+                10. Add discipline
+                11. Edit discipline
                 """);
     }
     public void nowEditing(Member member){
@@ -126,7 +126,7 @@ public class ConsoleUI {
 
 
     public void noMembersInList() {
-        System.out.println("No concurrent members in list!");
+        System.out.println("There are no members listed at this moment!");
     }
 
     public void printUserHasBeenCreated(){
