@@ -38,13 +38,13 @@ public class CompetitionMember extends Member {
     }
     public void addNewComp(){
         Scanner comp = new Scanner(System.in);
-        System.out.println("place");
+        System.out.println("Place of competition: ");
         String place = comp.next();
-        System.out.println("rank");
+        System.out.println("Rank achieved: ");
         int rank = comp.nextInt();
-        System.out.println("date");
+        System.out.println("Date of competition/achievement(format: dd/mm/yyyy)");
         String date = comp.next();
-        System.out.println("time");
+        System.out.println("Time achieved (format: mm,ss)");
         double time = comp.nextDouble();
         competitions.add(new Competition(place,rank, date,time));
     }
