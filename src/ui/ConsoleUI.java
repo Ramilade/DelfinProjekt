@@ -68,7 +68,7 @@ public class ConsoleUI {
     }
     public void displayInputEditMember2(){
         System.out.print("""
-                            Choose:
+                            Choose member type you wish to edit:
                             1. Competitive member
                             2. Non-competitive member
                             """);
