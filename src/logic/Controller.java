@@ -255,12 +255,22 @@ public class Controller {
         }
     }
     private void inputShowDisciplines() {
-        ArrayList<Member> members = new ArrayList<>();
-        members.addAll(this.members);
-        members.addAll(competitionMembers);
+        if (competitionMembers.size() > 0){
+            UI.enterID();
+            int target = input.nextInt();
+            String fix = input.nextLine();
+            ArrayList<Discipline> disci = new ArrayList<>();
+            for (CompetitionMember competitionMember :competitionMembers ) {
+                if(target == competitionMember.getUserID()) {
+                    disci.addAll(competitionMember.getDisciplines());
+                    for (Discipline discipline :disci ) {
+                        UI.disciplinePrintArray(discipline);
 
-        if (members.size() > 0){
-
+                    }
+                }
+            }
+        } else {
+            UI.printCantFindMember();
         }
     }
     public void deleteMember(){
