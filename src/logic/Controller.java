@@ -294,13 +294,19 @@ public class Controller {
 
     public void inputCheckSubscriptionsView() {
 
+        ArrayList<Member> membersSubscription = new ArrayList<>();
+        membersSubscription.addAll(this.members);
+        membersSubscription.addAll(competitionMembers);
+
         //Members skal have data for indmeldingsdato. Plus 1 år til hvert betaling.
         //Members skal også have passive
 
         String presentDate = LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
         int subscriptions = 0;
 
-        for (Member member : members) {
+        for (Member member : membersSubscription) {
+
+            System.out.println(member.getSubscription());
 
             subscriptions += member.getSubscription();
 

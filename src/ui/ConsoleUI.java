@@ -132,7 +132,7 @@ public class ConsoleUI {
     }
 
     public void printSubscriptionDuePayment(Member member) {
-        System.out.print("Member first name: " + member.getFirstName() + ", ID: " + member.getUserID() + " Created: " + member.getCreationDate() + " Subscription amount: " + member.getSubscription() + "kr.- is due: ");
+        System.out.print("Member first name: " + member.getFirstName() + ", ID: " + member.getUserID() + " Created: " + member.getCreationDate() + " Active: " + member.getActive() + " Subscription amount: " + member.getSubscription() + "kr.- is due: ");
     }
 
     public void userPaidInTime(boolean paid) {
