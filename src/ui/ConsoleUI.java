@@ -261,4 +261,17 @@ public class ConsoleUI {
     public void displayWrongDateFormat(String parsedString) {
         System.err.println("You cannot write " + parsedString + ". Please follow the format provided when creating a member");
     }
+
+    public void displayCouldNotSaveToFile() {
+        System.err.println("Could not save to file, it may be open in another program or not accessible entirely");
+    }
+
+    public void displayWrongMemberType(String message) {
+        System.err.println(message + " is not a type of member, please use \"motionist\"/\"konkurrent\"");
+    }
+
+    public void displayWrongMemberStatus(String message) {
+        System.err.println(message + " is not a status of member, please use \"aktiv\"/\"passiv\"");
+
+    }
 }
