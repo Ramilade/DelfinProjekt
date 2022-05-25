@@ -217,7 +217,7 @@ public class ConsoleUI {
         System.out.println("Not a valid choice!");
     }
     public void enterID(){
-        System.out.println("enter ID");
+        System.out.println("Enter ID");
     }
 
     public void displayRankings(HashMap<RankingGroup, ArrayList<CompetitionMember>> rankings) {
