@@ -7,6 +7,7 @@ import logic.competitor.RankingGroup;
 import logic.competitor.Competition;
 import logic.competitor.Discipline;
 
+import java.text.NumberFormat;
 import java.util.*;
 
 public class ConsoleUI {
@@ -181,8 +182,10 @@ public class ConsoleUI {
     }
 
     public void totalSubscriptionNumber(int subscriptions) {
+        Locale locale = new Locale("dk","DK");
+        NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(locale);
         System.out.println();
-        System.out.println(" Total amount of payment expected: " + subscriptions + "kr.-");
+        System.out.println(" Total amount of payment expected: " + currencyFormatter.format(subscriptions));
     }
 
     public void printDateOfPay(int year, String month, String day) {
@@ -198,12 +201,12 @@ public class ConsoleUI {
 
     public void printSubscriptionCaseChangeSub(){
         System.out.println("""
-                Enter the member's ID you want to change. (NOTE: Have they paid their subscription within this year?)
+                Enter the member's ID you want to change. (NOTE: Have they paid their subscription for next year?)
                 """);
     }
 
     public void printSubscriptionCaseChosenID(Member member){
-        System.out.println("Changing user: " + member.getFirstName() + " with ID: " + member.getUserID() + " with subscription date: " + member.getDatePaid() + " with status: (Has paid in time) " + member.hasPaid() + " to ? (1. for inactive or 2. for active)");
+        System.out.println("Changing user: " + member.getFirstName() + " with ID: " + member.getUserID() + " with subscription date: " + member.getDatePaid() + " with status: (Has paid in time) " + member.getHasPaidNextYear() + " to ? (1. for inactive or 2. for active)");
     }
 
     public void printCantFindMember() {

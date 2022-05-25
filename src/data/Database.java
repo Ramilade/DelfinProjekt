@@ -32,6 +32,12 @@ public class Database {
             out.print(member.getPhoneNumber());
             out.print(";");
             out.print(member.getActive());
+            out.print(";");
+            out.print(member.getCreationDate());
+            out.print(";");
+            out.print(member.getDatePaid());
+            out.print(";");
+            out.print(member.getHasPaidNextYear());
             out.print("\n");
         }
 
@@ -58,6 +64,12 @@ public class Database {
             outMembers.print(competitionMember.getPhoneNumber());
             outMembers.print(";");
             outMembers.print(competitionMember.getActive());
+            outMembers.print(";");
+            outMembers.print(competitionMember.getCreationDate());
+            outMembers.print(";");
+            outMembers.print(competitionMember.getDatePaid());
+            outMembers.print(";");
+            outMembers.print(competitionMember.getHasPaidNextYear());
             outMembers.print("\n");
 
             saveDisciplines(outDisciplines, competitionMember);
@@ -113,7 +125,10 @@ public class Database {
             String email = find.next();
             String mobile = find.next();
             String status = find.next();
-            members.add(new Member(userID, firstName, lastName, birthday, address, email, mobile, status));
+            String creationDate = find.next();
+            String datePaid = find.next();
+            String hasPaidInTime = find.next();
+            members.add(new Member(userID, firstName, lastName, birthday, address, email, mobile, status, creationDate,datePaid, hasPaidInTime));
         }
         return members;
     }
@@ -134,8 +149,11 @@ public class Database {
             String email = find.next();
             String mobile = find.next();
             String status = find.next();
+            String creationDate = find.next();
+            String datePaid = find.next();
+            String hasPaidInTime = find.next();
             CompetitionMember member = new CompetitionMember(userID, firstName, lastName,
-                birthday, address, email, mobile, status);
+                    birthday, address, email, mobile, status, creationDate, datePaid, hasPaidInTime);
             competitionMembers.add(member);
             member.addDisciplines(loadDisciplines(userID));
             member.addCompetitions(loadCompetitions(userID));

@@ -25,9 +25,12 @@ public class Member {
 
     public Member(int userID, String firstName, String lastName,
                   String birthday, String address, String email,
-                  String phoneNumber,String status, String creationDate) {
-        new Member(userID,firstName,lastName,birthday,address,email,phoneNumber,status);
+                  String phoneNumber,String status, String creationDate, String datePaid, String paid) {
+        this(userID,firstName,lastName,birthday,address,email,phoneNumber,status);
         setCreationDate(creationDate);
+
+        this.datePaid = LocalDate.parse(datePaid,dtf);
+        this.paid = Boolean.parseBoolean(paid);
     }
 
     public Member(int userID, String firstName, String lastName,
@@ -43,7 +46,7 @@ public class Member {
         this.email = email;
         this.phoneNumber = phoneNumber;
         setStatus(status);
-        this.subscription = calculateSub();
+        this.subscription = 0;
         this.paid = true;
         this.datePaid = LocalDate.now();
 
@@ -160,28 +163,13 @@ public class Member {
 
     public void setActive(boolean active) {
         this.active = active;
-        calculateSub();
     }
 
-    public double calculateSub() {
-        double subCost = 500;
-        if (active) {
-            subCost = 1000;
-            if (getAge() > 17) {
-                subCost = 1600;
-            }
-            if (getAge() > 60) {
-                subCost = subCost * 0.75;
-            }
-        }
-        return subCost;
-    }
-
-    public boolean hasPaid() {
+    public boolean getHasPaidNextYear() {
         return paid;
     }
 
-    public void setHasPaid(boolean hasPaid) {
+    public void setHasPaidNextYear(boolean hasPaid) {
         this.paid = hasPaid;
     }
 
