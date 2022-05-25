@@ -231,7 +231,7 @@ public class ConsoleUI {
             case 7 -> System.out.println("Enter phoneNumber");
             case 8 -> System.out.println("Enter Status: format(aktiv/passiv)");
             //for discipliner
-            case 9 -> System.out.println("Enter Type(Fly/Ryg/Bryst/Crawl)");
+            case 9 -> System.out.println("Enter Type(Butterfly/Rygcrawl/Brystsvømning/Crawl)");
             case 10 -> System.out.println("Enter Record: format(MM,SS)");
             //for competitions
             case 11 -> System.out.println("Enter Place");

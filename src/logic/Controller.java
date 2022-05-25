@@ -244,10 +244,15 @@ public class Controller {
         DisciplineType type = null;
         try {
             type = DisciplineType.valueOf(disci.next().toUpperCase());
+
         } catch (IllegalArgumentException e){
             UI.notValidChoice();
             addNewDisci(member);
         }
+        if(member.findDiscipline(type) != null) {
+
+        }
+
         UI.enterVariable(10);
         double record = 0;
         try {
@@ -265,10 +270,8 @@ public class Controller {
     }
     }
     public void editDisciplineAttributes(DisciplineType type, CompetitionMember member){
-        Discipline discipline = null;
         for (Discipline disc :member.getDisciplines()) {
             if (disc.getType() == type) {
-                discipline = disc;
                 UI.enterVariable(10);
                 try {
                     disc.setRecord(input.nextDouble());
