@@ -287,7 +287,7 @@ public class Controller {
     }
     private void inputShowCompetitions() {
         if (competitionMembers.size() > 0){
-            UI.enterID();
+            UI.enterVariable(1);
             int target = input.nextInt();
             String fix = input.nextLine();
             ArrayList<Competition> comp = new ArrayList<>();
@@ -306,7 +306,7 @@ public class Controller {
     }
     private void inputShowDisciplines() {
         if (competitionMembers.size() > 0){
-            UI.enterID();
+            UI.enterVariable(1);
             int target = input.nextInt();
             String fix = input.nextLine();
             ArrayList<Discipline> disci = new ArrayList<>();

@@ -5,7 +5,6 @@ import logic.competitor.CompetitionMember;
 import logic.competitor.Discipline;
 import logic.competitor.RankingGroup;
 import logic.competitor.Competition;
-import logic.competitor.Discipline;
 
 import java.util.*;
 
@@ -216,8 +215,27 @@ public class ConsoleUI {
     public void notValidChoice() {
         System.out.println("Not a valid choice!");
     }
-    public void enterID(){
-        System.out.println("Enter ID");
+    public void enterVariable(int option){
+        switch (option){
+            //for members/comp members
+            case 1 -> System.out.println("Enter ID");
+            case 2 -> System.out.println("Enter FirstName");
+            case 3 -> System.out.println("Enter LastName");
+            case 4 -> System.out.println("Enter Birthday: format(DD/MM/YYYY)");
+            case 5 -> System.out.println("Enter address");
+            case 6 -> System.out.println("Enter email");
+            case 7 -> System.out.println("Enter phoneNumber");
+            case 8 -> System.out.println("Enter Status: format(aktiv/passiv)");
+            //for discipliner
+            case 9 -> System.out.println("Enter Type");
+            //for competitions
+            case 10 -> System.out.println("Enter Place");
+            case 11 -> System.out.println("Enter Rank");
+            //for comp og disci
+            case 12 -> System.out.println("Enter Date: format(DD/MM/YYYY)");
+            case 13 -> System.out.println("Enter Record: format(MM,SS)");
+
+        }
     }
 
     public void displayRankings(HashMap<RankingGroup, ArrayList<CompetitionMember>> rankings) {
