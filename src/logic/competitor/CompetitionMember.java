@@ -2,10 +2,7 @@ package logic.competitor;
 
 import logic.Member;
 
-import java.net.Proxy;
-import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Locale;
 import java.util.Scanner;
 
 public class CompetitionMember extends Member {
@@ -75,5 +72,19 @@ public class CompetitionMember extends Member {
             }
         }
         return discipline;
+    }
+    public void editAttribute(DisciplineType type){
+        Scanner sc = new Scanner(System.in);
+        Discipline discipline = null;
+        for (Discipline disc :disciplines) {
+            if (disc.getType() == type) {
+                discipline = disc;
+                System.out.println("enter new record");
+                disc.setRecord(sc.nextDouble());
+                sc.nextLine();
+                System.out.println("enter new date");
+                disc.setDate(sc.nextLine());
+            }
+        }
     }
 }

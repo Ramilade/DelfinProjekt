@@ -5,10 +5,7 @@ import logic.comparators.BirthDayComparator;
 import logic.comparators.IDComparator;
 import logic.comparators.NameComparator;
 import logic.comparators.ResultComparator;
-import logic.competitor.Competition;
-import logic.competitor.CompetitionMember;
-import logic.competitor.Discipline;
-import logic.competitor.RankingGroup;
+import logic.competitor.*;
 import ui.ConsoleUI;
 import ui.MemberInformation;
 
@@ -164,15 +161,19 @@ public class Controller {
             case "8", "Add competition result" -> {
                 UI.displayNowEditingChoiceDisplay(8);
                 competitionMember.addNewComp();
-            }case "9", "Edit competitions" -> {
+            }
+            case "9", "Edit competitions" -> {
                 UI.displayNowEditingChoiceDisplay(9);
                 competitionMember.addNewComp();
-            }case "10", "Add discipline" -> {
+            }
+            case "10", "Add discipline" -> {
                 UI.displayNowEditingChoiceDisplay(10);
                 competitionMember.addNewDisci();
-            }case "11", "Edit discipline" -> {
+            }
+            case "11", "Edit discipline" -> {
                 UI.displayNowEditingChoiceDisplay(11);
-                competitionMember.addNewComp();
+                competitionMember.editAttribute(DisciplineType.valueOf(input.nextLine().toUpperCase()));
+
             }
         }
 
