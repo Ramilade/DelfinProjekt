@@ -228,12 +228,13 @@ public class ConsoleUI {
             case 8 -> System.out.println("Enter Status: format(aktiv/passiv)");
             //for discipliner
             case 9 -> System.out.println("Enter Type");
+            case 10 -> System.out.println("Enter Record: format(MM,SS)");
             //for competitions
-            case 10 -> System.out.println("Enter Place");
-            case 11 -> System.out.println("Enter Rank");
+            case 11 -> System.out.println("Enter Place");
+            case 12 -> System.out.println("Enter Rank");
+            case 13 -> System.out.println("Enter Time");
             //for comp og disci
-            case 12 -> System.out.println("Enter Date: format(DD/MM/YYYY)");
-            case 13 -> System.out.println("Enter Record: format(MM,SS)");
+            case 14 -> System.out.println("Enter Date: format(DD/MM/YYYY)");
 
         }
     }

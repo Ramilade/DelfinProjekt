@@ -187,29 +187,33 @@ public class Controller {
         for (Discipline disc :disciplines) {
             if (disc.getType() == type) {
                 discipline = disc;
-                System.out.println("enter new record");
+                UI.enterVariable(10);
                 disc.setRecord(input.nextDouble());
                 input.nextLine();
-                System.out.println("enter new date");
-                disc.setDate(input.nextLine());
+                UI.enterVariable(14);
+                try {
+                    disc.setDate(input.nextLine());
+                } catch (DateTimeParseException e){
+                    UI.displayWrongDateFormat(e.getParsedString());
+                }
             }
         }
     }
     public void editCompetitionAttributes(String place){
         for (Competition competition : competitions) {
             if (competition.getPlace().equals(place)) {
-                System.out.println("enter new place");
+                UI.enterVariable(11);
                 competition.setPlace(input.nextLine());
-                System.out.println("enter new rank");
+                UI.enterVariable(12);
                 competition.setRanking(input.nextInt());
                 String fix = input.nextLine();
-                System.out.println("enter new date");
+                UI.enterVariable(14);
                 try {
                     competition.setDate(input.nextLine());
                 } catch (DateTimeParseException e){
                     UI.displayWrongDateFormat(e.getParsedString());
                 }
-                System.out.println("enter new time");
+                UI.enterVariable(13);
                 competition.setTime(input.nextDouble());
                 input.nextLine();
             }
