@@ -25,6 +25,7 @@ public class Controller {
     private boolean running;
     private final ConsoleUI UI;
     private final Database DB;
+    private final SubscriptionCalculator SC;
     private final Scanner input;
     private int currentHighestId;
 
@@ -33,14 +34,17 @@ public class Controller {
         this.running = true;
         this.competitionMembers = new ArrayList<>();
         this.UI = new ConsoleUI();
-        this.DB = new Database();
+        this.DB = new Database(); // god idé: interface impl så en stub kan bruges
+        this.SC = new SubscriptionCalculator();
         this.input = new Scanner(System.in);
     }
 
     public void run() {
         try {
             members = DB.loadMembers();
+            members.forEach(this::calculateSubscription);
             competitionMembers = DB.loadCompetetiveMembers();
+            competitionMembers.forEach(this::calculateSubscription);
         } catch (FileNotFoundException e) {
             members = new ArrayList<>();
             UI.fileNotFoundErrorMessage();
@@ -74,6 +78,7 @@ public class Controller {
             case "1", "add member" -> {
                 try {
                     inputAddMember();
+
                 } catch (DateTimeParseException e) {
                     UI.displayWrongDateFormat(e.getParsedString());
                 } catch (MemberTypeMismatchException e) {
@@ -94,7 +99,6 @@ public class Controller {
         }
 
     }
-
     private void inputEditMember() {
         UI.displayInputEditMember2();
         String option = input.nextLine();
@@ -423,7 +427,6 @@ public class Controller {
             UI.printCantFindMember();
         }
     }
-
     private void inputShowDisciplines() {
         if (competitionMembers.size() > 0){
             UI.enterVariable(1);
@@ -508,6 +511,7 @@ public class Controller {
         switch (editOption) {
             case 1 -> inputCheckSubscriptionsView();
             case 2 -> inputCheckSubscriptionsChangeMember();
+            default -> UI.notValidChoice();
         }
     }
 
@@ -521,8 +525,8 @@ public class Controller {
                 UI.printSubscriptionCaseChosenID(member);
                 int newStatus = input.nextInt();
                 switch (newStatus) {
-                    case 1 -> member.setHasPaid(false);
-                    case 2 -> member.setHasPaid(true);
+                    case 1 -> member.setHasPaidNextYear(false);
+                    case 2 -> member.setHasPaidNextYear(true);
                     default -> UI.notValidChoice();
                 }
             }
@@ -533,6 +537,10 @@ public class Controller {
         input.nextLine(); //Fixes scannerBug
     }
 
+    public void calculateSubscription(Member member){
+        double subscription = SC.subscribeCal(member.getAge(),member.isActive());
+        member.setSubscription(subscription);
+    }
 
     private void inputCheckSubscriptionsView(){
 
@@ -563,11 +571,13 @@ public class Controller {
             int monthPresent = Integer.parseInt(presentDateArray[1]);
             int yearPresent = Integer.parseInt(presentDateArray[2]);
 
-            if (member.hasPaid()) {
-                if (yearPay < yearPresent || (yearPay == yearPresent && monthPay < monthPresent) || (yearPay == yearPresent && monthPay == monthPresent && dayPay < dayPresent) || (yearPay == yearPresent && monthPay == monthPresent && dayPay == dayPresent)) {
+
+            if (member.getHasPaidNextYear()) {
+                if (yearPay < yearPresent || (yearPay == yearPresent && monthPay < monthPresent) || (yearPay == yearPresent && monthPay == monthPresent && dayPay < dayPresent) || (yearPay == yearPresent && monthPay == monthPresent && dayPay == dayPresent)){
                     yearPay++;
                     String newDatePaid = memberPayDateArray[0] + "/" + memberPayDateArray[1] + "/" + yearPay;
                     member.setDatePaid(newDatePaid);
+                    member.setHasPaidNextYear(false);
                 }
                 UI.printDateOfPay(yearPay, memberPayDateArray[1], memberPayDateArray[0]);
                 UI.userPaidInTime(true);

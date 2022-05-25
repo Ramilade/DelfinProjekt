@@ -6,6 +6,7 @@ import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Scanner;
 
 public class CompetitionMember extends Member {
@@ -22,9 +23,8 @@ public class CompetitionMember extends Member {
         competitions = new ArrayList<>();
     }
 
-
-    public CompetitionMember(int userID, String firstName, String lastName, String birthday, String address, String email, String phoneNumber, String status, String creationDate) {
-        super(userID, firstName, lastName, birthday, address, email, phoneNumber, status, creationDate);
+    public CompetitionMember(int userID, String firstName, String lastName, String birthday, String address, String email, String phoneNumber, String status, String creationDate, String datePaid, String hasPaidInTime) {
+        super(userID, firstName, lastName, birthday, address, email, phoneNumber, status, creationDate, datePaid, hasPaidInTime);
         disciplines = new ArrayList<>();
         competitions = new ArrayList<>();
     }
@@ -55,5 +55,4 @@ public class CompetitionMember extends Member {
         }
         return discipline;
     }
-
 }
