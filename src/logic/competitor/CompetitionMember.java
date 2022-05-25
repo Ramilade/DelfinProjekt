@@ -2,6 +2,7 @@ package logic.competitor;
 
 import logic.Member;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -84,6 +85,23 @@ public class CompetitionMember extends Member {
                 sc.nextLine();
                 System.out.println("enter new date");
                 disc.setDate(sc.nextLine());
+            }
+        }
+    }
+    public void editCompetitionAttributes(String place){
+        Scanner sc = new Scanner(System.in);
+        for (Competition competition : competitions) {
+            if (competition.getPlace().equals(place)) {
+                System.out.println("enter new place");
+                competition.setPlace(sc.nextLine());
+                System.out.println("enter new rank");
+                competition.setRanking(sc.nextInt());
+                String fix = sc.nextLine();
+                System.out.println("enter new date");
+                competition.setDate(sc.nextLine());
+                System.out.println("enter new time");
+                competition.setTime(sc.nextDouble());
+                sc.nextLine();
             }
         }
     }

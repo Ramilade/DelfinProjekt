@@ -164,6 +164,7 @@ public class Controller {
             }
             case "9", "Edit competitions" -> {
                 UI.displayNowEditingChoiceDisplay(9);
+                competitionMember.editCompetitionAttributes(input.nextLine());
             }
             case "10", "Add discipline" -> {
                 UI.displayNowEditingChoiceDisplay(10);
