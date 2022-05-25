@@ -2,6 +2,7 @@ package logic.competitor;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class Competition {
 
@@ -40,7 +41,7 @@ public class Competition {
     }
 
     public void setDate(String date) {
-        this.date = LocalDate.parse(date,dtf);
+            this.date = LocalDate.parse(date, dtf);
     }
 
     public double getTime() {
