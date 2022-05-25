@@ -228,11 +228,23 @@ public class Controller {
         UI.enterVariable(11);
         String place = comp.next();
         UI.enterVariable(12);
-        int rank = comp.nextInt();
+        int rank = 0;
+        try {
+            rank = comp.nextInt();
+        } catch (InputMismatchException e){
+            UI.notValidChoice();
+            addNewComp();
+        }
         UI.enterVariable(14);
         String date = comp.next();
         UI.enterVariable(13);
-        double time = comp.nextDouble();
+        double time = 0;
+        try {
+            time = comp.nextInt();
+        } catch (InputMismatchException e){
+            UI.notValidChoice();
+            addNewComp();
+        }
         competitions.add(new Competition(place,rank, date,time));
     }
     public void editCompetitionAttributes(String place){
