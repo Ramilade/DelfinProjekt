@@ -20,6 +20,7 @@ public class CompetitionMember extends Member {
         competitions = new ArrayList<>();
     }
 
+
     public CompetitionMember(int userID, String firstName, String lastName, String birthday, String address, String email, String phoneNumber, String status, String creationDate) {
         super(userID, firstName, lastName, birthday, address, email, phoneNumber, status, creationDate);
         disciplines = new ArrayList<>();

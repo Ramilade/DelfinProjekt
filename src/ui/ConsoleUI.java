@@ -167,8 +167,8 @@ public class ConsoleUI {
     }
 
     public void printUserHasBeenCreated(Member member){
-        System.out.println("User has been created!");
-        System.out.println(member);
+        System.out.println("\nUser has been created with the following information: ");
+        System.out.println(member + "\n");
     }
 
     public void printSubscriptionDuePayment(Member member) {
