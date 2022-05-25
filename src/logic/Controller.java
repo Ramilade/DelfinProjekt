@@ -164,7 +164,7 @@ public class Controller {
             }
             case "9", "Edit competitions" -> {
                 UI.displayNowEditingChoiceDisplay(9);
-                competitionMember.editCompetitionAttributes(input.nextLine());
+                editCompetitionAttributes(input.nextLine());
             }
             case "10", "Add discipline" -> {
                 UI.displayNowEditingChoiceDisplay(10);
@@ -175,13 +175,46 @@ public class Controller {
                 String check = input.nextLine().toUpperCase();
                     try {
                         DisciplineType type = DisciplineType.valueOf(check);
-                            competitionMember.editDisciplineAttributes(type);
+                            editDisciplineAttributes(type);
                     } catch (IllegalArgumentException e){
                         UI.notValidChoice();
                     }
                 }
             }
         }
+    public void editDisciplineAttributes(DisciplineType type){
+        Discipline discipline = null;
+        for (Discipline disc :disciplines) {
+            if (disc.getType() == type) {
+                discipline = disc;
+                System.out.println("enter new record");
+                disc.setRecord(input.nextDouble());
+                input.nextLine();
+                System.out.println("enter new date");
+                disc.setDate(input.nextLine());
+            }
+        }
+    }
+    public void editCompetitionAttributes(String place){
+        for (Competition competition : competitions) {
+            if (competition.getPlace().equals(place)) {
+                System.out.println("enter new place");
+                competition.setPlace(input.nextLine());
+                System.out.println("enter new rank");
+                competition.setRanking(input.nextInt());
+                String fix = input.nextLine();
+                System.out.println("enter new date");
+                try {
+                    competition.setDate(input.nextLine());
+                } catch (DateTimeParseException e){
+                    UI.displayWrongDateFormat(e.getParsedString());
+                }
+                System.out.println("enter new time");
+                competition.setTime(input.nextDouble());
+                input.nextLine();
+            }
+        }
+    }
 
 
     private void inputAddMember() {

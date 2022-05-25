@@ -2,7 +2,9 @@ package logic.competitor;
 
 import logic.Member;
 
+import java.time.DateTimeException;
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -74,35 +76,5 @@ public class CompetitionMember extends Member {
         }
         return discipline;
     }
-    public void editDisciplineAttributes(DisciplineType type){
-        Scanner sc = new Scanner(System.in);
-        Discipline discipline = null;
-        for (Discipline disc :disciplines) {
-            if (disc.getType() == type) {
-                discipline = disc;
-                System.out.println("enter new record");
-                disc.setRecord(sc.nextDouble());
-                sc.nextLine();
-                System.out.println("enter new date");
-                disc.setDate(sc.nextLine());
-            }
-        }
-    }
-    public void editCompetitionAttributes(String place){
-        Scanner sc = new Scanner(System.in);
-        for (Competition competition : competitions) {
-            if (competition.getPlace().equals(place)) {
-                System.out.println("enter new place");
-                competition.setPlace(sc.nextLine());
-                System.out.println("enter new rank");
-                competition.setRanking(sc.nextInt());
-                String fix = sc.nextLine();
-                System.out.println("enter new date");
-                competition.setDate(sc.nextLine());
-                System.out.println("enter new time");
-                competition.setTime(sc.nextDouble());
-                sc.nextLine();
-            }
-        }
-    }
+
 }
