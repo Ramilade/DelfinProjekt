@@ -176,7 +176,8 @@ public class Controller {
             }
             case "9", "Edit competitions" -> {
                 UI.displayNowEditingChoiceDisplay(9);
-                editCompetitionAttributes(input.nextLine());
+                UI.enterVariable(11);
+                editCompetitionAttributes(input.nextLine(),competitionMember);
             }
             case "10", "Add discipline" -> {
                 UI.displayNowEditingChoiceDisplay(10);
@@ -184,10 +185,11 @@ public class Controller {
             }
             case "11", "Edit discipline" -> {
                 UI.displayNowEditingChoiceDisplay(11);
+                UI.enterVariable(9);
                 String check = input.nextLine().toUpperCase();
                     try {
                         DisciplineType type = DisciplineType.valueOf(check);
-                            editDisciplineAttributes(type);
+                            editDisciplineAttributes(type,competitionMember);
                     } catch (IllegalArgumentException e){
                         UI.notValidChoice();
                     }
@@ -220,13 +222,17 @@ public class Controller {
         UI.displayWrongDateFormat(e.getParsedString());
     }
     }
-    public void editDisciplineAttributes(DisciplineType type){
+    public void editDisciplineAttributes(DisciplineType type, CompetitionMember member){
         Discipline discipline = null;
-        for (Discipline disc :disciplines) {
+        for (Discipline disc :member.getDisciplines()) {
             if (disc.getType() == type) {
                 discipline = disc;
                 UI.enterVariable(10);
-                disc.setRecord(input.nextDouble());
+                try {
+                    disc.setRecord(input.nextDouble());
+                } catch (InputMismatchException e){
+                    UI.notValidChoice();
+                }
                 input.nextLine();
                 UI.enterVariable(14);
                 try {
@@ -265,8 +271,8 @@ public class Controller {
             UI.displayWrongDateFormat(e.getParsedString());
         }
     }
-    public void editCompetitionAttributes(String place){
-        for (Competition competition : competitions) {
+    public void editCompetitionAttributes(String place, CompetitionMember member){
+        for (Competition competition : member.getCompetitions()) {
             if (competition.getPlace().equals(place)) {
                 UI.enterVariable(11);
                 competition.setPlace(input.nextLine());
