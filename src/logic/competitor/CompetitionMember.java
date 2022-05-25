@@ -73,7 +73,7 @@ public class CompetitionMember extends Member {
         }
         return discipline;
     }
-    public void editAttribute(DisciplineType type){
+    public void editDisciplineAttributes(DisciplineType type){
         Scanner sc = new Scanner(System.in);
         Discipline discipline = null;
         for (Discipline disc :disciplines) {

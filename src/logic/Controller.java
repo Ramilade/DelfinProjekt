@@ -164,7 +164,6 @@ public class Controller {
             }
             case "9", "Edit competitions" -> {
                 UI.displayNowEditingChoiceDisplay(9);
-                competitionMember.addNewComp();
             }
             case "10", "Add discipline" -> {
                 UI.displayNowEditingChoiceDisplay(10);
@@ -172,13 +171,17 @@ public class Controller {
             }
             case "11", "Edit discipline" -> {
                 UI.displayNowEditingChoiceDisplay(11);
-                competitionMember.editAttribute(DisciplineType.valueOf(input.nextLine().toUpperCase()));
-
+                String check = input.nextLine().toUpperCase();
+                    try {
+                        DisciplineType type = DisciplineType.valueOf(check);
+                            competitionMember.editDisciplineAttributes(type);
+                    } catch (IllegalArgumentException e){
+                        UI.notValidChoice();
+                    }
+                }
             }
         }
 
-
-            }
 
     private void inputAddMember() {
         HashMap<MemberInformation, String> memberInformationMap = UI.askForMemberInformation();
