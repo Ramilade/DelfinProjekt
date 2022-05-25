@@ -1,6 +1,6 @@
 package logic.comparators;
 
-import logic.CompetitorDontHaveDisciplineException;
+import logic.exceptions.CompetitorDontHaveDisciplineException;
 import logic.competitor.CompetitionMember;
 import logic.competitor.Discipline;
 import logic.competitor.DisciplineType;

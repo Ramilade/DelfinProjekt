@@ -9,18 +9,14 @@ import logic.competitor.DisciplineType;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.InputMismatchException;
 import java.util.Locale;
 import java.util.Scanner;
 
 public class Database {
     public void saveMembers(ArrayList<Member> members) throws FileNotFoundException {
         PrintStream out = new PrintStream("Svømmeclub.csv");
-        for (int i = 0; i < members.size(); i++) {
-            Member member = members.get(i);
+        for (Member member : members) {
             out.print(member.getUserID());
             out.print(";");
             out.print(member.getFirstName());
@@ -42,57 +38,64 @@ public class Database {
     }
 
     public void saveCompetetiveMembers(ArrayList<CompetitionMember> competitionMembers) throws FileNotFoundException {
-        PrintStream out = new PrintStream("CompetetionMembers.csv");
-        PrintStream out2 = new PrintStream("Disciplines.csv");
-        PrintStream out3 = new PrintStream("Competitions.csv");
-        for (int i = 0; i < competitionMembers.size(); i++) {
-            CompetitionMember competitionMember = competitionMembers.get(i);
-            out.print(competitionMember.getUserID());
-            out.print(";");
-            out.print(competitionMember.getFirstName());
-            out.print(";");
-            out.print(competitionMember.getLastName());
-            out.print(";");
-            out.print(competitionMember.getBirthday());
-            out.print(";");
-            out.print(competitionMember.getAddress());
-            out.print(";");
-            out.print(competitionMember.getEmail());
-            out.print(";");
-            out.print(competitionMember.getPhoneNumber());
-            out.print(";");
-            out.print(competitionMember.getActive());
-            out.print("\n");
-            ArrayList<Discipline> disciplines = competitionMember.getDisciplines();
-            ArrayList<Competition> competitions = competitionMember.getCompetitions();
+        PrintStream outMembers = new PrintStream("CompetetionMembers.csv");
+        PrintStream outDisciplines = new PrintStream("Disciplines.csv");
+        PrintStream outCompetitions = new PrintStream("Competitions.csv");
 
-            for (Discipline discipline : disciplines) {
-                out2.print(competitionMember.getUserID());
-                out2.print(";");
-                out2.print(discipline.getType());
-                out2.print(";");
-                out2.print(discipline.getDate());
-                out2.print(";");
-                out2.print(discipline.getRecord());
-                out2.print("\n");
+        for (CompetitionMember competitionMember : competitionMembers) {
+            outMembers.print(competitionMember.getUserID());
+            outMembers.print(";");
+            outMembers.print(competitionMember.getFirstName());
+            outMembers.print(";");
+            outMembers.print(competitionMember.getLastName());
+            outMembers.print(";");
+            outMembers.print(competitionMember.getBirthday());
+            outMembers.print(";");
+            outMembers.print(competitionMember.getAddress());
+            outMembers.print(";");
+            outMembers.print(competitionMember.getEmail());
+            outMembers.print(";");
+            outMembers.print(competitionMember.getPhoneNumber());
+            outMembers.print(";");
+            outMembers.print(competitionMember.getActive());
+            outMembers.print("\n");
 
-            }
-            for (Competition competition : competitions) {
-                out3.print(competitionMember.getUserID());
-                out3.print(";");
-                out3.print(competition.getPlace());
-                out3.print(";");
-                out3.print(competition.getRanking());
-                out3.print(";");
-                out3.print(competition.getDate());
-                out3.print(";");
-                out3.print(competition.getTime());
-                out3.print("\n");
-            }
+            saveDisciplines(outDisciplines, competitionMember);
+            saveCompetitions(outCompetitions, competitionMember);
 
         }
 
     }
+
+
+    private void saveDisciplines(PrintStream out, CompetitionMember member) {
+        for (Discipline discipline : member.getDisciplines()) {
+            out.print(member.getUserID());
+            out.print(";");
+            out.print(discipline.getType());
+            out.print(";");
+            out.print(discipline.getDate());
+            out.print(";");
+            out.print(discipline.getRecord());
+            out.print("\n");
+        }
+    }
+
+    private void saveCompetitions(PrintStream out, CompetitionMember member) {
+        for (Competition competition : member.getCompetitions()) {
+            out.print(member.getUserID());
+            out.print(";");
+            out.print(competition.getPlace());
+            out.print(";");
+            out.print(competition.getRanking());
+            out.print(";");
+            out.print(competition.getDate());
+            out.print(";");
+            out.print(competition.getTime());
+            out.print("\n");
+        }
+    }
+
 
     public ArrayList<Member> loadMembers() throws FileNotFoundException {
         ArrayList<Member> members = new ArrayList<>();
