@@ -202,6 +202,7 @@ public class Controller {
             type = DisciplineType.valueOf(disci.next().toUpperCase());
         } catch (IllegalArgumentException e){
             UI.notValidChoice();
+            addNewDisci(member);
         }
         UI.enterVariable(10);
         double record = 0;
