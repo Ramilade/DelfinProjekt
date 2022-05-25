@@ -57,19 +57,20 @@ public class ConsoleUI {
 
 
     public void displayInputEditMember(){
-        System.out.println("""
-                1. Change first name
-                2. Change last name
-                3. Change birthday (dd/mm/yyyy) format.
-                4. Change address
-                5. Change email
-                6. Change phone number
-                7. Change member status
-                8. Add competition
-                9. Edit competition
-                10. Add discipline
-                11. Edit discipline
-                """);
+        System.out.println("1. Change first name");
+        System.out.println("2. Change last name");
+        System.out.println("3. Change birthday (dd/mm/yyyy) format.");
+        System.out.println("4. Change address");
+        System.out.println("5. Change email");
+        System.out.println("6. Change phone number");
+        System.out.println("7. Change member status");
+    }
+    public void displayInputEditCompetetiveMember(){
+        displayInputEditMember();
+        System.out.println("8. Add competition");
+        System.out.println("9. Edit competition");
+        System.out.println("10. Add discipline");
+        System.out.println("11. Edit discipline");
     }
     public void displayInputEditMember2(){
         System.out.print("""

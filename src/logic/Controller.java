@@ -173,7 +173,7 @@ public class Controller {
         }
     }
     private void editMember(CompetitionMember member) {
-        UI.displayInputEditMember();
+        UI.displayInputEditCompetetiveMember();
         String editOption = input.nextLine();
         switch (editOption) {
             case "1", "Firstname" -> {
