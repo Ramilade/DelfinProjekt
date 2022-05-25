@@ -100,7 +100,12 @@ public class Controller {
         switch (option){
             case "1","competitive" -> {
                 UI.displayInputEditMemberChooseMember();
-                int requestedID = Integer.parseInt(input.nextLine());
+                int requestedID = 0;
+                try {
+                    requestedID = Integer.parseInt(input.nextLine());
+                } catch (NumberFormatException e){
+                    UI.notValidChoice();
+                }
                 for (CompetitionMember competitionMember : competitionMembers) {
                     if (competitionMember.getUserID() == requestedID) {
                         UI.nowEditing(competitionMember);
@@ -112,7 +117,12 @@ public class Controller {
             }
             case "2","member" -> {
                 UI.displayInputEditMemberChooseMember();
-                int requestedID = Integer.parseInt(input.nextLine());
+                int requestedID = 0;
+                try {
+                    requestedID = Integer.parseInt(input.nextLine());
+                } catch (NumberFormatException e){
+                    UI.notValidChoice();
+                }
                 for (Member member : members) {
                     if (member.getUserID() == requestedID) {
                         UI.nowEditing(member);
@@ -140,7 +150,11 @@ public class Controller {
             }
             case "3", "Birthday" -> {
                 UI.displayNowEditingChoiceDisplay(3);
-                member.setBirthday(input.nextLine());
+                try {
+                    member.setBirthday(input.nextLine());
+                } catch (DateTimeParseException e){
+                    UI.displayWrongDateFormat(e.getParsedString());
+                }
             }
             case "4", "Address" -> {
                 UI.displayNowEditingChoiceDisplay(4);
@@ -160,7 +174,7 @@ public class Controller {
             }
             case "8", "Add competition result" -> {
                 UI.displayNowEditingChoiceDisplay(8);
-                competitionMember.addNewComp();
+                addNewComp();
             }
             case "9", "Edit competitions" -> {
                 UI.displayNowEditingChoiceDisplay(9);
@@ -168,7 +182,7 @@ public class Controller {
             }
             case "10", "Add discipline" -> {
                 UI.displayNowEditingChoiceDisplay(10);
-                competitionMember.addNewDisci();
+                addNewDisci();
             }
             case "11", "Edit discipline" -> {
                 UI.displayNowEditingChoiceDisplay(11);
@@ -182,6 +196,16 @@ public class Controller {
                 }
             }
         }
+    public void addNewDisci(){
+        Scanner disci = new Scanner(System.in);
+        UI.enterVariable(9);
+        DisciplineType type = DisciplineType.valueOf(disci.next().toUpperCase());
+        UI.enterVariable(10);
+        double record = disci.nextDouble();
+        UI.enterVariable(14);
+        String date = disci.next();
+        disciplines.add(new Discipline(type,record,date));
+    }
     public void editDisciplineAttributes(DisciplineType type){
         Discipline discipline = null;
         for (Discipline disc :disciplines) {
@@ -198,6 +222,18 @@ public class Controller {
                 }
             }
         }
+    }
+    public void addNewComp(){
+        Scanner comp = new Scanner(System.in);
+        UI.enterVariable(11);
+        String place = comp.next();
+        UI.enterVariable(12);
+        int rank = comp.nextInt();
+        UI.enterVariable(14);
+        String date = comp.next();
+        UI.enterVariable(13);
+        double time = comp.nextDouble();
+        competitions.add(new Competition(place,rank, date,time));
     }
     public void editCompetitionAttributes(String place){
         for (Competition competition : competitions) {
