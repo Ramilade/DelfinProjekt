@@ -31,7 +31,7 @@ public class Controller {
         this.running = true;
         this.competitionMembers = new ArrayList<>();
         this.UI = new ConsoleUI();
-        this.DB = new Database(); // god idé: interface impl så en stub kan bruges
+        this.DB = new Database();
         this.input = new Scanner(System.in);
     }
 
@@ -107,7 +107,7 @@ public class Controller {
                         System.out.println();
                         editMember(competitionMember,competitionMember);
                     }
-                } //UI.displayIncorrectMemberType();
+                }
 
             }
             case "2","member" -> {
@@ -192,11 +192,10 @@ public class Controller {
         } else {
             addMember(memberInformationMap);
         }
-        UI.printUserHasBeenCreated();
     }
 
 
-    public void addMember(HashMap<MemberInformation, String> information) {
+    private void addMember(HashMap<MemberInformation, String> information) {
         Member member = new Member(
                 currentHighestId,
                 information.get(MemberInformation.FIRST_NAME),
@@ -207,9 +206,10 @@ public class Controller {
                 information.get(MemberInformation.PHONE_NUMBER),
                 information.get(MemberInformation.STATUS));
         members.add(member);
+        UI.printUserHasBeenCreated(member);
     }
 
-    public void addCompetitionMember(HashMap<MemberInformation, String> information) {
+    private void addCompetitionMember(HashMap<MemberInformation, String> information) {
         CompetitionMember member = new CompetitionMember(
                 currentHighestId,
                 information.get(MemberInformation.FIRST_NAME),
@@ -220,6 +220,7 @@ public class Controller {
                 information.get(MemberInformation.PHONE_NUMBER),
                 information.get(MemberInformation.STATUS));
         competitionMembers.add(member);
+        UI.printUserHasBeenCreated(member);
     }
 
     private void inputShowMember() {
@@ -289,7 +290,9 @@ public class Controller {
             UI.printCantFindMember();
         }
     }
-    public void deleteMember(){
+
+
+    private void deleteMember(){
         Member found = null;
         UI.displayDeleteMember();
         int data = Integer.parseInt(input.nextLine());
@@ -353,7 +356,7 @@ public class Controller {
 
     }
 
-    public void inputCheckSubscriptions() {
+    private void inputCheckSubscriptions() {
         UI.printInputCaseCheckSubscription();
         int editOption = input.nextInt();
         switch (editOption) {
@@ -362,7 +365,7 @@ public class Controller {
         }
     }
 
-    public void inputCheckSubscriptionsChangeMember() {
+    private void inputCheckSubscriptionsChangeMember() {
         UI.printSubscriptionCaseChangeSub();
         int requestedID = input.nextInt();
         boolean memberFound = false;
@@ -385,7 +388,7 @@ public class Controller {
 }
 
 
-    public void inputCheckSubscriptionsView(){
+    private void inputCheckSubscriptionsView(){
 
         ArrayList<Member> membersSubscription = new ArrayList<>();
         membersSubscription.addAll(this.members);
