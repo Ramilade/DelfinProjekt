@@ -5,10 +5,9 @@ import logic.comparators.BirthDayComparator;
 import logic.comparators.IDComparator;
 import logic.comparators.NameComparator;
 import logic.comparators.ResultComparator;
-import logic.competitor.Competition;
-import logic.competitor.CompetitionMember;
-import logic.competitor.Discipline;
-import logic.competitor.RankingGroup;
+import logic.competitor.*;
+import logic.exceptions.MemberStatusMismatchException;
+import logic.exceptions.MemberTypeMismatchException;
 import ui.ConsoleUI;
 import ui.MemberInformation;
 
@@ -47,9 +46,8 @@ public class Controller {
             competitionMembers = DB.loadCompetetiveMembers();
             competitionMembers.forEach(this::calculateSubscription);
         } catch (FileNotFoundException e) {
-            members = new ArrayList<Member>();
+            members = new ArrayList<>();
             UI.fileNotFoundErrorMessage();
-
         }
 
         determineID();
@@ -60,13 +58,9 @@ public class Controller {
         }
         try {
             DB.saveMembers(members);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        try {
             DB.saveCompetetiveMembers(competitionMembers);
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            UI.displayCouldNotSaveToFile();
         }
     }
 
@@ -87,6 +81,10 @@ public class Controller {
 
                 } catch (DateTimeParseException e) {
                     UI.displayWrongDateFormat(e.getParsedString());
+                } catch (MemberTypeMismatchException e) {
+                    UI.displayWrongMemberType(e.getMessage());
+                } catch (MemberStatusMismatchException e) {
+                    UI.displayWrongMemberStatus(e.getMessage());
                 }
 
             }
@@ -104,20 +102,19 @@ public class Controller {
     private void inputEditMember() {
         UI.displayInputEditMember2();
         String option = input.nextLine();
-        switch (option){
-            case "1","competitive" -> {
+        switch (option) {
+            case "1", "competitive" -> {
                 UI.displayInputEditMemberChooseMember();
                 int requestedID = Integer.parseInt(input.nextLine());
                 for (CompetitionMember competitionMember : competitionMembers) {
                     if (competitionMember.getUserID() == requestedID) {
                         UI.nowEditing(competitionMember);
                         System.out.println();
-                        editMember(competitionMember,competitionMember);
+                        editMember(competitionMember, competitionMember);
                     }
-                } //UI.displayIncorrectMemberType();
-
+                }
             }
-            case "2","member" -> {
+            case "2", "member" -> {
                 UI.displayInputEditMemberChooseMember();
                 int requestedID = Integer.parseInt(input.nextLine());
                 for (Member member : members) {
@@ -128,9 +125,7 @@ public class Controller {
                     }
                 }
             }
-
-    }
-
+        }
     }
 
     private void editMember(Member member, CompetitionMember competitionMember) {
@@ -168,56 +163,105 @@ public class Controller {
             case "8", "Add competition result" -> {
                 UI.displayNowEditingChoiceDisplay(8);
                 competitionMember.addNewComp();
-            }case "9", "Edit competitions" -> {
+            }
+            case "9", "Edit competitions" -> {
                 UI.displayNowEditingChoiceDisplay(9);
-                competitionMember.addNewComp();
-            }case "10", "Add discipline" -> {
+                editCompetitionAttributes(input.nextLine());
+            }
+            case "10", "Add discipline" -> {
                 UI.displayNowEditingChoiceDisplay(10);
                 competitionMember.addNewDisci();
-            }case "11", "Edit discipline" -> {
+            }
+            case "11", "Edit discipline" -> {
                 UI.displayNowEditingChoiceDisplay(11);
-                competitionMember.addNewComp();
+                String check = input.nextLine().toUpperCase();
+                    try {
+                        DisciplineType type = DisciplineType.valueOf(check);
+                            editDisciplineAttributes(type);
+                    } catch (IllegalArgumentException e){
+                        UI.notValidChoice();
+                    }
+                }
             }
         }
-
-
+    public void editDisciplineAttributes(DisciplineType type){
+        Discipline discipline = null;
+        for (Discipline disc :disciplines) {
+            if (disc.getType() == type) {
+                discipline = disc;
+                UI.enterVariable(10);
+                disc.setRecord(input.nextDouble());
+                input.nextLine();
+                UI.enterVariable(14);
+                try {
+                    disc.setDate(input.nextLine());
+                } catch (DateTimeParseException e){
+                    UI.displayWrongDateFormat(e.getParsedString());
+                }
             }
+        }
+    }
+    public void editCompetitionAttributes(String place){
+        for (Competition competition : competitions) {
+            if (competition.getPlace().equals(place)) {
+                UI.enterVariable(11);
+                competition.setPlace(input.nextLine());
+                UI.enterVariable(12);
+                competition.setRanking(input.nextInt());
+                String fix = input.nextLine();
+                UI.enterVariable(14);
+                try {
+                    competition.setDate(input.nextLine());
+                } catch (DateTimeParseException e){
+                    UI.displayWrongDateFormat(e.getParsedString());
+                }
+                UI.enterVariable(13);
+                competition.setTime(input.nextDouble());
+                input.nextLine();
+            }
+        }
+    }
+
 
     private void inputAddMember() {
         HashMap<MemberInformation, String> memberInformationMap = UI.askForMemberInformation();
         currentHighestId++;
-        if (memberInformationMap.containsValue("konkurrent")) {
-            addCompetitionMember(memberInformationMap);
-        } else {
-            addMember(memberInformationMap);
+        String status = memberInformationMap.get(MemberInformation.STATUS);
+        if (!(status.equals("aktiv") || status.equals("passiv"))) {
+            throw new MemberStatusMismatchException(status);
+        }
+        switch (memberInformationMap.get(MemberInformation.TYPE).toLowerCase()) {
+            case "konkurrent" -> addCompetitionMember(memberInformationMap);
+            case "motionist" -> addMember(memberInformationMap);
+            default -> throw new MemberTypeMismatchException(memberInformationMap.get(MemberInformation.TYPE));
         }
     }
 
 
-    public void addMember(HashMap<MemberInformation, String> information) {
+    private void addMember(HashMap<MemberInformation, String> information) {
         Member member = new Member(
-                currentHighestId,
-                information.get(MemberInformation.FIRST_NAME),
-                information.get(MemberInformation.LAST_NAME),
-                information.get(MemberInformation.BIRTHDAY),
-                information.get(MemberInformation.ADDRESS),
-                information.get(MemberInformation.EMAIL),
-                information.get(MemberInformation.PHONE_NUMBER),
-                information.get(MemberInformation.STATUS));
+            currentHighestId,
+            information.get(MemberInformation.FIRST_NAME),
+            information.get(MemberInformation.LAST_NAME),
+            information.get(MemberInformation.BIRTHDAY),
+            information.get(MemberInformation.ADDRESS),
+            information.get(MemberInformation.EMAIL),
+            information.get(MemberInformation.PHONE_NUMBER),
+            information.get(MemberInformation.STATUS));
         members.add(member);
         UI.printUserHasBeenCreated(member);
     }
 
-    public void addCompetitionMember(HashMap<MemberInformation, String> information) {
+    private void addCompetitionMember(HashMap<MemberInformation, String> information) {
         CompetitionMember member = new CompetitionMember(
-                currentHighestId,
-                information.get(MemberInformation.FIRST_NAME),
-                information.get(MemberInformation.LAST_NAME),
-                information.get(MemberInformation.BIRTHDAY),
-                information.get(MemberInformation.ADDRESS),
-                information.get(MemberInformation.EMAIL),
-                information.get(MemberInformation.PHONE_NUMBER),
-                information.get(MemberInformation.STATUS));
+            currentHighestId,
+            information.get(MemberInformation.FIRST_NAME),
+            information.get(MemberInformation.LAST_NAME),
+            information.get(MemberInformation.BIRTHDAY),
+            information.get(MemberInformation.ADDRESS),
+            information.get(MemberInformation.EMAIL),
+            information.get(MemberInformation.PHONE_NUMBER),
+            information.get(MemberInformation.STATUS));
         competitionMembers.add(member);
         UI.printUserHasBeenCreated(member);
     }
@@ -239,30 +283,26 @@ public class Controller {
                 case "3", "Sort by ID" -> comparator = new IDComparator();
                 default -> comparator = new IDComparator();
             }
-
             Collections.sort(members, comparator);
-
             for (Member member : members) {
                 UI.printArray(member);
             }
-
         } else {
             UI.noMembersInList();
         }
-
     }
+
     private void inputShowCompetitions() {
         if (competitionMembers.size() > 0){
-            UI.enterID();
+            UI.enterVariable(1);
             int target = input.nextInt();
             String fix = input.nextLine();
             ArrayList<Competition> comp = new ArrayList<>();
-            for (CompetitionMember competitionMember :competitionMembers ) {
-                if(target == competitionMember.getUserID()) {
-                        comp.addAll(competitionMember.getCompetitions());
-                    for (Competition competition :comp ) {
+            for (CompetitionMember competitionMember : competitionMembers) {
+                if (target == competitionMember.getUserID()) {
+                    comp.addAll(competitionMember.getCompetitions());
+                    for (Competition competition : comp) {
                         UI.competitionsPrintArray(competition);
-
                     }
                 }
             }
@@ -272,16 +312,15 @@ public class Controller {
     }
     private void inputShowDisciplines() {
         if (competitionMembers.size() > 0){
-            UI.enterID();
+            UI.enterVariable(1);
             int target = input.nextInt();
             String fix = input.nextLine();
             ArrayList<Discipline> disci = new ArrayList<>();
-            for (CompetitionMember competitionMember :competitionMembers ) {
-                if(target == competitionMember.getUserID()) {
+            for (CompetitionMember competitionMember : competitionMembers) {
+                if (target == competitionMember.getUserID()) {
                     disci.addAll(competitionMember.getDisciplines());
-                    for (Discipline discipline :disci ) {
+                    for (Discipline discipline : disci) {
                         UI.disciplinePrintArray(discipline);
-
                     }
                 }
             }
@@ -289,7 +328,8 @@ public class Controller {
             UI.printCantFindMember();
         }
     }
-    public void deleteMember(){
+
+    private void deleteMember(){
         Member found = null;
         UI.displayDeleteMember();
         int data = Integer.parseInt(input.nextLine());
@@ -299,30 +339,25 @@ public class Controller {
                 UI.displayMemberDeleted();
             }
         }
-        if (found == null){
+        if (found == null) {
             UI.displayInvalidMemberID();
         } else {
             members.remove(found);
         }
-
-
     }
 
-    private HashMap<RankingGroup,ArrayList<CompetitionMember>> initializeRanking() {
-        HashMap<RankingGroup,ArrayList<CompetitionMember>> rankings = new HashMap<>();
+    private HashMap<RankingGroup, ArrayList<CompetitionMember>> initializeRanking() {
+        HashMap<RankingGroup, ArrayList<CompetitionMember>> rankings = new HashMap<>();
         for (RankingGroup rankingGroup : RankingGroup.values()) {
-            rankings.put(rankingGroup,new ArrayList<>());
-
+            rankings.put(rankingGroup, new ArrayList<>());
         }
         return rankings;
-
     }
+
     private void inputCheckRankings() {
-
-        HashMap<RankingGroup,ArrayList<CompetitionMember>> rankings = initializeRanking();
-
+        HashMap<RankingGroup, ArrayList<CompetitionMember>> rankings = initializeRanking();
         for (CompetitionMember competitionMember : competitionMembers) {
-            if(competitionMember.getAge() < 18) {
+            if (competitionMember.getAge() < 18) {
                 for (Discipline discipline : competitionMember.getDisciplines()) {
                     switch (discipline.getType()) {
                         case CRAWL -> rankings.get(RankingGroup.JUNIOR_CRAWL).add(competitionMember);
@@ -331,7 +366,6 @@ public class Controller {
                         case BUTTERFLY -> rankings.get(RankingGroup.JUNIOR_BUTTERFLY).add(competitionMember);
                     }
                 }
-
             } else {
                 for (Discipline discipline : competitionMember.getDisciplines()) {
                     switch (discipline.getType()) {
@@ -343,17 +377,13 @@ public class Controller {
                 }
             }
         }
-
-        for (Map.Entry<RankingGroup,ArrayList<CompetitionMember>> set : rankings.entrySet()) {
-            Collections.sort(set.getValue(),new ResultComparator(set.getKey()));
-
+        for (Map.Entry<RankingGroup, ArrayList<CompetitionMember>> set : rankings.entrySet()) {
+            Collections.sort(set.getValue(), new ResultComparator(set.getKey()));
         }
-
         UI.displayRankings(rankings);
-
     }
 
-    public void inputCheckSubscriptions() {
+    private void inputCheckSubscriptions() {
         UI.printInputCaseCheckSubscription();
         int editOption = input.nextInt();
         switch (editOption) {
@@ -363,7 +393,7 @@ public class Controller {
         }
     }
 
-    public void inputCheckSubscriptionsChangeMember() {
+    private void inputCheckSubscriptionsChangeMember() {
         UI.printSubscriptionCaseChangeSub();
         int requestedID = input.nextInt();
         boolean memberFound = false;
@@ -381,16 +411,16 @@ public class Controller {
         }
         if (!memberFound) {
             UI.printCantFindMember();
-    }
+        }
         input.nextLine(); //Fixes scannerBug
-}
+    }
 
     public void calculateSubscription(Member member){
         double subscription = SC.subscribeCal(member.getAge(),member.isActive());
         member.setSubscription(subscription);
     }
 
-    public void inputCheckSubscriptionsView(){
+    private void inputCheckSubscriptionsView(){
 
         ArrayList<Member> membersSubscription = new ArrayList<>();
         membersSubscription.addAll(this.members);
@@ -398,7 +428,6 @@ public class Controller {
 
         String presentDate = LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
         int subscriptions = 0;
-
 
         for (Member member : membersSubscription) {
 
@@ -432,7 +461,7 @@ public class Controller {
                 UI.userPaidInTime(true);
             } else {
                 UI.printDateOfPay(yearPay, memberPayDateArray[1], memberPayDateArray[0]);
-                if (yearPay < yearPresent || (yearPay == yearPresent && monthPay < monthPresent) || (yearPay == yearPresent && monthPay == monthPresent && dayPay < dayPresent) || (yearPay == yearPresent && monthPay == monthPresent && dayPay == dayPresent)){
+                if (yearPay < yearPresent || (yearPay == yearPresent && monthPay < monthPresent) || (yearPay == yearPresent && monthPay == monthPresent && dayPay < dayPresent) || (yearPay == yearPresent && monthPay == monthPresent && dayPay == dayPresent)) {
                     UI.userPaidInTime(false);
                 } else {
                     UI.userPaidInTime(true);

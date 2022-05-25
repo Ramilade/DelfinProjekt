@@ -5,7 +5,6 @@ import logic.competitor.CompetitionMember;
 import logic.competitor.Discipline;
 import logic.competitor.RankingGroup;
 import logic.competitor.Competition;
-import logic.competitor.Discipline;
 
 import java.text.NumberFormat;
 import java.util.*;
@@ -14,9 +13,9 @@ public class ConsoleUI {
 
 
     //skal denne bruges?
-    public void displayMember(Member member) {
+    /*public void displayMember(Member member) {
         System.out.println(member);
-    }
+    }*/
 
     public void displayInputOptions() {
         System.out.println("""
@@ -34,7 +33,7 @@ public class ConsoleUI {
 
     public void displayInputSortingMember(){
         System.out.println("""
-                Choose sorting method.
+                Choose sorting method:
                 
                 1. Sort by name
                 2. Sort by date of birth
@@ -42,11 +41,11 @@ public class ConsoleUI {
                 """);
     }
     public void displayInputEditMemberChooseMember(){
-        System.out.println("Please enter member ID to edit: ");
+        System.out.println("Enter the member ID you wish to edit: ");
     }
 
     public void displayDeleteMember(){
-        System.out.println("Enter memberID you wish to delete: ");
+        System.out.println("Enter the memberID you wish to delete: ");
     }
 
     public void displayMemberDeleted(){
@@ -76,13 +75,16 @@ public class ConsoleUI {
     public void displayInputEditMember2(){
         System.out.print("""
                             Choose the type of member you wish to edit:
+                            
                             1. Competitive member
                             2. Non-competitive member
                             """);
     }
-    public void displayIncorrectMemberType(){
+    //Skal denne bruges?
+    /*public void displayIncorrectMemberType(){
         System.out.println("Invalid type of member - go back and pick another/opposite member type!\n");
-    }
+    }*/
+
     public void nowEditing(Member member){
         System.out.println("Now editing: " + member.getUserID());
     }
@@ -91,7 +93,7 @@ public class ConsoleUI {
         switch (option) {
             case 1 -> System.out.println("Now editing First Name");
             case 2 -> System.out.println("Now editing Last Name");
-            case 3 -> System.out.println("Now editing Birthday");
+            case 3 -> System.out.println("Now editing Birthday(dd/mm/yyyy)");
             case 4 -> System.out.println("Now editing Address");
             case 5 -> System.out.println("Now editing Email");
             case 6 -> System.out.println("Now editing Phone number");
@@ -165,8 +167,8 @@ public class ConsoleUI {
     }
 
     public void printUserHasBeenCreated(Member member){
-        System.out.println("User has been created!");
-        System.out.println(member);
+        System.out.println("\nUser has been created with the following information: ");
+        System.out.println(member + "\n");
     }
 
     public void printSubscriptionDuePayment(Member member) {
@@ -175,9 +177,9 @@ public class ConsoleUI {
 
     public void userPaidInTime(boolean paid) {
         if (paid){
-            System.out.println(" User has paid in time");
+            System.out.println(" Member has paid their subscription");
         } else {
-            System.out.println(" User has yet to pay in time!");
+            System.out.println(" Member has NOT paid their subscription");
         }
     }
 
@@ -216,8 +218,28 @@ public class ConsoleUI {
     public void notValidChoice() {
         System.out.println("Not a valid choice!");
     }
-    public void enterID(){
-        System.out.println("enter ID");
+    public void enterVariable(int option){
+        switch (option){
+            //for members/comp members
+            case 1 -> System.out.println("Enter ID");
+            case 2 -> System.out.println("Enter FirstName");
+            case 3 -> System.out.println("Enter LastName");
+            case 4 -> System.out.println("Enter Birthday: format(DD/MM/YYYY)");
+            case 5 -> System.out.println("Enter address");
+            case 6 -> System.out.println("Enter email");
+            case 7 -> System.out.println("Enter phoneNumber");
+            case 8 -> System.out.println("Enter Status: format(aktiv/passiv)");
+            //for discipliner
+            case 9 -> System.out.println("Enter Type");
+            case 10 -> System.out.println("Enter Record: format(MM,SS)");
+            //for competitions
+            case 11 -> System.out.println("Enter Place");
+            case 12 -> System.out.println("Enter Rank");
+            case 13 -> System.out.println("Enter Time");
+            //for comp og disci
+            case 14 -> System.out.println("Enter Date: format(DD/MM/YYYY)");
+
+        }
     }
 
     public void displayRankings(HashMap<RankingGroup, ArrayList<CompetitionMember>> rankings) {
@@ -241,5 +263,18 @@ public class ConsoleUI {
 
     public void displayWrongDateFormat(String parsedString) {
         System.err.println("You cannot write " + parsedString + ". Please follow the format provided when creating a member");
+    }
+
+    public void displayCouldNotSaveToFile() {
+        System.err.println("Could not save to file, it may be open in another program or not accessible entirely");
+    }
+
+    public void displayWrongMemberType(String message) {
+        System.err.println(message + " is not a type of member, please use \"motionist\"/\"konkurrent\"");
+    }
+
+    public void displayWrongMemberStatus(String message) {
+        System.err.println(message + " is not a status of member, please use \"aktiv\"/\"passiv\"");
+
     }
 }
