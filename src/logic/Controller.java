@@ -99,6 +99,7 @@ public class Controller {
         }
 
     }
+
     private void inputEditMember() {
         UI.displayInputEditMember2();
         String option = input.nextLine();
@@ -108,7 +109,7 @@ public class Controller {
                 int requestedID = 0;
                 try {
                     requestedID = Integer.parseInt(input.nextLine());
-                } catch (NumberFormatException e){
+                } catch (NumberFormatException e) {
                     UI.notValidChoice();
                 }
                 for (CompetitionMember competitionMember : competitionMembers) {
@@ -124,7 +125,7 @@ public class Controller {
                 int requestedID = 0;
                 try {
                     requestedID = Integer.parseInt(input.nextLine());
-                } catch (NumberFormatException e){
+                } catch (NumberFormatException e) {
                     UI.notValidChoice();
                 }
                 for (Member member : members) {
@@ -176,6 +177,7 @@ public class Controller {
             }
         }
     }
+
     private void editMember(CompetitionMember member) {
         UI.displayInputEditCompetetiveMember();
         String editOption = input.nextLine();
@@ -192,7 +194,7 @@ public class Controller {
                 UI.displayNowEditingChoiceDisplay(3);
                 try {
                     member.setBirthday(input.nextLine());
-                } catch (DateTimeParseException e){
+                } catch (DateTimeParseException e) {
                     UI.displayWrongDateFormat(e.getParsedString());
                 }
             }
@@ -219,7 +221,7 @@ public class Controller {
             case "9", "Edit competitions" -> {
                 UI.displayNowEditingChoiceDisplay(9);
                 UI.enterVariable(11);
-                editCompetitionAttributes(input.nextLine(),member);
+                editCompetitionAttributes(input.nextLine(), member);
             }
             case "10", "Add discipline" -> {
                 UI.displayNowEditingChoiceDisplay(10);
@@ -231,64 +233,70 @@ public class Controller {
                 String check = input.nextLine().toUpperCase();
                 try {
                     DisciplineType type = DisciplineType.valueOf(check);
-                    editDisciplineAttributes(type,member);
-                } catch (IllegalArgumentException e){
+                    editDisciplineAttributes(type, member);
+                } catch (IllegalArgumentException e) {
                     UI.notValidChoice();
                 }
             }
         }
     }
-    public void addNewDisci(CompetitionMember member){
+
+    public void addNewDisci(CompetitionMember member) {
         Scanner disci = new Scanner(System.in);
         UI.enterVariable(9);
         DisciplineType type = null;
         try {
             type = DisciplineType.valueOf(disci.next().toUpperCase());
 
-        } catch (IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             UI.notValidChoice();
             addNewDisci(member);
-        }
-        if(member.findDiscipline(type) != null) {
-
         }
 
         UI.enterVariable(10);
         double record = 0;
         try {
             record = disci.nextDouble();
-        } catch (InputMismatchException e){
+        } catch (InputMismatchException e) {
             UI.notValidChoice();
             addNewDisci(member);
         }
         UI.enterVariable(14);
         String date = disci.next();
-        try {
-        member.getDisciplines().add(new Discipline(type,record,date));
-    } catch (DateTimeParseException e){
-        UI.displayWrongDateFormat(e.getParsedString());
+        if (member.findDiscipline(type) != null) {
+            member.findDiscipline(type).setDate(date);
+            member.findDiscipline(type).setRecord(record);
+        } else {
+            try {
+                member.getDisciplines().add(new Discipline(type, record, date));
+            } catch (DateTimeParseException e) {
+                UI.displayWrongDateFormat(e.getParsedString());
+            }
+
+        }
     }
-    }
-    public void editDisciplineAttributes(DisciplineType type, CompetitionMember member){
-        for (Discipline disc :member.getDisciplines()) {
+
+    public void editDisciplineAttributes(DisciplineType type, CompetitionMember member) {
+        for (Discipline disc : member.getDisciplines()) {
             if (disc.getType() == type) {
                 UI.enterVariable(10);
                 try {
                     disc.setRecord(input.nextDouble());
-                } catch (InputMismatchException e){
+                } catch (InputMismatchException e) {
                     UI.notValidChoice();
                 }
                 input.nextLine();
                 UI.enterVariable(14);
                 try {
                     disc.setDate(input.nextLine());
-                } catch (DateTimeParseException e){
+                } catch (DateTimeParseException e) {
                     UI.displayWrongDateFormat(e.getParsedString());
                 }
             }
         }
     }
-    public void addNewComp(CompetitionMember member){
+
+    public void addNewComp(CompetitionMember member) {
         Scanner comp = new Scanner(System.in);
         UI.enterVariable(11);
         String place = comp.next();
@@ -296,7 +304,7 @@ public class Controller {
         int rank = 0;
         try {
             rank = comp.nextInt();
-        } catch (InputMismatchException e){
+        } catch (InputMismatchException e) {
             UI.notValidChoice();
             addNewComp(member);
         }
@@ -306,17 +314,18 @@ public class Controller {
         double time = 0;
         try {
             time = comp.nextDouble();
-        } catch (InputMismatchException e){
+        } catch (InputMismatchException e) {
             UI.notValidChoice();
             addNewComp(member);
         }
         try {
-            member.getCompetitions().add(new Competition(place,rank,date,time));
-        } catch (DateTimeParseException e){
+            member.getCompetitions().add(new Competition(place, rank, date, time));
+        } catch (DateTimeParseException e) {
             UI.displayWrongDateFormat(e.getParsedString());
         }
     }
-    public void editCompetitionAttributes(String place, CompetitionMember member){
+
+    public void editCompetitionAttributes(String place, CompetitionMember member) {
         for (Competition competition : member.getCompetitions()) {
             if (competition.getPlace().equals(place)) {
                 UI.enterVariable(11);
@@ -327,7 +336,7 @@ public class Controller {
                 UI.enterVariable(14);
                 try {
                     competition.setDate(input.nextLine());
-                } catch (DateTimeParseException e){
+                } catch (DateTimeParseException e) {
                     UI.displayWrongDateFormat(e.getParsedString());
                 }
                 UI.enterVariable(13);
@@ -408,12 +417,12 @@ public class Controller {
     }
 
     private void inputShowCompetitions() {
-        if (competitionMembers.size() > 0){
+        if (competitionMembers.size() > 0) {
             UI.enterVariable(1);
             int target = 0;
             try {
                 target = input.nextInt();
-            } catch (InputMismatchException e){
+            } catch (InputMismatchException e) {
                 UI.notValidChoice();
             }
             String fix = input.nextLine();
@@ -430,13 +439,14 @@ public class Controller {
             UI.printCantFindMember();
         }
     }
+
     private void inputShowDisciplines() {
-        if (competitionMembers.size() > 0){
+        if (competitionMembers.size() > 0) {
             UI.enterVariable(1);
             int target = 0;
             try {
                 target = input.nextInt();
-            } catch (InputMismatchException e){
+            } catch (InputMismatchException e) {
                 UI.notValidChoice();
             }
             String fix = input.nextLine();
@@ -454,7 +464,7 @@ public class Controller {
         }
     }
 
-    private void deleteMember(){
+    private void deleteMember() {
         Member found = null;
         UI.displayDeleteMember();
         int data = Integer.parseInt(input.nextLine());
@@ -540,12 +550,12 @@ public class Controller {
         input.nextLine(); //Fixes scannerBug
     }
 
-    public void calculateSubscription(Member member){
-        double subscription = SC.subscribeCal(member.getAge(),member.isActive());
+    public void calculateSubscription(Member member) {
+        double subscription = SC.subscribeCal(member.getAge(), member.isActive());
         member.setSubscription(subscription);
     }
 
-    private void inputCheckSubscriptionsView(){
+    private void inputCheckSubscriptionsView() {
 
         ArrayList<Member> membersSubscription = new ArrayList<>();
         membersSubscription.addAll(this.members);
@@ -576,7 +586,7 @@ public class Controller {
 
 
             if (member.getHasPaidNextYear()) {
-                if (yearPay < yearPresent || (yearPay == yearPresent && monthPay < monthPresent) || (yearPay == yearPresent && monthPay == monthPresent && dayPay < dayPresent) || (yearPay == yearPresent && monthPay == monthPresent && dayPay == dayPresent)){
+                if (yearPay < yearPresent || (yearPay == yearPresent && monthPay < monthPresent) || (yearPay == yearPresent && monthPay == monthPresent && dayPay < dayPresent) || (yearPay == yearPresent && monthPay == monthPresent && dayPay == dayPresent)) {
                     yearPay++;
                     String newDatePaid = memberPayDateArray[0] + "/" + memberPayDateArray[1] + "/" + yearPay;
                     member.setDatePaid(newDatePaid);
