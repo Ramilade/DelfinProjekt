@@ -13,9 +13,9 @@ public class ConsoleUI {
 
 
     //skal denne bruges?
-    public void displayMember(Member member) {
+    /*public void displayMember(Member member) {
         System.out.println(member);
-    }
+    }*/
 
     public void displayInputOptions() {
         System.out.println("""
@@ -33,7 +33,7 @@ public class ConsoleUI {
 
     public void displayInputSortingMember(){
         System.out.println("""
-                Choose sorting method.
+                Choose sorting method:
                 
                 1. Sort by name
                 2. Sort by date of birth
@@ -41,11 +41,11 @@ public class ConsoleUI {
                 """);
     }
     public void displayInputEditMemberChooseMember(){
-        System.out.println("Please enter member ID to edit: ");
+        System.out.println("Enter the member ID you wish to edit: ");
     }
 
     public void displayDeleteMember(){
-        System.out.println("Enter memberID you wish to delete: ");
+        System.out.println("Enter the memberID you wish to delete: ");
     }
 
     public void displayMemberDeleted(){
@@ -75,13 +75,16 @@ public class ConsoleUI {
     public void displayInputEditMember2(){
         System.out.print("""
                             Choose the type of member you wish to edit:
+                            
                             1. Competitive member
                             2. Non-competitive member
                             """);
     }
-    public void displayIncorrectMemberType(){
+    //Skal denne bruges?
+    /*public void displayIncorrectMemberType(){
         System.out.println("Invalid type of member - go back and pick another/opposite member type!\n");
-    }
+    }*/
+
     public void nowEditing(Member member){
         System.out.println("Now editing: " + member.getUserID());
     }
@@ -90,7 +93,7 @@ public class ConsoleUI {
         switch (option) {
             case 1 -> System.out.println("Now editing First Name");
             case 2 -> System.out.println("Now editing Last Name");
-            case 3 -> System.out.println("Now editing Birthday");
+            case 3 -> System.out.println("Now editing Birthday(dd/mm/yyyy)");
             case 4 -> System.out.println("Now editing Address");
             case 5 -> System.out.println("Now editing Email");
             case 6 -> System.out.println("Now editing Phone number");
@@ -174,9 +177,9 @@ public class ConsoleUI {
 
     public void userPaidInTime(boolean paid) {
         if (paid){
-            System.out.println(" User has paid in time");
+            System.out.println(" Member has paid their subscription");
         } else {
-            System.out.println(" User has yet to pay in time!");
+            System.out.println(" Member has NOT paid their subscription");
         }
     }
 
