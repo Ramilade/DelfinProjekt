@@ -111,7 +111,7 @@ public class Controller {
                     if (competitionMember.getUserID() == requestedID) {
                         UI.nowEditing(competitionMember);
                         System.out.println();
-                        editMember(competitionMember, competitionMember);
+                        editMember(competitionMember);
                     }
                 }
             }
@@ -127,14 +127,52 @@ public class Controller {
                     if (member.getUserID() == requestedID) {
                         UI.nowEditing(member);
                         System.out.println();
-                        editMember(member, null);
+                        editMember(member);
                     }
                 }
             }
         }
     }
 
-    private void editMember(Member member, CompetitionMember competitionMember) {
+    private void editMember(Member member) {
+        UI.displayInputEditMember();
+        String editOption = input.nextLine();
+        switch (editOption) {
+            case "1", "Firstname" -> {
+                UI.displayNowEditingChoiceDisplay(1);
+                member.setFirstName(input.nextLine());
+            }
+            case "2", "Lastname" -> {
+                UI.displayNowEditingChoiceDisplay(2);
+                member.setLastName(input.nextLine());
+            }
+            case "3", "Birthday" -> {
+                UI.displayNowEditingChoiceDisplay(3);
+                try {
+                    member.setBirthday(input.nextLine());
+                } catch (DateTimeParseException e) {
+                    UI.displayWrongDateFormat(e.getParsedString());
+                }
+            }
+            case "4", "Address" -> {
+                UI.displayNowEditingChoiceDisplay(4);
+                member.setAddress(input.nextLine());
+            }
+            case "5", "Email" -> {
+                UI.displayNowEditingChoiceDisplay(5);
+                member.setEmail(input.nextLine());
+            }
+            case "6", "Phone number" -> {
+                UI.displayNowEditingChoiceDisplay(6);
+                member.setPhoneNumber(input.nextLine());
+            }
+            case "7", "Member status" -> {
+                UI.displayNowEditingChoiceDisplay(7);
+                member.setStatus(input.nextLine());
+            }
+        }
+    }
+    private void editMember(CompetitionMember member) {
         UI.displayInputEditMember();
         String editOption = input.nextLine();
         switch (editOption) {
@@ -172,30 +210,30 @@ public class Controller {
             }
             case "8", "Add competition result" -> {
                 UI.displayNowEditingChoiceDisplay(8);
-                addNewComp(competitionMember);
+                addNewComp(member);
             }
             case "9", "Edit competitions" -> {
                 UI.displayNowEditingChoiceDisplay(9);
                 UI.enterVariable(11);
-                editCompetitionAttributes(input.nextLine(),competitionMember);
+                editCompetitionAttributes(input.nextLine(),member);
             }
             case "10", "Add discipline" -> {
                 UI.displayNowEditingChoiceDisplay(10);
-                addNewDisci(competitionMember);
+                addNewDisci(member);
             }
             case "11", "Edit discipline" -> {
                 UI.displayNowEditingChoiceDisplay(11);
                 UI.enterVariable(9);
                 String check = input.nextLine().toUpperCase();
-                    try {
-                        DisciplineType type = DisciplineType.valueOf(check);
-                            editDisciplineAttributes(type,competitionMember);
-                    } catch (IllegalArgumentException e){
-                        UI.notValidChoice();
-                    }
+                try {
+                    DisciplineType type = DisciplineType.valueOf(check);
+                    editDisciplineAttributes(type,member);
+                } catch (IllegalArgumentException e){
+                    UI.notValidChoice();
                 }
             }
         }
+    }
     public void addNewDisci(CompetitionMember member){
         Scanner disci = new Scanner(System.in);
         UI.enterVariable(9);
