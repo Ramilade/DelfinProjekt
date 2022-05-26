@@ -20,8 +20,6 @@ import java.util.*;
 public class Controller {
     private ArrayList<Member> members;
     private ArrayList<CompetitionMember> competitionMembers;
-    private ArrayList<Discipline> disciplines;
-    private ArrayList<Competition> competitions;
     private boolean running;
     private final ConsoleUI UI;
     private final FileHandler DB;

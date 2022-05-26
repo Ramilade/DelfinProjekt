@@ -162,7 +162,7 @@ public class FileHandler {
         return competitionMembers;
     }
 
-    public ArrayList<Discipline> loadDisciplines(int userID) throws FileNotFoundException {
+    private ArrayList<Discipline> loadDisciplines(int userID) throws FileNotFoundException {
         ArrayList<Discipline> disciplines = new ArrayList<>();
         File file = new File("Disciplines.csv");
         Scanner sc = new Scanner(file);
@@ -182,7 +182,7 @@ public class FileHandler {
         return disciplines;
     }
 
-    public ArrayList<Competition> loadCompetitions(int userID) throws FileNotFoundException {
+    private ArrayList<Competition> loadCompetitions(int userID) throws FileNotFoundException {
         ArrayList<Competition> competitions = new ArrayList<>();
         File file = new File("Competitions.csv");
         Scanner sc = new Scanner(file);
