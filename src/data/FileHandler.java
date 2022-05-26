@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Scanner;
 
-public class Database {
+public class FileHandler {
     public void saveMembers(ArrayList<Member> members) throws FileNotFoundException {
         PrintStream out = new PrintStream("Svømmeclub.csv");
         for (Member member : members) {

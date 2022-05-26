@@ -1,10 +1,10 @@
 package logic;
 
-import data.Database;
+import data.FileHandler;
 import logic.comparators.BirthDayComparator;
 import logic.comparators.IDComparator;
 import logic.comparators.NameComparator;
-import logic.comparators.ResultComparator;
+import logic.comparators.RankComparator;
 import logic.competitor.*;
 import logic.exceptions.MemberStatusMismatchException;
 import logic.exceptions.MemberTypeMismatchException;
@@ -24,7 +24,7 @@ public class Controller {
     private ArrayList<Competition> competitions;
     private boolean running;
     private final ConsoleUI UI;
-    private final Database DB;
+    private final FileHandler DB;
     private final SubscriptionCalculator SC;
     private final Scanner input;
     private int currentHighestId;
@@ -34,7 +34,7 @@ public class Controller {
         this.running = true;
         this.competitionMembers = new ArrayList<>();
         this.UI = new ConsoleUI();
-        this.DB = new Database(); // god idé: interface impl så en stub kan bruges
+        this.DB = new FileHandler(); // god idé: interface impl så en stub kan bruges
         this.SC = new SubscriptionCalculator();
         this.input = new Scanner(System.in);
     }
@@ -241,7 +241,7 @@ public class Controller {
         }
     }
 
-    public void addNewDisci(CompetitionMember member) {
+    private void addNewDisci(CompetitionMember member) {
         Scanner disci = new Scanner(System.in);
         UI.enterVariable(9);
         DisciplineType type = null;
@@ -276,7 +276,7 @@ public class Controller {
         }
     }
 
-    public void editDisciplineAttributes(DisciplineType type, CompetitionMember member) {
+    private void editDisciplineAttributes(DisciplineType type, CompetitionMember member) {
         for (Discipline disc : member.getDisciplines()) {
             if (disc.getType() == type) {
                 UI.enterVariable(10);
@@ -296,7 +296,7 @@ public class Controller {
         }
     }
 
-    public void addNewComp(CompetitionMember member) {
+    private void addNewComp(CompetitionMember member) {
         Scanner comp = new Scanner(System.in);
         UI.enterVariable(11);
         String place = comp.next();
@@ -325,7 +325,7 @@ public class Controller {
         }
     }
 
-    public void editCompetitionAttributes(String place, CompetitionMember member) {
+    private void editCompetitionAttributes(String place, CompetitionMember member) {
         for (Competition competition : member.getCompetitions()) {
             if (competition.getPlace().equals(place)) {
                 UI.enterVariable(11);
@@ -513,7 +513,7 @@ public class Controller {
             }
         }
         for (Map.Entry<RankingGroup, ArrayList<CompetitionMember>> set : rankings.entrySet()) {
-            Collections.sort(set.getValue(), new ResultComparator(set.getKey()));
+            Collections.sort(set.getValue(), new RankComparator(set.getKey()));
         }
         UI.displayRankings(rankings);
     }
@@ -550,7 +550,7 @@ public class Controller {
         input.nextLine(); //Fixes scannerBug
     }
 
-    public void calculateSubscription(Member member) {
+    private void calculateSubscription(Member member) {
         double subscription = SC.subscribeCal(member.getAge(), member.isActive());
         member.setSubscription(subscription);
     }

@@ -8,11 +8,11 @@ import logic.competitor.RankingGroup;
 
 import java.util.Comparator;
 
-public class ResultComparator implements Comparator<CompetitionMember> {
+public class RankComparator implements Comparator<CompetitionMember> {
     private DisciplineType type;
     private RankingGroup rankingGroup;
 
-    public ResultComparator(RankingGroup rankingGroup) {
+    public RankComparator(RankingGroup rankingGroup) {
         this.rankingGroup = rankingGroup;
         determineDiscipline();
     }
