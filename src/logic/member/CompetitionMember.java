@@ -1,18 +1,10 @@
-package logic.competitor;
+package logic.member;
 
-import logic.Member;
-
-import java.time.DateTimeException;
-import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
-import java.util.Locale;
-import java.util.Scanner;
 
 public class CompetitionMember extends Member {
 
     private final ArrayList<Discipline> disciplines;
-    private String team;
     private final ArrayList<Competition> competitions;
 
     public CompetitionMember(int userID, String firstName, String lastName,

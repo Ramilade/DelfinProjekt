@@ -1,10 +1,10 @@
 package logic.comparators;
 
 import logic.exceptions.CompetitorDontHaveDisciplineException;
-import logic.competitor.CompetitionMember;
-import logic.competitor.Discipline;
-import logic.competitor.DisciplineType;
-import logic.competitor.RankingGroup;
+import logic.member.CompetitionMember;
+import logic.member.Discipline;
+import logic.member.DisciplineType;
+import logic.member.RankingGroup;
 
 import java.util.Comparator;
 

@@ -5,7 +5,7 @@ import logic.comparators.BirthDayComparator;
 import logic.comparators.IDComparator;
 import logic.comparators.NameComparator;
 import logic.comparators.RankComparator;
-import logic.competitor.*;
+import logic.member.*;
 import logic.exceptions.MemberStatusMismatchException;
 import logic.exceptions.MemberTypeMismatchException;
 import ui.ConsoleUI;

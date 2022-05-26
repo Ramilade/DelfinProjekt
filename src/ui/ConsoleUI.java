@@ -1,10 +1,10 @@
 package ui;
 
-import logic.Member;
-import logic.competitor.CompetitionMember;
-import logic.competitor.Discipline;
-import logic.competitor.RankingGroup;
-import logic.competitor.Competition;
+import logic.member.Member;
+import logic.member.CompetitionMember;
+import logic.member.Discipline;
+import logic.member.RankingGroup;
+import logic.member.Competition;
 
 import java.text.NumberFormat;
 import java.util.*;

@@ -1,10 +1,10 @@
 package data;
 
-import logic.Member;
-import logic.competitor.Competition;
-import logic.competitor.CompetitionMember;
-import logic.competitor.Discipline;
-import logic.competitor.DisciplineType;
+import logic.member.Member;
+import logic.member.Competition;
+import logic.member.CompetitionMember;
+import logic.member.Discipline;
+import logic.member.DisciplineType;
 
 import java.io.File;
 import java.io.FileNotFoundException;

@@ -1,6 +1,6 @@
 package logic.comparators;
 
-import logic.Member;
+import logic.member.Member;
 
 import java.util.Comparator;
 

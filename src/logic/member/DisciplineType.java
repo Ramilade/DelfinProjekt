@@ -1,4 +1,4 @@
-package logic.competitor;
+package logic.member;
 
 public enum DisciplineType {
     BUTTERFLY,

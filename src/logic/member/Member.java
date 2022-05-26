@@ -1,4 +1,4 @@
-package logic;
+package logic.member;
 
 import java.time.LocalDate;
 import java.time.Period;
@@ -59,8 +59,6 @@ public class Member {
     }
 
 
-
-
     public String getDatePaid() {
         return datePaid.format(dtf);
     }
@@ -77,19 +75,8 @@ public class Member {
         this.creationDate = LocalDate.parse(creationDate, dtf);
     }
 
-    public String getAgeGroup() {
-        if (getAge() < 18) {
-            return "Junior";
-        } else {
-            return "Senior";
-        }
-    }
     public int getUserID() {
         return userID;
-    }
-
-    public void setUserID(int userID) {
-        this.userID = userID;
     }
 
     public void setSubscription(double subscription) {
@@ -159,10 +146,6 @@ public class Member {
 
     public boolean isActive() {
         return active;
-    }
-
-    public void setActive(boolean active) {
-        this.active = active;
     }
 
     public boolean getHasPaidNextYear() {
